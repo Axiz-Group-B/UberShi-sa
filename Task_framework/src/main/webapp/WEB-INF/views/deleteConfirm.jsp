@@ -16,7 +16,7 @@
 <body>
 	<p>これでよろしいですか？</p>
 
-	<form action="delete" modelAttribute="delete" method="post">
+	<form:form action="delete" modelAttribute="delete" method="post">
 		<fieldset>
 			<div>
 				<label>ID</label> <input type="text" name="loginId"
@@ -47,7 +47,7 @@
 			<button type="submit">削除</button>
 			<button type="submit" onclick="location.href='delete'; return false;">戻る</button>
 		</div>
-	</form>
+	</form:form>
 	<div>
 		<a href="menu">メニューに戻る</a>
 	</div>
