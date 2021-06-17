@@ -38,7 +38,7 @@
 
 ## Overview
 沖縄の観光客向けお土産買い物代行サービス	
-![demo](https://user-images.githubusercontent.com/46089187/103965589-6621ae80-51a1-11eb-9ded-652c88b180a5.png)
+![demo](https://user-images.githubusercontent.com/85560257/122374914-b9442c80-cf9d-11eb-9574-cbdf2f8c6013.png)
 
 
 ### Built With
