@@ -5,7 +5,7 @@
 <h1 align="center">Uber Shi-sa</h1>
 
 <div align="center">
-   Solution for a challenge from  #
+<!--    Solution for a challenge from  # -->
 </div>
 
 <div align="center">
