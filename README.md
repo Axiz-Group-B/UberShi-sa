@@ -2,23 +2,23 @@
 グループ開発
 <!-- Please update value in the {}  -->
 
-<h1 align="center">Recipe blog</h1>
+<h1 align="center">Uber Shi-sa</h1>
 
 <div align="center">
-   Solution for a challenge from  <a href="http://devchallenges.io" target="_blank">Devchallenges.io</a>.
+   Solution for a challenge from  #
 </div>
 
 <div align="center">
   <h3>
-    <a href="https://recipeblog-a.netlify.app/">
+<!--     <a href="https://recipeblog-a.netlify.app/"> -->
       Demo
     </a>
     <span> | </span>
-    <a href="https://github.com/Re2devils/Recipe-blog/blob/main/README.md">
+<!--     <a href="https://github.com/Re2devils/Recipe-blog/blob/main/README.md"> -->
       Solution
     </a>
     <span> | </span>
-    <a href="https://devchallenges.io/challenges/OEKdUZ6xs0h99C38XVht">
+<!--     <a href="https://devchallenges.io/challenges/OEKdUZ6xs0h99C38XVht"> -->
       Challenge
     </a>
   </h3>
