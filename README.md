@@ -37,7 +37,7 @@
 <!-- OVERVIEW -->
 
 ## Overview
-
+沖縄の観光客向けお土産買い物代行サービス	
 ![demo](https://user-images.githubusercontent.com/46089187/103965589-6621ae80-51a1-11eb-9ded-652c88b180a5.png)
 
 
@@ -50,26 +50,19 @@
 - [Java Script/JQuery]
 - [Java]
 - [Spring Boot]
-- 
 <!-- - [Tailwind](https://tailwindcss.com/) -->
 
 ## Features
 
 <!-- List the features of your application or follow the template. Don't share the figma file here :) -->
-・旅行中はお土産探しに時間を使って観光時間が少なくなりがち			
-	→「ホテルに居ながらお土産を買えるシステム」		
-			
-・地元の人のほうが効率よく欲しいお土産を探しやすい			
-・配達員を第三者にすることで、ホテルもお土産屋さんも負担がかからず、配達員のお小遣い稼ぎにもなる			
-	→「第三者が配達」		
-			
-・個人宅の住所が他人である配達員にバレるのは防犯上よくないので届け先はホテルに限定			
-	→「配達先はホテル」		
-			
-以上を踏まえて、			
-	『観光客がホテルに居つつお土産を探して買え、第三者がホテルに届けてくれるシステム』		
-を開発する。			
-			
+ホテルに居ながらお土産を買える
+ホテルの部屋、提携したお店、ホテルフロントにタブレットを設置しそれを使用
+外部から操作されないよう、また、どの部屋から注文があったか分かるようにフロントが準備したID,パスワードでログイン
+商品は食べ物から焼き物まで幅広く選べる
+買ったお土産はホテルに届く
+配達員はUberEatsの様に第三者が行う
+支払いはホテルの料金に含まれる
+
 ![image](https://user-images.githubusercontent.com/85560257/122373367-628a2300-cf9c-11eb-9eca-3f181ece8471.png)
 
 
