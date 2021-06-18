@@ -1,0 +1,18 @@
+$primary-color-green: #36C243;
+$primary-color-black: #0B0001;
+$input-color: #F3F0EB;
+$edit-btn-color: #F8E00C;
+$add-btn-color: #36C243;
+$back-btn-color: #C4C4C4;
+$cancel-btn-color: #C4C4C4;
+$del-btn-color: #C52121;
+$confirm-btn-color: #0B0001;
+$side-background-color: #EFEFEF;
+@mixin flex-box-option($direction, $justify, $align) {
+    display: flex;
+    justify-content: $justify;
+    align-items: $align;
+}
+@mixin box-shadow-option($x:1px, $y:2px, $blur:5px) {
+    box-shadow: $x $y $blur rgba(0, 0, 0, 0.2);
+}
