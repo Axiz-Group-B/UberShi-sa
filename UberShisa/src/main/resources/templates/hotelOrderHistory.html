@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -27,7 +27,7 @@
             <div class="left-side">
                 <div>
                     <label class="label-format">月</label>
-                    <select name="#" id="#">
+                    <select name="Month" id="#">
                         <option value="#">01</option>
                         <option value="#">02</option>
                         <option value="#">03</option>
@@ -44,63 +44,46 @@
                 </div>
                 <div>
                     <label class="label-format">店舗</label>
-                    <select name="#" id="#">
-                        <option value="#">A店舗</option>
-                        <option value="#">B店舗</option>
-                        <option value="#">C店舗</option>
+                    <select name="#" id="#" >
+                       	<option th:each="shopList : ${sList}" th:text="${shopList.name}"></option>
                     </select>
                 </div>
-               <table>
+               <table border=1>
                    <tr>
                        <th>注文ID</th>
                        <th>日付</th>
                        <th>金額(円)</th>
                    </tr>
-                   <tr>
-                    <td><form action="#"><button class="btn-mini" name="#">1234</button></form></td>
-                    <td>17日</td>
-                    <td>5000</td>
-                </tr>
+                   <!-- <tr th:each="orderInfo : ${oList}">
+	               		<td th:text="${orderInfo.order_id}"></td>
+	               		<form action="/hotel/orderHistory"><button class="btn-mini" name="#" value=""></button></form>
+	    				<td th:text="${orderInfo.date}"></td>
+	    				<td th:text="${orderInfo.total_price}"></td>
+	    			</tr>-->
                </table>
                <p>合計金額(円)：<label>15000</label></p>
             </div>
             <div class="right-side">
-                <div><label class="lable-format">注文ID: 1234</label></div>
-                <table>
+                <div><label class="lable-format" th:text="${oList.order_id}">注文ID: 1234</label></div>
+                <table border = 1>
                     <caption>注文情報</caption>
                     <tr>
                         <th>商品名</th>
                         <th>個数</th>
                         <th>単価(円)</th>
                     </tr>
-                    <tr>
-                        <td>元祖紅いもタルト</td>
-                        <td>10</td>
-                        <td>500</td>
-                    </tr>
-                    <tr>
-                        <td>元祖紅いもタルト</td>
-                        <td>10</td>
-                        <td>500</td>
-                    </tr>
-                    <tr>
-                        <td>元祖紅いもタルト</td>
-                        <td>10</td>
-                        <td>500</td>
-                    </tr>
-                    <tr>
-                        <td>元祖紅いもタルト</td>
-                        <td>10</td>
-                        <td>500</td>
-                    </tr>
-    
+					<!-- <tr th:each="orderInfo : ${oList}">
+						<td th:text="${orderInfo.order_id}"></td>
+    					<td th:text="${orderInfo.lastName}"></td>
+    					<td th:text="${orderInfo.firstName}"></td>
+					</tr> -->
                 </table>
                 <p>合計金額(円)：<label>5000</label></p>
-                <button class="btn back-btn">戻る</button>        
+                <button class="btn back-btn">戻る</button>
             </div>
         </div>
-        
+
     </div>
-    
+
 </body>
-</html> 
+</html>

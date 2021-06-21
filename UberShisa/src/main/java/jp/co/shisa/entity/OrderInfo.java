@@ -12,8 +12,6 @@ public class OrderInfo {
 		private Timestamp dateTime;
 
 
-
-
 		public Integer getOrderId() {
 			return orderId;
 		}
