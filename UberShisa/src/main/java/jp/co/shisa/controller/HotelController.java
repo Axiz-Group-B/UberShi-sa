@@ -19,6 +19,7 @@ public class HotelController {
 
 	@RequestMapping("/hotel/orderHistory")
 	public String hotelOrderHistory(Model model){
+
 		List<Shop> sList = null;
 		List<OrderInfo> oList = null;
 
