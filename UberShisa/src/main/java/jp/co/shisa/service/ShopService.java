@@ -1,11 +1,10 @@
-package jp.co.shisa.dao;
+package jp.co.shisa.service;
 
 import java.util.List;
 
 import jp.co.shisa.entity.Shop;
 
-public interface ShopDao {
+public interface ShopService {
 
-	//店テーブル全件表示
 	public List<Shop> findAll();
 }

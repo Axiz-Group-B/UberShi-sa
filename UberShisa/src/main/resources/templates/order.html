@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,7 +18,7 @@
         <div class="menu-item"><form action="#"><button class="menu-btn">履歴</button></form></div>
         <div class="menu-item"><form action="#"><button class="menu-btn">ログアウト</button></form></div>
     </div>
-    <div class="wrapper"> 
+    <div class="wrapper">
         <div class="left-side">
             <div class="search">
                 <form action="#">
@@ -26,13 +26,11 @@
                     <button class="btn primary-btn">検索</button>
                 </form>
             </div>
-        <div> 
+        <div>
             <label>店舗名：</label>
-            <select name="#" id="#">
-                <option value="#" selected>A店舗</option>
-                <option value="#">B店舗</option>
-                <option value="#">C店舗</option>
-                <option value="#">D店舗</option>
+            <select name="selectedShop" id="#">
+            	<option value="all">全店舗から検索</option><!-- 全お店から検索かけるための空白セレクトボックス -->
+                <option th:each="shop : ${shopList}" th:value="${shop.shopId}" th:inline="text">[[${shop.name}]]</option>
             </select>
         </div>
         <table>
