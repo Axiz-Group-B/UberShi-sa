@@ -23,8 +23,11 @@ public class Shop {
 		this.address = address;
 	}
 
-
-
+	//検索のために作りました
+	public Shop(Integer shopId, String name) {
+		this.shopId = shopId;
+		this.name = name;
+	}
 
 
 
