@@ -1,10 +1,11 @@
 package jp.co.shisa.service.impl;
 
-import org.springframework.stereotype.Repository;
+
+import org.springframework.stereotype.Service;
 
 import jp.co.shisa.service.RoomService;
 
-@Repository
+@Service
 public class RoomServiceImpl implements RoomService {
 
 
