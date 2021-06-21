@@ -20,26 +20,27 @@
     </div>
     <div class="wrapper">
         <div class="left-side">
+        <form action="#" th:action="@{/room/select}" th:object="${roomSelect}" method="get">
             <div class="search">
-                <form action="#">
-                    <input type="text" placeholder="検索">
+                    <input name="productName" type="text" placeholder="商品名で検索できます">
                     <button class="btn primary-btn">検索</button>
-                </form>
             </div>
         <div>
             <label>店舗名：</label>
-            <select name="selectedShop" id="#">
-            	<option value="all">全店舗から検索</option><!-- 全お店から検索かけるための空白セレクトボックス -->
+            <select name="shopId" id="#">
+            	<option value="0">全店舗から検索</option><!-- 全お店から検索かけるための空白セレクトボックス -->
                 <option th:each="shop : ${shopList}" th:value="${shop.shopId}" th:inline="text">[[${shop.name}]]</option>
             </select>
         </div>
+        </form>
         <table>
             <tr>
                 <th>商品名</th>
                 <th>単価(円)</th>
             </tr>
             <tr>
-                <td><form action="#"><button class="btn-mini">元祖紅いもタルト</button></form></td>
+                <td><form action="#">
+                <button class="btn-mini">元祖紅いもタルト</button></form></td>
                 <td>500</td>
             </tr>
             <tr>
