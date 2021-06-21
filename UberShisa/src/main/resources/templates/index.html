@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.​thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/commom/commom.css">
+    <title>Uber Shi-sa</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="image">
+            <img src="images/shisa.jpg" alt="image">
+        </div>
+        <div class="content">
+            <div class="header">
+                <h1>ログイン</h1>
+            </div>
+            <div class="main">
+                <form action="#">
+                    <input type="text" placeholder="ログインID">
+                    <input type="text" placeholder="パスワード">
+                    <div class="job-dropdown">
+                        <label>役割</label>
+                        <select name="#" id="job">
+                            <option value="#" selected>宿泊客</option>
+                            <option value="#">配達員</option>
+                            <option value="#">お店</option>
+                            <option value="#">ホテル</option>
+                        </select>
+                    </div>
+                    <div><button class="btn primary-btn">
+                        ログイン
+                    </button></div>
+                    <p><a href="#">新規登録</a></p>
+                </form>
+            </div>
+        </div>
+        <footer>
+            <p>
+                パスワードを忘れた場合は<br>
+                090-ｘｘｘ-ｘｘｘまでご連絡ください　
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
