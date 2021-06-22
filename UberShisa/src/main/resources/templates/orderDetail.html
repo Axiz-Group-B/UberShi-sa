@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/98ca2fa25d.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="css/reset.css">
+    <link th:href="@{/css/reset.css}" rel="stylesheet">
     <script src="https://kit.fontawesome.com/98ca2fa25d.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="css/common/common.css">
+    <link th:href="@{/css/common/common.css}" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Uber Shi-sa</title>
 </head>
@@ -20,36 +20,36 @@
         <div class="menu-item"><form action="#"><button class="menu-btn">履歴</button></form></div>
         <div class="menu-item"><form action="#"><button class="menu-btn">ログアウト</button></form></div>
     </div>
-  
+
     <div class="wrapper">
         <div class="left-side">
+        <form action="#" th:action="@{/room/order}" th:object="${roomCart}" method="post">
             <div><label class="label-format">画像：</label>
-                <img src="images/product1.jpg" alt="商品の画像">
+                <img src="${product.image}" alt="商品の画像" name="image">
             </div>
             <div><label class="label-format">説明：</label>
-                <textarea name="#" id="#" rows="3" readonly>
-                    説明説明説明説明説明説明説明説明説明
+                <textarea name="text" id="#" rows="3" th:text="${product.text}" readonly>
                 </textarea>
             </div>
             <div><label class="label-format">商品名：</label>
-                <input type="text" value="元祖紅いもタルト" readonly>
+                <input type="text" name="productName" th:value="${product.productName}" readonly>
             </div>
             <div><label class="label-format" aria-readonly="true">単価(円)：</label>
-                <input type="text" value="500" readonly>
+                <input type="text" name="price" th:value="${product.price}" readonly id="price">
             </div>
-            <form action="#" th:action="@{/room/order}" th:object="${roomCart}" method="post">
                 <div><label class="label-format">個数：</label>
-                    <input type="number" min="1" max="10" value="10">
+                    <input type="number" min="1" max="10" name="amount" id="amount">
                 </div>
                 <div><label class="label-format">合計金額(円)：</label>
-                    <input type="text" value="5000" readonly>
+                    <input type="text" readonly name="subtotal" id="subtotal">
                 </div>
                 <div class="btn-container">
-                    <button class="btn back-btn">戻る</button>
-                    <button class="btn primary-btn">カートに入れる</button>
+                <input type="hidden" name="productId" th:value="${product.productId}">
+                    <button name="roomBack" class="btn back-btn">戻る</button>
+                    <button name="cart" class="btn primary-btn">カートに入れる</button>
                 </div>
             </form>
-            
+
         </div>
         <div class="right-side">
             <table>
@@ -59,29 +59,20 @@
                     <th>個数</th>
                     <th></th>
                 </tr>
-                <tr>
-                    <td>元祖紅いもタルト</td>
-                    <td>10</td>
-                    <td><form action="#"><button class="btn-mini del-btn-mini">削除</button></form></td>
-                </tr>
-                <tr>
-                    <td>雪塩ちんすこう</td>
-                    <td>5</td>
-                    <td><form action="#"><button class="btn-mini del-btn-mini">削除</button></form></td>
-                </tr>
-                <tr>
-                    <td>ロイズ石垣島 黒糖チョコレート</td>
-                    <td>7</td>
-                    <td><form action="#"><button class="btn-mini del-btn-mini">削除</button></form></td>
-                </tr>
+                <tr th:inline="text" th:each="item : ${session.roomCart}">
+				<td>[[${item.productName}]]</td>
+				<td>[[${item.amount}]]</td>
+				<td><button class="btn-mini del-btn-mini" id="deleteItem" th:value="${item.productId}">削除</button></td>
+				</tr>
             </table>
-            <p class="total-price">合計金額(円)：<span>15500</span></p>
+            <p class="total-price">合計金額(円)：<span th:inline="text">[[${session.totalPrice}]]</span></p>
             <div class="btn-container">
                 <button class="btn cancel-btn">キャンセル</button>
                 <button class="btn primary-btn">確定</button>
             </div>
         </div>
     </div>
+    <script type="text/javascript" src="/js/orderDetail.js"></script>
     <script src="js/js.js" type="text/javascript"></script>
 </body>
 </html>

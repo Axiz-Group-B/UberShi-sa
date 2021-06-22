@@ -10,7 +10,7 @@ public class Product {
 	private Integer stock;
 
 	//商品検索時に店名必要なので入れました
-	private String name;
+	private String shopName;
 
 	public Product() {
 
@@ -84,12 +84,12 @@ public class Product {
 		this.stock = stock;
 	}
 
-	public String getName() {
-		return name;
+	public String getShopName() {
+		return shopName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
 	}
 
 

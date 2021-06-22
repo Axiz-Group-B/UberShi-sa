@@ -64,4 +64,15 @@ public class RoomDaoImpl implements RoomDao{
 		List<Product> list = namedJT.query(sql, param, new BeanPropertyRowMapper<Product>(Product.class));
 		return list;
 	}
+
+	//productIdから情報取得
+	@Override
+	public Product productById(Integer productId) {
+		String sql = "select * from product where product_id=:id";
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("id", productId);
+
+		List<Product> list = namedJT.query(sql, param, new BeanPropertyRowMapper<Product>(Product.class));
+		return list.isEmpty() ? null : list.get(0);
+	}
 }
