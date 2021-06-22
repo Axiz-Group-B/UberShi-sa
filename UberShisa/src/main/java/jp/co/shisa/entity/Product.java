@@ -9,6 +9,8 @@ public class Product {
 	private Integer price;
 	private Integer stock;
 
+	//商品検索時に店名必要なので入れました
+	private String name;
 
 	public Product() {
 
@@ -80,6 +82,14 @@ public class Product {
 
 	public void setStock(Integer stock) {
 		this.stock = stock;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 

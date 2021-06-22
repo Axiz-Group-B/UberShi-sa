@@ -1,5 +1,6 @@
 package jp.co.shisa.service.impl;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +27,6 @@ public class HotelServiceImpl implements HotelService {
 		// TODO 自動生成されたメソッド・スタブ
 		return hotelDao.orderInfoFindAll();
 	}
+
 }
 
