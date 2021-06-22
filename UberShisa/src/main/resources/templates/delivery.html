@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja"  xmlns:th="http://www.​thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,20 +28,10 @@
                 <th>店舗名</th>
                 <th>住所</th>
             </tr>
-            <tr th:inline="text" th:each="order:${noDeliveryManOrderList}">
-                <td><a th:href="@{/">[[${order.orderId}]]</a></td>
-                <td>[[${order.orderId}]]</td>
-                <td>[[${order.shopName]]</td>
-            </tr>
-            <tr>
-                <td><form action="#"><button class="btn-mini">23164</button></form></td>
-                <td>A店舗</td>
-                <td>国際通り2-1-3</td>
-            </tr>
-            <tr>
-                <td><form action="#"><button class="btn-mini">23164</button></form></td>
-                <td>A店舗</td>
-                <td></td>
+            <tr th:inline="text" th:each="order : ${session.noDeliveryManOrderList}">
+                <td><a th:href="@{/deliveryMan/deliveryOrderSelect/{orderId}(orderId=${order.orderId})}" class="bin-mini">[[${order.orderId}]]</a></td>
+                <td>[[${order.shopName}]]</td>
+                <td>[[${order.address}]]</td>
             </tr>
         </table>
     </div>
