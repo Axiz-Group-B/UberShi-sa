@@ -1,9 +1,5 @@
 package jp.co.shisa.controller;
 
-<<<<<<< HEAD
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.stereotype.Controller;
-=======
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jp.co.shisa.entity.OrderInfo;
 import jp.co.shisa.entity.Shop;
 import jp.co.shisa.service.HotelService;
->>>>>>> refs/remotes/origin/main
 
 @Controller
 @EnableAutoConfiguration

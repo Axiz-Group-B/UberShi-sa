@@ -1,7 +1,5 @@
 package jp.co.shisa.service.impl;
 
-<<<<<<< HEAD
-
 import org.springframework.stereotype.Service;
 
 import jp.co.shisa.service.HotelService;
@@ -36,6 +34,5 @@ public class HotelServiceImpl implements HotelService{
 		// TODO 自動生成されたメソッド・スタブ
 		return hotelDao.orderInfoFindAll();
 	}
->>>>>>> refs/remotes/origin/main
 
 }

@@ -58,5 +58,4 @@ public class RoomController {
 		//formの、店舗idで検索
 		return "order";
 	}
->>>>>>> refs/remotes/origin/main
 }
