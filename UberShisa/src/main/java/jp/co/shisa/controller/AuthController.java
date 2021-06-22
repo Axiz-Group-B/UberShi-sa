@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import jp.co.shisa.controller.form.LoginForm;
 import jp.co.shisa.entity.DeliveryMan;
 import jp.co.shisa.entity.Room;
 import jp.co.shisa.entity.Shop;
 import jp.co.shisa.entity.UserInfo;
-import jp.co.shisa.form.LoginForm;
 import jp.co.shisa.service.AuthService;
 
 @Controller
@@ -29,7 +29,7 @@ public class AuthController {
 
 	@RequestMapping({ "/", "/index" })
 	public String index(Model model) {
-		return "index.html";
+		return "index";
 	}
 
 	@RequestMapping("/login")
@@ -73,16 +73,6 @@ public class AuthController {
 		}
 
 	}
-
-
-
-
-
-
-
-
-
-
 	/*
 	* ログアウト
 	*/

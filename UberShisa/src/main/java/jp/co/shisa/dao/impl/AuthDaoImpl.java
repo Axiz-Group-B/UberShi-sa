@@ -8,12 +8,12 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import jp.co.shisa.controller.form.LoginForm;
 import jp.co.shisa.dao.AuthDao;
 import jp.co.shisa.entity.DeliveryMan;
 import jp.co.shisa.entity.Room;
 import jp.co.shisa.entity.Shop;
 import jp.co.shisa.entity.UserInfo;
-import jp.co.shisa.form.LoginForm;
 
 @Repository
 public class AuthDaoImpl implements AuthDao{

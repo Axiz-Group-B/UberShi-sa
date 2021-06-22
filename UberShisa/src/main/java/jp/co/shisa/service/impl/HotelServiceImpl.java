@@ -1,12 +1,5 @@
 package jp.co.shisa.service.impl;
 
-import org.springframework.stereotype.Service;
-
-import jp.co.shisa.service.HotelService;
-
-@Service
-public class HotelServiceImpl implements HotelService{
-=======
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +11,7 @@ import jp.co.shisa.entity.Shop;
 import jp.co.shisa.service.HotelService;
 
 @Service
-public class HotelServiceImpl implements HotelService{
-
+public class HotelServiceImpl implements HotelService {
 	@Autowired
 	private HotelDao hotelDao;
 
@@ -34,5 +26,5 @@ public class HotelServiceImpl implements HotelService{
 		// TODO 自動生成されたメソッド・スタブ
 		return hotelDao.orderInfoFindAll();
 	}
-
 }
+
