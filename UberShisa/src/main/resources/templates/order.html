@@ -43,7 +43,7 @@
 			<div>
 				<label>店舗名：</label> <select name="shopId" id="shopId">
 					<option th:each="shop : ${session.shopList}" th:value="${shop.shopId}" th:inline="text">
-						[[${shop.name}]]</option>
+						[[${shop.shopName}]]</option>
 				</select>
 			</div>
 		</form>
@@ -59,7 +59,7 @@
 				<td><a th:href="@{/room/select/{productId}(productId=${product.productId})}" class="btn-mini">
 					[[${product.productName}]]</a></td>
 				<td>[[${product.price}]]</td>
-				<td>[[${product.name}]]</td>
+				<td>[[${product.shopName}]]</td>
 			</tr>
 		</table>
 		</div>

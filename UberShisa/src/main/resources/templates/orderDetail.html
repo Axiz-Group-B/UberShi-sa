@@ -44,7 +44,7 @@
                     <input type="text" readonly name="subtotal" id="subtotal">
                 </div>
                 <div class="btn-container">
-                <input type="hidden" name="productId" value="${product.productId}">
+                <input type="hidden" name="productId" th:value="${product.productId}">
                     <button name="roomBack" class="btn back-btn">戻る</button>
                     <button name="cart" class="btn primary-btn">カートに入れる</button>
                 </div>
@@ -62,7 +62,7 @@
                 <tr th:inline="text" th:each="item : ${session.roomCart}">
 				<td>[[${item.productName}]]</td>
 				<td>[[${item.amount}]]</td>
-				<td><button class="btn-mini del-btn-mini" id="deleteItem" value="${item.productId}">削除</button></td>
+				<td><button class="btn-mini del-btn-mini" id="deleteItem" th:value="${item.productId}">削除</button></td>
 				</tr>
             </table>
             <p class="total-price">合計金額(円)：<span th:inline="text">[[${session.totalPrice}]]</span></p>

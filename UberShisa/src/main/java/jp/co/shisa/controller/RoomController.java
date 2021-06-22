@@ -1,5 +1,6 @@
 package jp.co.shisa.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -79,7 +80,7 @@ public class RoomController {
 					+ p.getProductId() + "\" class=\"btn-mini\"> "
 					+  p.getProductName() + "</a> </td> "
 					+ " <td>" + p.getPrice() + "</td> "
-					+ " <td>" + p.getName() + "</td> </tr> ";
+					+ " <td>" + p.getShopName() + "</td> </tr> ";
 		}
 		html += "</table>";
 		return html;
@@ -94,8 +95,8 @@ public class RoomController {
 	}
 
 	//商品詳細画面から
-	@RequestMapping(value="/room/order",params="roomBack", method=RequestMethod.POST)
-	public String roomOrderBack(@ModelAttribute("roomCart") RoomCartForm form,Model model) {
+	@RequestMapping(value="/room/order",params="roomBack", method=RequestMethod.POST)//もどるボタン
+	public String roomOrderBack(Model model) {
 		List<Shop> list = roomS.findAll();
 		//全検索用に、listにadd
 		Shop shop = new Shop(0,"全店舗から検索");
@@ -105,7 +106,7 @@ public class RoomController {
 		return "order";
 	}
 
-	@RequestMapping(value="/room/order",params="cart", method=RequestMethod.POST)
+	@RequestMapping(value="/room/order",params="cart", method=RequestMethod.POST)//カートに入れるボタン
 	public String roomOrderCart(@ModelAttribute("roomCart") RoomCartForm form,Model model) {//これ、余裕があれば上のメソッドと合わせる
 		List<Shop> list = roomS.findAll();
 		//全検索用に、listにadd
@@ -116,7 +117,10 @@ public class RoomController {
 		//orderItem型のインスタンスをセッションに入れる…？
 		//先にセッションからリスト取得→そこにaddして、セッションにリストを入れなおす
 		OrderItem order = new OrderItem(form.getProductId(),form.getAmount(), form.getSubtotal(), form.getProductName());
-		List<OrderItem> cartList = (List<OrderItem>)session.getAttribute("roomCart");
+		List<OrderItem> cartList = new ArrayList<OrderItem>();
+		if(session.getAttribute("roomCart") != null) {
+		cartList = (List<OrderItem>)session.getAttribute("roomCart");//null回避
+		}
 		cartList.add(order);
 		session.setAttribute("roomCart", cartList);
 
