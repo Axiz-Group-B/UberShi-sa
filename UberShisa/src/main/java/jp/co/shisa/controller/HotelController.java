@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jp.co.shisa.entity.DeliveryMan;
 import jp.co.shisa.entity.OrderInfo;
 import jp.co.shisa.entity.Shop;
 import jp.co.shisa.service.HotelService;
@@ -19,7 +20,6 @@ public class HotelController {
 
 	@RequestMapping("/hotel/orderHistory")
 	public String hotelOrderHistory(Model model){
-
 		List<Shop> sList = null;
 		List<OrderInfo> oList = null;
 
@@ -34,6 +34,12 @@ public class HotelController {
 
 	@RequestMapping("/hotel/delivery")
 	public String hotelDelivery(Model model){
+		List<DeliveryMan> dList = null;
+
+		dList = hotelService.DeliveryManFindAll();
+
+		model.addAttribute("dList",dList);
+
 		return "hotelDelivery";
 	}
 }

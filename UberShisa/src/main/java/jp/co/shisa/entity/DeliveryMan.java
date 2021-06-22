@@ -2,19 +2,19 @@ package jp.co.shisa.entity;
 
 public class DeliveryMan extends UserInfo{
 	private Integer deliveryManId;
-	private String name;
-	private String tel;
+	private String deliveryManName;
+	private String deliveryManTel;
 
 
 	public DeliveryMan() {
 
 	}
 
-	public DeliveryMan(Integer userId,String loginId,String pass,Integer roleId,Integer deliveryManId,String name,String tel) {
+	public DeliveryMan(Integer userId,String loginId,String pass,Integer roleId,Integer deliveryManId,String deliveryManName,String deliveryManTel) {
 		super(userId,loginId,pass,roleId);
 		this.deliveryManId = deliveryManId;
-		this.name = name;
-		this.tel = tel;
+		this.deliveryManName = deliveryManName;
+		this.deliveryManTel = deliveryManTel;
 	}
 
 
@@ -25,17 +25,17 @@ public class DeliveryMan extends UserInfo{
 	public void setDeliveryManId(Integer deliveryManId) {
 		this.deliveryManId = deliveryManId;
 	}
-	public String getName() {
-		return name;
+	public String getDeliveryManName() {
+		return deliveryManName;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setDeliveryManName(String deliveryManName) {
+		this.deliveryManName = deliveryManName;
 	}
-	public String getTel() {
-		return tel;
+	public String getDeliveryManTel() {
+		return deliveryManTel;
 	}
-	public void setTel(String tel) {
-		this.tel = tel;
+	public void setDeliveryManTel(String deliveryManTel) {
+		this.deliveryManTel = deliveryManTel;
 	}
 
 

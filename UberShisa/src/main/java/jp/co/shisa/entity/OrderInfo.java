@@ -9,7 +9,7 @@ public class OrderInfo {
 		private Integer deliveryManId;
 		private Integer totalPrice;
 		private Integer status;
-		private Timestamp date;
+		private Timestamp dateTime;
 
 
 		public Integer getOrderId() {
@@ -48,11 +48,11 @@ public class OrderInfo {
 		public void setStatus(Integer status) {
 			this.status = status;
 		}
-		public Timestamp getDate() {
-			return date;
+		public Timestamp getDateTime() {
+			return dateTime;
 		}
-		public void setDate(Timestamp date) {
-			this.date = date;
+		public void setDateTime(Timestamp dateTime) {
+			this.dateTime = dateTime;
 		}
 
 
