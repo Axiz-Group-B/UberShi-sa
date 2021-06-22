@@ -51,4 +51,5 @@ public class AuthServiceImpl implements AuthService{
 		return authDao.checkAllRoom();
 	}
 
+
 }

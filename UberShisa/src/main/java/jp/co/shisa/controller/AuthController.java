@@ -49,14 +49,15 @@ public class AuthController {
 			return "redirect:index";
 		}
 
-		Integer roleId = userInfo.getRoleId();
+			Integer roleId = userInfo.getRoleId();
 
+			switch(roleId) {
+			case 1:
+				Room room = authService.loginByRoom(userInfo);
+				session.setAttribute("loginUser", room);
 
-		switch (roleId) {
-		case 1:
-			Room room = authService.loginByRoom(userInfo);
-			session.setAttribute("loginUser", room);
-			return "order";
+				return "order";
+
 			case 2:
 				DeliveryMan deliveryMan = authService.loginByDeliveryMan(userInfo);
 				session.setAttribute("loginUser", deliveryMan);
@@ -71,6 +72,7 @@ public class AuthController {
 				session.setAttribute("finishedOrderListBy",finishedOrderList);
 				session.setAttribute("notFinishedOrderList",notFinishedOrderList);
 				return "store";
+
 			case 4:
 				session.setAttribute("loginUser",userInfo);
 				List<Room> AllRoomList = authService.checkAllRoom();

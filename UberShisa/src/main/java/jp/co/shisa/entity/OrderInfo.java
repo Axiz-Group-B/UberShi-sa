@@ -15,10 +15,6 @@ public class OrderInfo {
 	private String deliveryManName;
 	private String deliveryManTel;
 
-
-
-
-
 	public Integer getOrderId() {
 		return orderId;
 	}
