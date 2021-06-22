@@ -7,6 +7,9 @@ public class OrderItem {
 	private Integer amount;
 	private Integer subtotal;
 
+	//カートに入れるときに便利なので入れました
+	private String productName;
+
 	public OrderItem() {
 
 	}
@@ -18,6 +21,14 @@ public class OrderItem {
 		this.productId = productId;
 		this.amount = amount;
 		this.subtotal = subtotal;
+	}
+
+	//カートに入れるためにつくりました
+	public OrderItem(Integer productId, Integer amount, Integer subtotal, String productName) {
+		this.productId = productId;
+		this.amount = amount;
+		this.subtotal = subtotal;
+		this.productName = productName;
 	}
 
 	public Integer getItemId() {
@@ -58,6 +69,14 @@ public class OrderItem {
 
 	public void setSubtotal(Integer subtotal) {
 		this.subtotal = subtotal;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 
 

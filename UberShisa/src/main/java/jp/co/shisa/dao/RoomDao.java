@@ -18,4 +18,7 @@ public interface RoomDao {
 
 	//１つのshopIdからあいまい検索
 	public List<Product> searchFromOne(String productName, Integer shopId);
+
+	//productIdから情報取得
+	public Product productById(Integer productId);
 }
