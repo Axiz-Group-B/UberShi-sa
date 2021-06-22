@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jp.co.shisa.dao.HotelDao;
+import jp.co.shisa.entity.DeliveryMan;
 import jp.co.shisa.entity.OrderInfo;
 import jp.co.shisa.entity.Shop;
 import jp.co.shisa.service.HotelService;
@@ -26,6 +27,12 @@ public class HotelServiceImpl implements HotelService {
 	public List<OrderInfo> orderInfoFindAll() {
 		// TODO 自動生成されたメソッド・スタブ
 		return hotelDao.orderInfoFindAll();
+	}
+
+	@Override
+	public List<DeliveryMan> DeliveryManFindAll() {
+		// TODO 自動生成されたメソッド・スタブ
+		return  hotelDao.DeliveryManFindAll();
 	}
 
 }
