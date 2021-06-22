@@ -5,13 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/commom/commom.css">
+    <link rel="stylesheet" href="css/common/common.css">
+    <link rel="stylesheet" href="css/signup/signup.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Uber Shi-sa</title>
 </head>
 <body>
     <div class="wrapper">
         <div class="image">
-            <img src="images/shisa.jpg" alt="">
+            <h3>Uber Shi-sa</h3>
+            <!-- <img src="images/shisa.jpg" alt=""> -->
         </div>
         <div class="content">
             <div class="header">
@@ -21,31 +24,35 @@
                 <form action="#">
                     <div>
                         <label class="label-format">ログインID：</label>
-                        <input type="text">
+                        <input type="text" placeholder="ログインID">
                     </div>
                     <div>
                         <label class="label-format">名前：</label>
-                        <input type="text">
+                        <input type="text" placeholder="名前">
                     </div>
                     <div>
                         <label class="label-format">電話番号：</label>
-                        <input type="text">
+                        <input type="text" placeholder="電話番号">
                     </div>
                     <div>
                         <label class="label-format">パスワード：</label>
-                        <input type="text">
+                        <input type="text" placeholder="パスワード">
                     </div>
                     <div>
                         <label class="label-format">確認パスワード：</label>
-                        <input type="text">
+                        <input type="text" placeholder="確認パスワード">
                     </div>
-                    <div><button class="btn primary-btn">
-                        登録
-                    </button></div>
-                    <p><a href="#">アカウントを持っている方<br>ログイン</a></p>
+                    <div><form action="#">
+                        <button class="btn primary-btn">
+                            登録
+                        </button>
+                        <p><a href="#">アカウントを持っている方<br>ログイン</a></p>
+                    </form></div>
+                    
                 </form>
             </div>
         </div>
     </div>
+    <script src="js/js.js" type="text/javascript"></script>
 </body>
 </html>
