@@ -53,7 +53,7 @@ public class HotelController {
 
 		System.out.println(form.getDeliveryListDelete());
 
-		model.addAttribute("getDeliveryListDelete",form.getDeliveryListDelete());
+		model.addAttribute("ListDelete",form.getDeliveryListDelete());
 		model.addAttribute("dList",dList);
 
 		return "hotelDelivery";
