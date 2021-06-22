@@ -15,7 +15,7 @@
             <img src="images/shisa.jpg" alt="image">
         </div>
         <div class="content">
-        	<span th:if="!${#strings.isEmpty(errorMsg)}"></span>
+        	<span th:if="!${#strings.isEmpty(errorMsg)}" th:text="${errorMsg}"></span>
             <div class="header">
                 <h1>ログイン</h1>
             </div>

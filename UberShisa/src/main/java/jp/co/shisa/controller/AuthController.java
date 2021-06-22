@@ -1,5 +1,7 @@
 package jp.co.shisa.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.co.shisa.entity.DeliveryMan;
+import jp.co.shisa.entity.OrderInfo;
 import jp.co.shisa.entity.Room;
 import jp.co.shisa.entity.Shop;
 import jp.co.shisa.entity.UserInfo;
@@ -51,26 +54,34 @@ public class AuthController {
 			case 1:
 				Room room = authService.loginByRoom(userInfo);
 				session.setAttribute("loginUser", room);
+
 				return "order";
 
 			case 2:
 				DeliveryMan deliveryMan = authService.loginByDeliveryMan(userInfo);
 				session.setAttribute("loginUser", deliveryMan);
+				List<OrderInfo> noDeliveryManOrderList = authService.checkNoDeliveryManOrder();
+				session.setAttribute("noDeliveryManOrderList", noDeliveryManOrderList);
 				return "delivery";
 			case 3:
 				Shop shop = authService.loginByShop(userInfo);
 				session.setAttribute("loginUser",shop);
+				List<OrderInfo> finishedOrderList = authService.checkFinishedOrderByShop(shop);
+				List<OrderInfo> notFinishedOrderList = authService.checkNotFinishedOrderByShop(shop);
+				session.setAttribute("finishedOrderListBy",finishedOrderList);
+				session.setAttribute("notFinishedOrderList",notFinishedOrderList);
 				return "store";
 
 			case 4:
 				session.setAttribute("loginUser",userInfo);
+				List<Room> AllRoomList = authService.checkAllRoom();
+				session.setAttribute("AllRoomList",AllRoomList);
 				return "hotel";
 			default:
 				String errorMsg = "IDまたはPASSが間違っています";
 				attr.addFlashAttribute("errorMsg", errorMsg);
-				return "redirect:";
+				return "redirect:index";
 			}
-
 
 	}
 

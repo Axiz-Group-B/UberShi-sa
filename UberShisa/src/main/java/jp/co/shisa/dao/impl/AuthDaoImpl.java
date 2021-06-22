@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import jp.co.shisa.dao.AuthDao;
 import jp.co.shisa.entity.DeliveryMan;
+import jp.co.shisa.entity.OrderInfo;
 import jp.co.shisa.entity.Room;
 import jp.co.shisa.entity.Shop;
 import jp.co.shisa.entity.UserInfo;
@@ -22,6 +23,8 @@ public class AuthDaoImpl implements AuthDao{
 	String SELECT_FROM_USERINFO_AND_ROOM = "SELECT ui.*, room_id,room_name FROM user_info ui JOIN room r ON ui.user_id = r.user_id WHERE ui.user_id = :userId";
 	String SELECT_FROM_USERINFO_AND_DELIVERY_MAN = "SELECT ui.*,delivery_man_id,name,tel FROM user_info ui JOIN delivery_man dm ON ui.user_id = dm.user_id WHERE ui.user_id = :userId ";
 	String SELECT_FROM_USERINFO_AND_SHOP = "SELECT ui.*,shop_id,name,tel,address FROM user_info ui JOIN shop s ON ui.user_id = s.user_id WHERE ui.user_id = :userId";
+	String SELECT_FROM_USERINFO_FINISHED_ORDER_BY_SHOP = "SELECT oi.*,name,tel FROM order_info oi JOIN delivery_man dm ON oi.delivery_man_id = dm.delivery_man_id WHERE shop_id = :shopId AND status BETWEEN 1 AND 3";
+	String SELECT_FROM_USERINFO_NOT_FINISHED_ORDER_BY_SHOP = "SELECT oi.*,name,tel FROM order_info oi JOIN delivery_man dm ON oi.delivery_man_id = dm.delivery_man_id WHERE shop_id = :shopId AND status BETWEEN 4 AND 7";
 
 	@Autowired
 	NamedParameterJdbcTemplate namedJT;
@@ -59,9 +62,33 @@ public class AuthDaoImpl implements AuthDao{
 		param.addValue("userId", userInfo.getUserId());
 		List<Shop> list = namedJT.query(sql, param,new BeanPropertyRowMapper<Shop>(Shop.class));
 		return list.isEmpty() ? null : list.get(0);
-
-
 	}
 
+	public List<OrderInfo> checkNoDeliveryManOrder() {
+		String sql = "SELECT_FROM_order_info_WHERE status IN(1,2)";
+		List<OrderInfo> list = namedJT.query(sql,new BeanPropertyRowMapper<OrderInfo>(OrderInfo.class));
+		return list.isEmpty() ? null : list;
+	}
 
+	public List<OrderInfo> checkFinishedOrderByShop(Shop shop) {
+		String sql = SELECT_FROM_USERINFO_FINISHED_ORDER_BY_SHOP;
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("shopId",shop.getShopId());
+		List<OrderInfo> list = namedJT.query(sql,param,new BeanPropertyRowMapper<OrderInfo>(OrderInfo.class));
+		return list.isEmpty() ? null : list;
+	}
+
+	public List<OrderInfo> checkNotFinishedOrderByShop(Shop shop) {
+		String sql = SELECT_FROM_USERINFO_NOT_FINISHED_ORDER_BY_SHOP;
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("shopId",shop.getShopId());
+		List<OrderInfo> list = namedJT.query(sql,param,new BeanPropertyRowMapper<OrderInfo>(OrderInfo.class));
+		return list.isEmpty() ? null : list;
+	}
+
+	public List<Room> checkAllRoom() {
+		String sql = "SELECT * FROM room";
+		List<Room> list = namedJT.query(sql,new BeanPropertyRowMapper<Room>(Room.class));
+		return list.isEmpty() ? null : list;
+	}
 }
