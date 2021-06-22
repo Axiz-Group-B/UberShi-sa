@@ -55,7 +55,6 @@ public class AuthController {
 			case 1:
 				Room room = authService.loginByRoom(userInfo);
 				session.setAttribute("loginUser", room);
-
 				return "order";
 
 			case 2:
