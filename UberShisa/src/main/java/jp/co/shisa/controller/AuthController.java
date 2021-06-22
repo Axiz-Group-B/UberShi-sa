@@ -45,6 +45,7 @@ public class AuthController {
 		UserInfo userInfo = authService.loginCheck(form);
 
 		if (userInfo == null) {
+
 			String errorMsg = "IDまたはPASSが間違っています";
 			attr.addFlashAttribute("errorMsg", errorMsg);
 			return "redirect:index";
@@ -66,6 +67,7 @@ public class AuthController {
 		case 3:
 			Shop shop = authService.loginByShop(userInfo);
 			session.setAttribute("loginUser", shop);
+			session.setAttribute("userInfo", userInfo);
 			List<OrderInfo> finishedOrderList = authService.checkFinishedOrderByShop(shop);
 			List<OrderInfo> notFinishedOrderList = authService.checkNotFinishedOrderByShop(shop);
 			session.setAttribute("finishedOrderListBy", finishedOrderList);

@@ -18,10 +18,6 @@ public class OrderInfo {
 	public Integer getOrderId() {
 		return orderId;
 	}
-<<<<<<< HEAD
-
-=======
->>>>>>> refs/remotes/origin/yuichi
 	public void setOrderId(Integer orderId) {
 		this.orderId = orderId;
 	}
@@ -86,8 +82,4 @@ public class OrderInfo {
 		this.deliveryManTel = deliveryManTel;
 	}
 
-<<<<<<< HEAD
-=======
-
->>>>>>> refs/remotes/origin/yuichi
 }

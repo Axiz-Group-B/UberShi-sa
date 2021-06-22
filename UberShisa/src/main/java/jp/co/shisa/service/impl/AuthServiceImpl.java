@@ -51,8 +51,4 @@ public class AuthServiceImpl implements AuthService{
 		return authDao.checkAllRoom();
 	}
 
-<<<<<<< HEAD
-=======
-
->>>>>>> refs/remotes/origin/yuichi
 }

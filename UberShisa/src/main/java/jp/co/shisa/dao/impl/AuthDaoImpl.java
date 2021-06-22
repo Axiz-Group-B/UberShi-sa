@@ -21,10 +21,10 @@ public class AuthDaoImpl implements AuthDao{
 
 	String SELECT_BY_LOGINID_AND_PASS_AND_ROLEID = "SELECT * FROM user_info WHERE login_id = :loginId AND pass = :pass AND role_id = :roleId";
 	String SELECT_FROM_USERINFO_AND_ROOM = "SELECT ui.*, room_id,room_name FROM user_info ui JOIN room r ON ui.user_id = r.user_id WHERE ui.user_id = :userId";
-	String SELECT_FROM_USERINFO_AND_DELIVERY_MAN = "SELECT ui.*,delivery_man_id,name,tel FROM user_info ui JOIN delivery_man dm ON ui.user_id = dm.user_id WHERE ui.user_id = :userId ";
-	String SELECT_FROM_USERINFO_AND_SHOP = "SELECT ui.*,shop_id,name,tel,address FROM user_info ui JOIN shop s ON ui.user_id = s.user_id WHERE ui.user_id = :userId";
-	String SELECT_FROM_USERINFO_FINISHED_ORDER_BY_SHOP = "SELECT oi.*,name,tel FROM order_info oi JOIN delivery_man dm ON oi.delivery_man_id = dm.delivery_man_id WHERE shop_id = :shopId AND status BETWEEN 1 AND 3";
-	String SELECT_FROM_USERINFO_NOT_FINISHED_ORDER_BY_SHOP = "SELECT oi.*,name,tel FROM order_info oi JOIN delivery_man dm ON oi.delivery_man_id = dm.delivery_man_id WHERE shop_id = :shopId AND status BETWEEN 4 AND 7";
+	String SELECT_FROM_USERINFO_AND_DELIVERY_MAN = "SELECT ui.*,delivery_man_id,delivery_man_name,delivery_man_tel FROM user_info ui JOIN delivery_man dm ON ui.user_id = dm.user_id WHERE ui.user_id = :userId ";
+	String SELECT_FROM_USERINFO_AND_SHOP = "SELECT ui.*,shop_id, shop_name,shop_tel,address FROM user_info ui JOIN shop s ON ui.user_id = s.user_id WHERE ui.user_id = :userId";
+	String SELECT_FROM_USERINFO_FINISHED_ORDER_BY_SHOP = "SELECT oi.*,delivery_man_name,delivery_man_tel FROM order_info oi JOIN delivery_man dm ON oi.delivery_man_id = dm.delivery_man_id WHERE shop_id = :shopId AND status BETWEEN 1 AND 3";
+	String SELECT_FROM_USERINFO_NOT_FINISHED_ORDER_BY_SHOP = "SELECT oi.*,delivery_man_name,delivery_man_tel FROM order_info oi JOIN delivery_man dm ON oi.delivery_man_id = dm.delivery_man_id WHERE shop_id = :shopId AND status BETWEEN 4 AND 7";
 
 	@Autowired
 	NamedParameterJdbcTemplate namedJT;

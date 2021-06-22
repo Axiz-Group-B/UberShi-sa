@@ -3,65 +3,67 @@ package jp.co.shisa.entity;
 public class Shop {
 	private Integer shopId;
 	private Integer userId;
-	private String name;
-	private String tel;
+	private String shopName;
+	private String shopTel;
 	private String address;
-
 
 	public Shop() {
 
 	}
 
-
-
 	public Shop(Integer shopId, Integer userId, String name, String tel, String address) {
 		super();
 		this.shopId = shopId;
 		this.userId = userId;
-		this.name = name;
-		this.tel = tel;
+		this.shopName = name;
+		this.shopTel = tel;
 		this.address = address;
 	}
 
 	//検索のために作りました
 	public Shop(Integer shopId, String name) {
 		this.shopId = shopId;
-		this.name = name;
+		this.shopName = name;
 	}
-
-
-
 
 	public Integer getShopId() {
 		return shopId;
 	}
+
 	public void setShopId(Integer shopId) {
 		this.shopId = shopId;
 	}
+
 	public Integer getUserId() {
 		return userId;
 	}
+
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
-	public String getName() {
-		return name;
+
+	public String getShopName() {
+		return shopName;
 	}
-	public void setName(String name) {
-		this.name = name;
+
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
 	}
-	public String getTel() {
-		return tel;
+
+	public String getShopTel() {
+		return shopTel;
 	}
-	public void setTel(String tel) {
-		this.tel = tel;
+
+	public void setShopTel(String shopTel) {
+		this.shopTel = shopTel;
 	}
+
 	public String getAddress() {
 		return address;
 	}
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
 
 }
