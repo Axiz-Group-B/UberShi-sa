@@ -38,5 +38,9 @@ public class RoomServiceImpl implements RoomService {
 		return roomDao.searchFromOne(productName, shopId);
 	}
 
-
+	//productIdから情報取得
+	@Override
+	public Product productById(Integer productId) {
+		return roomDao.productById(productId);
+	}
 }
