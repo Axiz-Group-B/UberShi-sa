@@ -25,6 +25,10 @@
 		console.log('catch');
 	})
 	}
-
 	//セレクトボックスが変更されたときのイベントを定義
 	shopId.addEventListener('change', select);
+
+
+
+
+
