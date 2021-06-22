@@ -28,7 +28,7 @@
         <div>
             <label>店舗名：</label>
             <select name="shopId" id="shopId">
-            	<!-- 全お店から検索かけるための空白セレクトボックス -->
+
                 <option th:each="shop : ${session.shopList}" th:value="${shop.shopId}" th:inline="text">[[${shop.name}]]</option>
             </select>
         </div>

@@ -10,11 +10,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import jp.co.shisa.entity.Product;
 import jp.co.shisa.entity.Shop;
+import jp.co.shisa.form.RoomCartForm;
 import jp.co.shisa.form.RoomOrderForm;
 import jp.co.shisa.service.RoomService;
 
@@ -78,5 +80,11 @@ public class RoomController {
 	}
 
 	//パラメーター付き
+	@GetMapping("/room/{productId}")
+	public String orderDetail(@PathVariable Integer productId, @ModelAttribute("roomCart") RoomCartForm form, Model model) {
+		model.addAttribute("");
+
+		return "orderDetail";
+	}
 
 }
