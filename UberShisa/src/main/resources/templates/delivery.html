@@ -9,7 +9,7 @@
     <script src="https://kit.fontawesome.com/98ca2fa25d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/common/common.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="css/delivery/delivery.css">
+
 </head>
 <body>
     <div id="bar">
@@ -28,9 +28,9 @@
                 <th>店舗名</th>
                 <th>住所</th>
             </tr>
-            <tr>
-                <td><form action="#"><button class="btn-mini">23164</button></form></td>
-                <td>A店舗</td>
+            <tr th:inline="text" th:each="order:${noDeliveryManOrderList}">
+                <td><a th:href="@{/">[[${order.orderId}]]</a></td>
+                <td>[[${order.}]]</td>
                 <td>国際通り2-1-3</td>
             </tr>
             <tr>
@@ -41,7 +41,7 @@
             <tr>
                 <td><form action="#"><button class="btn-mini">23164</button></form></td>
                 <td>A店舗</td>
-                <td>国際通り2-1-3</td>
+                <td></td>
             </tr>
         </table>
     </div>
