@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/98ca2fa25d.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/reset.css">
+    <script src="https://kit.fontawesome.com/98ca2fa25d.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/commom/commom.css">
+    <title>Uber Shi-sa</title>
+</head>
+<body>
+    <div id="bar">
+        <div class="page-name">注文</div>
+        <div id="menu-icon"><i class="fas fa-bars fa-2x"></i></div>
+    </div>
+    <div id="sidebar-menu">
+        <div class="menu-item"><form action="#"><button class="menu-btn">履歴</button></form></div>
+        <div class="menu-item"><form action="logout"><button class="menu-btn">ログアウト</button></form></div>
+    </div>
+
+    <div class="wrapper">
+        <div class="left-side">
+            <div><label class="label-format">画像：</label>
+                <img src="images/product1.jpg" alt="商品の画像">
+            </div>
+            <div><label class="label-format">説明：</label>
+                <textarea name="#" id="#" rows="3" readonly>
+                    説明説明説明説明説明説明説明説明説明
+                </textarea>
+            </div>
+            <div><label class="label-format">商品名：</label>
+                <input type="text" value="元祖紅いもタルト" readonly>
+            </div>
+            <div><label class="label-format" aria-readonly="true">単価(円)：</label>
+                <input type="text" value="500" readonly>
+            </div>
+            <form action="#">
+                <div><label class="label-format">個数：</label>
+                    <input type="number" min="1" max="10" value="10">
+                </div>
+                <div><label class="label-format">合計金額(円)：</label>
+                    <input type="text" value="5000" readonly>
+                </div>
+                <div class="btn-container">
+                    <button class="btn back-btn">戻る</button>
+                    <button class="btn primary-btn">カートに入れる</button>
+                </div>
+            </form>
+
+        </div>
+        <div class="right-side">
+            <table>
+                <caption>カート</caption>
+                <tr>
+                    <th>商品名</th>
+                    <th>個数</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>元祖紅いもタルト</td>
+                    <td>10</td>
+                    <td><form action="#"><button class="btn-mini del-btn-mini">削除</button></form></td>
+                </tr>
+                <tr>
+                    <td>雪塩ちんすこう</td>
+                    <td>5</td>
+                    <td><form action="#"><button class="btn-mini del-btn-mini">削除</button></form></td>
+                </tr>
+                <tr>
+                    <td>ロイズ石垣島 黒糖チョコレート</td>
+                    <td>7</td>
+                    <td><form action="#"><button class="btn-mini del-btn-mini">削除</button></form></td>
+                </tr>
+            </table>
+            <p>合計金額(円)：<span>15500</span></p>
+            <div class="btn-container">
+                <button class="btn cancel-btn">キャンセル</button>
+                <button class="btn primary-btn">確定</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
