@@ -1,0 +1,15 @@
+@import "../common/variables.scss";
+.wrapper {
+    @include flex-box-option(column, center, center);
+    .wrapper {
+        overflow: hidden;
+    }
+    form {
+        div {
+            text-align: center;
+        }
+    }
+    h1 {
+        margin: 20px;
+    }
+}

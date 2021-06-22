@@ -1,0 +1,49 @@
+@import "../common/variables.scss";
+.wrapper {
+    .left-side {
+        width: 80%;
+        .search {
+            position: sticky;
+            top: -10px;
+            .primary-btn {
+                box-shadow: 2px -2px 5px white, -2px 2px 5px white;
+            }
+        }
+        .boxes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(450px, 490px));
+            grid-gap: 10px;
+            // gridwr
+            .box {
+                background-color: rgba(0, 128, 0, 0.13);
+                border: 1px solid $primary-color-green;
+                border-radius: 10px;
+                padding: 5px;
+                @include flex-box-option(row, center, center);
+                .product-detail {
+                    text-align: left;
+                    padding: 5px;
+                    textarea {
+                        width: 210px;
+                        border-radius: 3px;
+                        margin: 0;
+                        // background-color: transparent;
+                    }
+                    .label-format {
+                        width: 80px;
+                        margin: 5px 0;
+                    }
+                }
+            }
+        }
+    }
+    .right-side {
+        width: 20%;
+        background-color: transparent;
+        position: sticky;
+        top: 60px;
+        section {
+            text-align: justify;
+        }
+    }
+}

@@ -1,0 +1,32 @@
+
+@import "../common/variables.scss";
+
+.wrapper {
+    .content-container{
+        .label-format {
+            width: 150px;
+        }
+    }
+}
+@media only screen and (min-width: 768px) {
+    ::-webkit-input-placeholder {
+        color: transparent;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .sidebar-menu {
+        width: 100%;
+    }
+    .wrapper {
+        padding-top: 50px;
+        @include flex-box-option(column, center, flex-end);
+        .content-container {
+            .label-format {
+                display: none;
+            }
+            .btn-container {
+                @include flex-box-option(column, center, center);
+            }
+        }
+    }
+}

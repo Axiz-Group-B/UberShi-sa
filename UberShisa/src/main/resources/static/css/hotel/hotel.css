@@ -1,0 +1,59 @@
+.wrapper .left-side {
+  width: 30%;
+  height: fit-content;
+  position: sticky;
+  top: 55px;
+}
+.wrapper .left-side .primary-btn {
+  width: 250px;
+}
+.wrapper .left-side .label-format {
+  width: 150px;
+}
+.wrapper .left-side .back-btn {
+  position: absolute;
+  left: 20px;
+}
+.wrapper .left-side .select-option {
+  text-align: left;
+}
+.wrapper .left-side .select-option select {
+  margin: 5px;
+  padding: 5px 10px;
+}
+.wrapper .right-side {
+  width: 70%;
+}
+.wrapper .right-side .label-format {
+  width: 100px;
+}
+.wrapper .right-side #room-form {
+  display: grid;
+  justify-content: center;
+  grid-gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+}
+.wrapper .right-side #room-form .room-btn {
+  width: 200px;
+  height: 200px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: #c4c4c4;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: .3s;
+}
+.wrapper .right-side #room-form .room-btn:hover {
+  opacity: .5;
+}
+.wrapper .right-side #room-form .order-room {
+  background-color: #DCEED7;
+  border: 1px solid #c0ebb4;
+  transition: .3s;
+}
+.wrapper .right-side #room-form .order-room:hover {
+  background-color: #70ec4d;
+}
+
+/*# sourceMappingURL=hotel.css.map */
