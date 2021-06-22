@@ -30,7 +30,7 @@ public class AuthDaoImpl implements AuthDao{
 	NamedParameterJdbcTemplate namedJT;
 
 	public UserInfo loginCheck (LoginForm form) {
-		String sql = "SELECT * FROM user_info WHERE login_id = :loginId AND pass = :pass AND role_id = :roleId";
+		String sql = SELECT_BY_LOGINID_AND_PASS_AND_ROLEID;
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("loginId", form.getLoginId());
 		param.addValue("pass", form.getPass());

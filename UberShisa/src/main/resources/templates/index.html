@@ -27,6 +27,7 @@
                     <h1>ログイン</h1>
                 </div>
                 <form action="login" method="post" th:object="${login}">
+                	<p th:if="${#fields.hasErrors('')}"></p>
                     <input type="text" placeholder="ログインID">
                     <input type="password" placeholder="パスワード">
                     <div class="job-dropdown">
