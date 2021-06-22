@@ -105,7 +105,7 @@ public class RoomController {
 		return "order";
 	}
 
-	@RequestMapping(value="/room/order",params="roomCart", method=RequestMethod.POST)
+	@RequestMapping(value="/room/order",params="cart", method=RequestMethod.POST)
 	public String roomOrderCart(@ModelAttribute("roomCart") RoomCartForm form,Model model) {//これ、余裕があれば上のメソッドと合わせる
 		List<Shop> list = roomS.findAll();
 		//全検索用に、listにadd
@@ -126,6 +126,14 @@ public class RoomController {
 		}
 		session.setAttribute("totalPrice", total);
 		return "order";
+	}
+
+	//subtotal出すJS用※いらんかも
+	@RequestMapping("/room/subtotal")
+	@ResponseBody
+	public String subtotal() {
+
+		return "";
 	}
 
 }
