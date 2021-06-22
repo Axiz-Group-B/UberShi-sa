@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja"  xmlns:th="http://www.​thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,9 +7,9 @@
     <title>Uber Shi-sa</title>
     <link rel="stylesheet" href="css/reset.css">
     <script src="https://kit.fontawesome.com/98ca2fa25d.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="css/common/common.css">
+    <link rel="stylesheet" th:href="@{/css/common/common.css}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="css/delivery/delivery.css">
+    <link rel="stylesheet" th:href="@{/css/delivery/delivery.css}">
 </head>
 <body>
     <div id="bar">
@@ -20,32 +20,22 @@
         <div class="menu-item"><form action="#"><button class="menu-btn">個人情報</button></form></div>
         <div class="menu-item"><form action="#"><button class="menu-btn">ログアウト</button></form></div>
     </div>
-    
+
     <div class="wrapper">
         <div class="left-side">
             <h1>注文情報</h1>
-            <div><label>注文ID</label><input type="text" value="12345" readonly></div>
+            <div><label>注文ID</label><input type="text" value="${session.orderInfoForRoom}" readonly></div>
             <table>
-                <tr>
+                <tr >
                     <th>商品名</th>
                     <th>個数</th>
                     <th>説明</th>
                 </tr>
-                <tr>
-                    <td>ロイズ石垣島 黒糖チョコレート</td>
-                    <td>10</td>
-                    <td>説明説明説明説明説明説明説明説明</td>
-                </tr>
-                <tr>
-                    <td>ロイズ石垣島 黒糖チョコレート</td>
-                    <td>10</td>
-                    <td>説明説明説明説明説明説明説明説明</td>
-                </tr>
-                <tr>
-                    <td>ロイズ石垣島 黒糖チョコレート</td>
-                    <td>10</td>
-                    <td>説明説明説明説明説明説明説明説明</td>
-                </tr>
+                 <tr th:inline="text" th:each="orderItem : ${session.orderItemForRoom}">
+                <td>[[${orderItem.itemName}]]</td>
+                <td>[[${orderItem.amount}]]</td>
+                <td>[[${orderItem.address}]]</td>
+            </tr>
                 <tr>
                     <td>ロイズ石垣島 黒糖チョコレート</td>
                     <td>10</td>

@@ -62,6 +62,7 @@ public class AuthController {
 				DeliveryMan deliveryMan = authService.loginByDeliveryMan(userInfo);
 				session.setAttribute("loginUser", deliveryMan);
 				List<OrderInfo> noDeliveryManOrderList = authService.checkNoDeliveryManOrder();
+				System.out.println(noDeliveryManOrderList.get(0).getAddress());
 				session.setAttribute("noDeliveryManOrderList", noDeliveryManOrderList);
 				return "delivery";
 			case 3:
