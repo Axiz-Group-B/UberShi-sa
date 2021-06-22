@@ -43,6 +43,7 @@ public class AuthController {
 		}
 
 		UserInfo userInfo = authService.loginCheck(form);
+
 		if (userInfo == null) {
 			String errorMsg = "IDまたはPASSが間違っています";
 			attr.addFlashAttribute("errorMsg", errorMsg);

@@ -65,7 +65,7 @@ public class AuthDaoImpl implements AuthDao{
 	}
 
 	public List<OrderInfo> checkNoDeliveryManOrder() {
-		String sql = "SELECT_FROM_order_info_WHERE status IN(1,2)";
+		String sql = "SELECT FROM order_info WHERE status IN(1,2)";
 		List<OrderInfo> list = namedJT.query(sql,new BeanPropertyRowMapper<OrderInfo>(OrderInfo.class));
 		return list.isEmpty() ? null : list;
 	}
