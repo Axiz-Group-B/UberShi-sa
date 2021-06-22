@@ -18,11 +18,17 @@ import jp.co.shisa.service.DeliveryManService;
 @Controller
 @EnableAutoConfiguration
 public class DeliveryManController {
+
 	@Autowired
 	DeliveryManService deliveryManService;
 
 	@Autowired
 	HttpSession session;
+
+	@RequestMapping("/deliveryman/delivery")
+	public String delivery(Model model) {
+		return "delivery";
+	}
 
 	@RequestMapping("/deliveryMan/deliveryOrderSelect/{orderId}")
 	public String deliveryOrderSelect(@PathVariable Integer orderId,Model model) {

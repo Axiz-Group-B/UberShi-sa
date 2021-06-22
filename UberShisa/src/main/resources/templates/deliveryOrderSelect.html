@@ -24,7 +24,7 @@
     <div class="wrapper">
         <div class="left-side">
             <h1>注文情報</h1>
-            <div><label>注文ID</label><input type="text" value="${session.orderInfoForRoom}" readonly></div>
+            <div><label>注文ID</label><input type="text" th:value="${session.orderInfoForRoom.orderId}" readonly></div>
             <table>
                 <tr >
                     <th>商品名</th>
@@ -32,9 +32,9 @@
                     <th>説明</th>
                 </tr>
                  <tr th:inline="text" th:each="orderItem : ${session.orderItemForRoom}">
-                <td>[[${orderItem.itemName}]]</td>
+                <td>[[${orderItem.productName}]]</td>
                 <td>[[${orderItem.amount}]]</td>
-                <td>[[${orderItem.address}]]</td>
+                <td>[[${orderItem.text}]]</td>
             </tr>
                 <tr>
                     <td>ロイズ石垣島 黒糖チョコレート</td>
@@ -44,11 +44,11 @@
             </table>
         </div>
         <div class="right-side">
-            <div><label class="label-format">店舗名</label><input type="text" value="A店舗" readonly></div>
-            <div><label class="label-format">住所</label><input type="text" value="国際通り1-2-3" readonly></div>
+            <div><label class="label-format">店舗名</label><input type="text" th:value="${session.orderInfoForRoom.shopName}" readonly></div>
+            <div><label class="label-format">住所</label><input type="text" th:value="${session.orderInfoForRoom.address}" readonly></div>
             <div class="btn-container">
                 <form action="#"><button class="btn add-btn">選択</button></form>
-                <button class="btn back-btn">戻る</button>
+                <button type="button" class="btn back-btn" >戻る</button>
             </div>
         </div>
     </div>

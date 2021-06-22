@@ -10,6 +10,8 @@ public class OrderItem {
 	//カートに入れるときに便利なので入れました
 	private String productName;
 
+	private String text;
+
 	public OrderItem() {
 
 	}
@@ -77,6 +79,14 @@ public class OrderItem {
 
 	public void setProductName(String productName) {
 		this.productName = productName;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
 	}
 
 

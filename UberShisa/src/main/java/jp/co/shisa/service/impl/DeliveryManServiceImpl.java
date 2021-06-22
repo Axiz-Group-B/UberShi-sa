@@ -13,6 +13,7 @@ import jp.co.shisa.service.DeliveryManService;
 
 @Service
 public class DeliveryManServiceImpl implements DeliveryManService{
+
 	@Autowired
 	DeliveryManDao deliveryManDao;
 
