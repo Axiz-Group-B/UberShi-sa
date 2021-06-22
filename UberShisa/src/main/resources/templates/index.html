@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,20 +17,21 @@
             <!-- <img src="" alt="image"> -->
         </div>
         <div class="content">
+        <span th:if="!${#strings.isEmpty(errorMsg)}"></span>
             <div class="main">
                 <div class="header">
                     <h1>ログイン</h1>
                 </div>
-                <form action="#">
+                <form th:action="@{/login}" method="post" th:object="${LoginForm}">
                     <input type="text" placeholder="ログインID">
                     <input type="text" placeholder="パスワード">
                     <div class="job-dropdown">
                         <label>役割</label>
                         <select name="#" id="job">
-                            <option value="#" selected>宿泊客</option>
-                            <option value="#">配達員</option>
-                            <option value="#">お店</option>
-                            <option value="#">ホテル</option>
+                            <option value="1" selected>宿泊客</option>
+                            <option value="2">配達員</option>
+                            <option value="3">お店</option>
+                            <option value="4">ホテル</option>
                         </select>
                     </div>
                     <div><button class="btn primary-btn">
