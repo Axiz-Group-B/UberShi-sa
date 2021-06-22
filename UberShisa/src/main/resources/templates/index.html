@@ -1,6 +1,11 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+=======
+<html lang="ja"  xmlns:th="http://www.​thymeleaf.org">
+>>>>>>> refs/remotes/origin/yuichi
 <head>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,21 +22,17 @@
             <!-- <img src="" alt="image"> -->
         </div>
         <div class="content">
-
         	<span th:if="!${#strings.isEmpty(errorMsg)}" th:text="${errorMsg}"></span>
-<!--             <div class="header"> -->
-<!--                 <h1>ログイン</h1> -->
-<!--             </div> -->
             <div class="main">
-                <div class="header">
-                    <h1>ログイン</h1>
-                </div>
-                <form action="login" method="post" th:object="${login}">
+            <div class="header">
+                <h1>ログイン</h1>
+            </div>
+                <form method="post" action="login" th:object="${login}">
                     <input type="text" name="loginId" placeholder="ログインID">
-                    <input type="password" name="pass" placeholder="パスワード">
+                    <input type="text" name="pass" placeholder="パスワード">
                     <div class="job-dropdown">
                         <label>役割</label>
-                        <select name="#" id="job">
+                        <select name="roleId" id="job">
                             <option value="1" selected>宿泊客</option>
                             <option value="2">配達員</option>
                             <option value="3">お店</option>
@@ -41,7 +42,7 @@
                     <div><button class="btn primary-btn">
                         ログイン
                     </button></div>
-                    <p><a href="#">新規登録</a></p>
+                    <p><a href="signup">新規登録</a></p>
                 </form>
             </div>
             <footer>
