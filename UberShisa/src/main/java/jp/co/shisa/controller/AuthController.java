@@ -48,6 +48,7 @@ public class AuthController {
 
 		Integer roleId = userInfo.getRoleId();
 
+
 		switch (roleId) {
 		case 1:
 			Room room = authService.loginByRoom(userInfo);
@@ -62,7 +63,6 @@ public class AuthController {
 			Shop shop = authService.loginByShop(userInfo);
 			session.setAttribute("loginUser", shop);
 			return "store";
-
 		case 4:
 			session.setAttribute("loginUser", userInfo);
 			return "hotel";
@@ -73,6 +73,7 @@ public class AuthController {
 		}
 
 	}
+
 	/*
 	* ログアウト
 	*/

@@ -17,14 +17,18 @@
             <!-- <img src="" alt="image"> -->
         </div>
         <div class="content">
-        <span th:if="!${#strings.isEmpty(errorMsg)}"></span>
+
+        	<span th:if="!${#strings.isEmpty(errorMsg)}" th:text="${errorMsg}"></span>
+<!--             <div class="header"> -->
+<!--                 <h1>ログイン</h1> -->
+<!--             </div> -->
             <div class="main">
                 <div class="header">
                     <h1>ログイン</h1>
                 </div>
                 <form th:action="@{/login}" method="post" th:object="${LoginForm}">
                     <input type="text" placeholder="ログインID">
-                    <input type="text" placeholder="パスワード">
+                    <input type="password" placeholder="パスワード">
                     <div class="job-dropdown">
                         <label>役割</label>
                         <select name="#" id="job">
