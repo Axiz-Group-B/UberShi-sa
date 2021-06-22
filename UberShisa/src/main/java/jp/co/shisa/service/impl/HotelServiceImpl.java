@@ -1,7 +1,6 @@
 package jp.co.shisa.service.impl;
 
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +12,7 @@ import jp.co.shisa.entity.Shop;
 import jp.co.shisa.service.HotelService;
 
 @Service
-public class HotelServiceImpl implements HotelService{
-
+public class HotelServiceImpl implements HotelService {
 	@Autowired
 	private HotelDao hotelDao;
 
@@ -30,5 +28,5 @@ public class HotelServiceImpl implements HotelService{
 		return hotelDao.orderInfoFindAll();
 	}
 
-
 }
+

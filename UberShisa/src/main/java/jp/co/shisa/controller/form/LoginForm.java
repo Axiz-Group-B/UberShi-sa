@@ -1,9 +1,8 @@
-package jp.co.shisa.form;
+package jp.co.shisa.controller.form;
 
 import javax.validation.constraints.NotBlank;
 
 public class LoginForm {
-
 	@NotBlank
 	private String loginId;
 
@@ -34,5 +33,4 @@ public class LoginForm {
 	public void setRoleId(Integer roleId) {
 		this.roleId = roleId;
 	}
-
 }

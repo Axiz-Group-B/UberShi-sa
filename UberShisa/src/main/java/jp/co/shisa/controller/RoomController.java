@@ -5,7 +5,6 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +20,6 @@ import jp.co.shisa.form.RoomOrderForm;
 import jp.co.shisa.service.RoomService;
 
 @Controller
-@EnableAutoConfiguration
 public class RoomController {
 	@Autowired
 	private RoomService roomS;
@@ -64,6 +62,7 @@ public class RoomController {
 	}
 
 
+
 	//js用
 	@GetMapping("/room/selectBox")
 	@ResponseBody
@@ -87,4 +86,7 @@ public class RoomController {
 		return "orderDetail";
 	}
 
+
 }
+
+

@@ -1,10 +1,10 @@
 package jp.co.shisa.service;
 
+import jp.co.shisa.controller.form.LoginForm;
 import jp.co.shisa.entity.DeliveryMan;
 import jp.co.shisa.entity.Room;
 import jp.co.shisa.entity.Shop;
 import jp.co.shisa.entity.UserInfo;
-import jp.co.shisa.form.LoginForm;
 
 public interface AuthService {
 	public UserInfo loginCheck(LoginForm form);
