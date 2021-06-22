@@ -26,7 +26,7 @@
                 <div class="header">
                     <h1>ログイン</h1>
                 </div>
-                <form th:action="@{/login}" method="post" th:object="${LoginForm}">
+                <form action="login" method="post" th:object="${login}">
                     <input type="text" placeholder="ログインID">
                     <input type="password" placeholder="パスワード">
                     <div class="job-dropdown">
