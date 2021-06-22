@@ -1,0 +1,64 @@
+@import "../common/variables.scss";
+
+.wrapper {
+    .left-side {
+        width: 30%;
+        height: fit-content;
+        position: sticky;
+        top: 55px;
+        .primary-btn {
+            width: 250px;
+        }
+        .label-format {
+            width: 150px;
+        }
+        .back-btn {
+            position: absolute;
+            left: 20px;
+        }
+        .select-option {
+            text-align: left;
+            select {
+                margin: 5px;
+                padding: 5px 10px;
+            }
+        }
+    }
+    .right-side {
+        width: 70%;
+        // @include flex-box-option(row, center, center);
+        .label-format {
+            width: 100px;
+        }
+        #room-form {
+            display: grid;
+            justify-content: center;
+            grid-gap: 20px;
+            grid-template-columns: repeat(3, 1fr);
+            
+            .room-btn {
+                width: 200px;
+                height: 200px;
+                cursor: pointer;
+                border: none;
+                border-radius: 5px;
+                background-color: #c4c4c4;
+                font-size: 1.2rem;
+                font-weight: bold;
+                transition: .3s;
+            }
+            .room-btn:hover {
+                opacity: .5;
+            }
+            .order-room {
+                background-color: $hotel-room-btn;
+                border: 1px solid #c0ebb4;
+                transition: .3s;
+            }
+            .order-room:hover {
+                background-color: #70ec4d;
+            }
+        }
+        
+    }
+}

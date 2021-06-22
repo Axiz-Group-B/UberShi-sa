@@ -1,0 +1,25 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  background-color: #EFEFEF;
+  min-height: 100vh;
+  width: max-content;
+  border-radius: 20px;
+}
+.wrapper h1 {
+  margin: 20px 20px 50px 20px;
+}
+.wrapper form div {
+  text-align: center;
+}
+.wrapper form .label-format {
+  width: 100px;
+}
+.wrapper form .btn-container {
+  margin: 50px;
+}
+
+/*# sourceMappingURL=hotel1.css.map */

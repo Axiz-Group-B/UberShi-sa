@@ -1,0 +1,33 @@
+.wrapper .content-container .label-format {
+  width: 150px;
+}
+
+@media only screen and (min-width: 768px) {
+  ::-webkit-input-placeholder {
+    color: transparent;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .sidebar-menu {
+    width: 100%;
+  }
+
+  .wrapper {
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+  }
+  .wrapper .content-container .label-format {
+    display: none;
+  }
+  .wrapper .content-container .btn-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+/*# sourceMappingURL=delivery.css.map */

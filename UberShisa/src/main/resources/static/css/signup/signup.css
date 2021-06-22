@@ -1,0 +1,103 @@
+.wrapper {
+  padding-top: 0;
+  height: 100%;
+}
+
+.image {
+  width: 30%;
+  background: url("/images/shisa.jpg");
+  background-size: cover;
+  background-position: 80%;
+  height: 100%;
+}
+.image h3 {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: bold;
+  margin-top: 100px;
+  background: linear-gradient(to right, #36C243 0%, white 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.content {
+  position: relative;
+  width: 70%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: a;
+}
+.content .header {
+  padding: 20px;
+  margin-top: 40px;
+}
+.content .header h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+}
+.content .main {
+  width: 100%;
+}
+.content .main form {
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.content .main form .btn {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.content .main form input[type="text"] {
+  width: 400px;
+}
+.content .main form p {
+  text-align: center;
+}
+.content .main form .label-format {
+  width: 150px;
+  text-align: left;
+}
+.content footer {
+  display: flex;
+  flex-direction: a;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: absolute;
+  height: 20%;
+  width: 100%;
+  bottom: 0;
+}
+
+@media only screen and (min-width: 768px) {
+  ::-webkit-input-placeholder {
+    color: transparent;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .image {
+    display: none;
+  }
+
+  .wrapper {
+    display: block;
+  }
+  .wrapper .content {
+    width: 100%;
+  }
+  .wrapper .content .main form input[type="text"] {
+    width: 250px;
+  }
+  .wrapper .content .main form .label-format {
+    display: none;
+  }
+}
+
+/*# sourceMappingURL=signup.css.map */

@@ -1,0 +1,30 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.wrapper h1 {
+  padding: 10px;
+  width: 100%;
+  text-align: center;
+}
+.wrapper table {
+  margin: 20px 0;
+}
+.wrapper .content-container .left-side {
+  width: 100%;
+}
+.wrapper .content-container .left-side .label-format {
+  text-align: left;
+  width: 50px;
+}
+.wrapper .content-container .left-side .back-btn {
+  position: fixed;
+  bottom: 50px;
+}
+.wrapper .content-container .right-side {
+  width: 100%;
+}
+
+/*# sourceMappingURL=table.css.map */
