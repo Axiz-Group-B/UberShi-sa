@@ -31,4 +31,9 @@ public class HotelController {
 
 		return "hotelOrderHistory";
 	}
+
+	@RequestMapping("/hotel/delivery")
+	public String hotelDelivery(Model model){
+		return "hotelDelivery";
+	}
 }
