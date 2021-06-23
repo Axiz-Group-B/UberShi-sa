@@ -1,5 +1,5 @@
  <!DOCTYPE html>
-<html lang="en">
+<html lang="ja"  xmlns:th="http://www.​thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,34 +21,37 @@
                 <h1>登録</h1>
             </div>
             <div class="main">
-                <form action="#">
+                <form method="post" action="signup" th:object="${insert}">
                     <div>
                         <label class="label-format">ログインID：</label>
-                        <input type="text" placeholder="ログインID">
+                        <input type="text" name="loginId" placeholder="ログインID">
                     </div>
                     <div>
                         <label class="label-format">名前：</label>
-                        <input type="text" placeholder="名前">
+                        <input type="text" name="deliveryManName" placeholder="名前">
                     </div>
                     <div>
                         <label class="label-format">電話番号：</label>
-                        <input type="text" placeholder="電話番号">
+                        <input type="text" name="deliveryManTel" placeholder="電話番号">
                     </div>
                     <div>
                         <label class="label-format">パスワード：</label>
-                        <input type="text" placeholder="パスワード">
+                        <input type="text" name="pass" placeholder="パスワード">
                     </div>
                     <div>
                         <label class="label-format">確認パスワード：</label>
-                        <input type="text" placeholder="確認パスワード">
+                        <input type="text" name="rePass" placeholder="確認パスワード">
                     </div>
-                    <div><form action="#">
+                    <div>
+                    <!-- <form action="signup"> -->
+                    <span th:if="!${#strings.isEmpty(errorPassMsg)}" th:text="${errorPassMsg}"></span>
                         <button class="btn primary-btn">
                             登録
                         </button>
-                        <p><a href="#">アカウントを持っている方<br>ログイン</a></p>
-                    </form></div>
-                    
+                        <p><a href="index">アカウントを持っている方<br>ログイン</a></p>
+                    <!-- </form> -->
+                    </div>
+
                 </form>
             </div>
         </div>
