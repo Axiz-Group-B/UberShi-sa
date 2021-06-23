@@ -70,8 +70,8 @@ public class DeliveryManDaoImpl implements DeliveryManDao {
 //	配達員情報を更新(pha) end------------------------------------------------------------------------
 
 	private static final String INSERT_DELIVERY_MAN = "INSERT INTO delivery_man "
-			+ "(user_id, delivery_name, delivery_tel) "
-			+ "VALUES(:user_id, :delivery_name, :delivery_tel)";
+			+ "(user_id, delivery_man_name, delivery_man_tel) "
+			+ "VALUES(:user_id, :delivery_man_name, :delivery_man_tel)";
 	private static final String INSERT_USER_INFO = "INSERT INTO user_info"
 			+"(login_id, pass, role_id) "
 			+"VALUES(:login_id, :pass, :role_id)";
