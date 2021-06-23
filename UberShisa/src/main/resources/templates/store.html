@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja"  xmlns:th="http://www.​thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -33,7 +33,7 @@
                 </select>
             </form>
         </div>
-        
+
         <!-- <div class="content-container"></div> -->
         <table>
             <tr>
@@ -43,12 +43,12 @@
                 <th>電話番号</th>
                 <th>日時</th>
             </tr>
-            <tr>
-                <td><form action="#"><button class="btn-mini">12345</button></form></td>
-                <td>0987</td>
-                <td>Uber Shisa</td>
-                <td>090-xxx-xxx</td>
-                <td>10:30</td>
+            <tr th:inline="text" th:each="order : ${session.notFinishedOrderList}">
+                <td><a th:href="@{/shop/shopOrderInfo/{orderId}(orderId=${order.orderId})}" class="bin-mini">[[${order.orderId}]]</a></td>
+                <td>[[${order.deliveryManId}]]</td>
+                <td>[[${order.deliveryManName}]]</td>
+                <td>[[${order.deliveryManTel}]]</td>
+                <td>[[${order.dateTime}]]</td>
             </tr>
             <tr>
                 <td><form action="#"><button class="btn-mini">12345</button></form></td>

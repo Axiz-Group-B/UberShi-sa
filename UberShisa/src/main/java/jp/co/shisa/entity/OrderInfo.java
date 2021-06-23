@@ -12,6 +12,7 @@ public class OrderInfo {
 	private Timestamp dateTime;
 	private String shopName;
 	private String shopTel;
+	private String address;
 	private String deliveryManName;
 	private String deliveryManTel;
 
@@ -69,6 +70,15 @@ public class OrderInfo {
 	public void setShopTel(String shopTel) {
 		this.shopTel = shopTel;
 	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress (String address) {
+		this.address = address;
+	}
+
 	public String getDeliveryManName() {
 		return deliveryManName;
 	}

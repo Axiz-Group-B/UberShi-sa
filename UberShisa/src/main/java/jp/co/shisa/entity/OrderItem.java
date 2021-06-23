@@ -12,6 +12,8 @@ public class OrderItem {
 	private Integer ShopId;
 	private Integer totalPrice;
 
+	private String text;
+
 	public OrderItem() {
 
 	}
@@ -82,6 +84,7 @@ public class OrderItem {
 		this.productName = productName;
 	}
 
+
 	public Integer getShopId() {
 		return ShopId;
 	}
@@ -96,6 +99,14 @@ public class OrderItem {
 
 	public void setTotalPrice(Integer totalPrice) {
 		this.totalPrice = totalPrice;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
 	}
 
 

@@ -47,8 +47,8 @@ public class AuthServiceImpl implements AuthService{
 		return authDao.checkNotFinishedOrderByShop(shop);
 	}
 
-	public List<Room> checkAllRoom() {
-		return authDao.checkAllRoom();
+	public List<Room> checkAllRoomAndHasOrder() {
+		return authDao.checkAllRoomAndHasOrder();
 	}
 
 
