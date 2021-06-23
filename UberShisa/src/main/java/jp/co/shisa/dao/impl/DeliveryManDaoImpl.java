@@ -88,8 +88,8 @@ public class DeliveryManDaoImpl implements DeliveryManDao {
 		 MapSqlParameterSource param = new MapSqlParameterSource();
 //		 param.addValue("login_id", deliveryMan.getLoginId());
 		 param.addValue("user_id", userId);
-		 param.addValue("delivery_name", deliveryMan.getDeliveryManName());
-		 param.addValue("delivery_tel", deliveryMan.getDeliveryManTel());
+		 param.addValue("delivery_man_name", deliveryMan.getDeliveryManName());
+		 param.addValue("delivery_man_tel", deliveryMan.getDeliveryManTel());
 
 		 jdbcTemplate.update(sql, param);
 	}
