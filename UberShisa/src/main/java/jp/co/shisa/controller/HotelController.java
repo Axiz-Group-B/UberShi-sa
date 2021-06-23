@@ -46,7 +46,9 @@ public class HotelController {
 	}
 
 	@RequestMapping("/hotel/deliveryListDelete")
-	public String hotelDeliveryListDelete(@ModelAttribute("hotelDelivery") hotelDeliveryForm form,Model model){
+	public String hotelDeliveryListDelete(
+											@ModelAttribute("hotelDelivery") hotelDeliveryForm form,
+											Model model){
 		List<DeliveryMan> dList = null;
 
 		dList = hotelService.DeliveryManFindAll();

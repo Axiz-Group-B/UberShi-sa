@@ -47,7 +47,7 @@
 	                <div>
 	                    <label class="label-format">店舗</label>
 	                    <select name="shopIdNum">
-	                       	<option th:each="shopList : ${sList}" th:text="${shopList.name}" id="shopId" value="${shopList.shopId}"></option>
+	                       	<option th:each="shopList : ${sList}" th:text="${shopList.shopName}" id="shopId" value="${shopList.shopId}"></option>
 	                    </select>
 	                    <button name="find">検索</button>
 	                </div>
