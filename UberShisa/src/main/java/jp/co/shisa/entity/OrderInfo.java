@@ -15,6 +15,9 @@ public class OrderInfo {
 	private String address;
 	private String deliveryManName;
 	private String deliveryManTel;
+	private String productName;
+	private Integer amount;
+	private Integer price;
 
 	public Integer getOrderId() {
 		return orderId;
@@ -90,6 +93,24 @@ public class OrderInfo {
 	}
 	public void setDeliveryManTel(String deliveryManTel) {
 		this.deliveryManTel = deliveryManTel;
+	}
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+	public Integer getAmount() {
+		return amount;
+	}
+	public void setAmount(Integer amount) {
+		this.amount = amount;
+	}
+	public Integer getPrice() {
+		return price;
+	}
+	public void setPrice(Integer price) {
+		this.price = price;
 	}
 
 

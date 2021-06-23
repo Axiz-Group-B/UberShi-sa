@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -15,8 +16,11 @@ import jp.co.shisa.entity.Shop;
 @Repository
 public class HotelDaoImpl implements HotelDao{
 	private static final String SHOP_FINDALL = "SELECT * FROM shop";
-	private static final String ORDER_INFO_FINDALL = "SELECT * FROM order_info";
+	private static final String ORDER_INFO_FIND = "SELECT * FROM order_info WHERE shop_id= :shopId";
 	private static final String DELIVERY_MAN_FINDALL = "SELECT * FROM delivery_man";
+	private static final String ORDER_INFO_FIND_ID = "SELECT order_info.order_id as order_id, product_name, amount, price FROM order_info JOIN order_item ON order_info.order_id = order_item.order_id JOIN product ON order_item.product_id = product.product_id WHERE order_info.order_id= :orderId";
+	private static final String TOTAL_PRICE = "SELECT SUM(total_price) FROM order_info";
+	private static final String PRICE_SUM = "SELECT SUM(total_price) FROM order_info JOIN order_item ON order_info.order_id = order_item.order_id JOIN product ON order_item.product_id = product.product_id WHERE order_info.order_id= :orderId";
 
 	@Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
@@ -30,16 +34,19 @@ public class HotelDaoImpl implements HotelDao{
 		 return list;
 	 }
 
-	//order全検索
-	 public List<OrderInfo> orderInfoFindAll() {
-		 String sql = ORDER_INFO_FINDALL;
+	//order検索
+	 public List<OrderInfo> orderInfoFind(Integer shopId) {
+		 String sql = ORDER_INFO_FIND;
 
-		 List<OrderInfo> list = jdbcTemplate.query(sql,new BeanPropertyRowMapper<OrderInfo>(OrderInfo.class));
+		 MapSqlParameterSource param = new MapSqlParameterSource();
+		 param.addValue("shopId", shopId);
+
+		 List<OrderInfo> list = jdbcTemplate.query(sql, param,new BeanPropertyRowMapper<OrderInfo>(OrderInfo.class));
 
 		 return list;
 	 }
 
-	//DeliveryMan全検索
+	//配達員を全表示するときに使う
 	 public List<DeliveryMan> DeliveryManFindAll() {
 		 String sql = DELIVERY_MAN_FINDALL;
 
@@ -48,5 +55,24 @@ public class HotelDaoImpl implements HotelDao{
 		 return list;
 	 }
 
+	 //注文情報を出すときに使用
+	 public List<OrderInfo> OrderInfoFindId(Integer orderId){
+		 String sql = ORDER_INFO_FIND_ID;
 
+		 MapSqlParameterSource param = new MapSqlParameterSource();
+		 param.addValue("orderId", orderId);
+
+		 List<OrderInfo> list = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<OrderInfo>(OrderInfo.class));
+
+		 return list;
+	 }
+
+	 //合計金額表示
+	 /*public OrderInfo totalPrice(){
+		 String sql = TOTAL_PRICE;
+
+		 OrderInfo total = jdbcTemplate.query(sql,new BeanPropertyRowMapper<OrderInfo>(OrderInfo.class));
+
+		 return total;
+	 }*/
 }

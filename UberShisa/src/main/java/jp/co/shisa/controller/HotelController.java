@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.shisa.controller.form.hotelDeliveryForm;
+import jp.co.shisa.controller.form.hotelOrderHistoryForm;
 import jp.co.shisa.entity.DeliveryMan;
 import jp.co.shisa.entity.OrderInfo;
 import jp.co.shisa.entity.Shop;
@@ -25,15 +26,41 @@ public class HotelController {
 	private HotelService hotelService;
 
 	@RequestMapping("/hotel/orderHistory")
-	public String hotelOrderHistory(Model model){
+	public String hotelOrderHistory(@ModelAttribute("orderHistory") hotelOrderHistoryForm form,
+									Model model){
 		List<Shop> sList = null;
 		List<OrderInfo> oList = null;
 
 		sList = hotelService.shopFindAll();
-		oList = hotelService.orderInfoFindAll();
+		oList = hotelService.orderInfoFind(form.getOrderShopId());
 
+		System.out.println(form.getOrderShopId());
+
+		model.addAttribute("orderListId",form.getOrderListId());
+		model.addAttribute("orderShopId",form.getOrderShopId());
 		model.addAttribute("sList",sList);
 		model.addAttribute("oList",oList);
+
+		return "hotelOrderHistory";
+	}
+
+	@RequestMapping("/hotel/orderHistoryFind")
+	public String hotelOrderHistoryFindId(@ModelAttribute("orderHistory") hotelOrderHistoryForm form,
+									Model model){
+		List<Shop> sList = null;
+		List<OrderInfo> oList = null;
+		List<OrderInfo> oFindList = null;
+
+		sList = hotelService.shopFindAll();
+		oList = hotelService.orderInfoFind(form.getOrderShopId());
+		oFindList = hotelService.OrderInfoFindId(form.getOrderListId());
+
+		//System.out.println(form.getOrderListId());
+
+		model.addAttribute("orderListId",form.getOrderListId());
+		model.addAttribute("sList",sList);
+		model.addAttribute("oList",oList);
+		model.addAttribute("oFindList",oFindList);
 
 		return "hotelOrderHistory";
 	}
@@ -57,6 +84,8 @@ public class HotelController {
 
 		dList = hotelService.DeliveryManFindAll();
 
+
+		//確認
 		System.out.println(form.getDeliveryListDelete());
 
 		//model.addAttribute("ListDelete",form.getDeliveryListDelete());

@@ -9,7 +9,9 @@ import jp.co.shisa.entity.Shop;
 public interface HotelDao {
 	public List<Shop> shopFindAll();
 
-	public List<OrderInfo> orderInfoFindAll();
+	public List<OrderInfo> orderInfoFind(Integer shopId);
 
 	public List<DeliveryMan> DeliveryManFindAll();
+
+	public List<OrderInfo> OrderInfoFindId(Integer orderId);
 }
