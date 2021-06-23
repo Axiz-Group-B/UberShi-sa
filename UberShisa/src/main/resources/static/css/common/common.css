@@ -266,6 +266,11 @@ caption {
   font-size: 1.3rem;
 }
 
+.error-msg {
+  text-align: center;
+  color: red;
+}
+
 footer {
   background-color: #0B0001;
   color: white;

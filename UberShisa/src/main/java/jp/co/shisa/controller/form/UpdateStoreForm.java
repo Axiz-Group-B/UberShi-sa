@@ -4,15 +4,15 @@ import javax.validation.constraints.NotBlank;
 
 public class UpdateStoreForm {
 
-	@NotBlank
+	@NotBlank(message = "ログインIDは必須です")
 	private String loginId;
-	@NotBlank
+	@NotBlank(message = "パスワードは必須です")
 	private String pass;
-	@NotBlank
+	@NotBlank(message = "店舗名は必須です")
 	private String shopName;
-	@NotBlank
+	@NotBlank(message = "店舗の電話番号は必須です")
 	private String shopTel;
-	@NotBlank
+	@NotBlank(message = "店舗の住所は必須です")
 	private String address;
 
 	public String getLoginId() {

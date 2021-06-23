@@ -240,7 +240,11 @@ caption {
         font-size: 1.3rem;
     }
 }
-
+// Error message
+.error-msg {
+    text-align: center;
+    color: red;
+}
 // footer
 footer{
     background-color: $primary-color-black;

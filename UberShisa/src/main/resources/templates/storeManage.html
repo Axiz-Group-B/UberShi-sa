@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/common/common.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="css/store/store.css">
+
 </head>
 <body>
     <div id="bar">
@@ -24,19 +25,39 @@
     </div>
 
     <div class="wrapper">
-        <h1>店舗情報</h1>
-        <form th:action="@{/updateStore}" th:object="${updateStoreForm}" method="post">
-            <div><label class="label-format">ログインID：</label><input type="text" th:field="*{loginId}" value=""></div>
-            <div><label class="label-format">パスワード：</label><input type="text" th:field="*{pass}" value=""></div>
-            <div><label class="label-format">店舗名：</label><input type="text"  th:field="*{shopName}"></div>
-            <div><label class="label-format">電話番号：</label><input type="text" th:field="*{shopTel}"></div>
-            <div><label class="label-format">住所：</label><input type="text" th:field="*{address}" value=""></div>
-            <div class="btn-container">
-                <button class="btn back-btn" onclick="location.href='store'; return false;">戻る</button>
-                <button class="btn update-btn">更新</button>
-            </div>
-        </form>
+    	<div class="left-side">
+    		<h1>店舗情報</h1>
+	        <form th:action="@{/updateStore}" th:object="${updateStoreForm}" method="post">
+	        	<p th:if="${#fields.hasErrors('loginId')}" th:errors="*{loginId}" class="error-msg"></p>
+	            <div><label class="label-format">ログインID：</label><input type="text" th:field="*{loginId}" value=""></div>
+	            <p th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}" class="error-msg"></p>
+	            <div><label class="label-format">パスワード：</label><input type="text" th:field="*{pass}" value=""></div>
+	            <p th:if="${#fields.hasErrors('shopName')}" th:errors="*{shopName}" class="error-msg"></p>
+	            <div><label class="label-format">店舗名：</label><input type="text"  th:field="*{shopName}"></div>
+	            <p th:if="${#fields.hasErrors('shopTel')}" th:errors="*{shopTel}" class="error-msg"></p>
+	            <div><label class="label-format">電話番号：</label><input type="text" th:field="*{shopTel}"></div>
+	            <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="error-msg"></p>
+	            <div><label class="label-format">住所：</label><input type="text" th:field="*{address}" value=""></div>
+	            <div class="btn-container">
+	                <button class="btn back-btn" name="backStore">戻る</button>
+	                <button class="btn update-btn" name="updateStore" id="updateStoreBtn">更新</button>
+	            </div>
+	        </form>
+    	</div>
+    	 <div class="right-side">
+            <h1>店舗情報(更新の前)</h1>
+            <form action="#" th:object="${updateStoreForm}">
+                <div><label class="label-format">ログインID：</label><input type="text" readonly th:value="${oldUserInfo.loginId}"></div>
+                <div><label class="label-format">パスワード：</label><input type="text" readonly th:value="${oldUserInfo.pass}"></div>
+                <div><label class="label-format">店舗名：</label><input type="text" readonly th:value="${oldShop.shopName}"></div>
+                <div><label class="label-format">電話番号：</label><input type="text" readonly th:value="${oldShop.shopTel}"></div>
+                <div><label class="label-format">住所：</label><input type="text" readonly th:value="${oldShop.address}"></div>
+
+            </form>
+        </div>
+
     </div>
     <script src="js/js.js" type="text/javascript"></script>
+    <script src="js/storeManage.js" type="text/javascript"></script>
 </body>
 </html>

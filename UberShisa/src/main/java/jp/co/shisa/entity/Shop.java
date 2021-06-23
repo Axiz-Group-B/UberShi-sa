@@ -21,6 +21,13 @@ public class Shop {
 		this.shopTel = shopTel;
 		this.address = address;
 	}
+	//更新するため（pha)
+	public Shop(String shopName, String shopTel, String address) {
+
+		this.shopName = shopName;
+		this.shopTel = shopTel;
+		this.address = address;
+	}
 
 	//検索のために作りました
 	public Shop(Integer shopId, String shopName) {
