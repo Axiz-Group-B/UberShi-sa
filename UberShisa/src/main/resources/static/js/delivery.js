@@ -10,3 +10,19 @@ $('#updateDeliveryBtn').click(() => {
     }
 
 });
+
+//配達員が注文を選択
+function orderCheck(){
+
+	if(window.confirm('この注文を配達しますか？')){ // 確認ダイアログを表示
+
+		// 「OK」時の処理
+		location.href="@{/deliveryMan/deliveryManOrderSelected}";
+
+	}
+	else{ // 「キャンセル」時の処理
+
+		window.alert('キャンセルされました'); // キャンセル押した後にポップアップで出るメッセージ
+		return false; // 送信を中止
+	}
+}
