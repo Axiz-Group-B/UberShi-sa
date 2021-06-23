@@ -18,4 +18,5 @@ public interface AuthService {
 	public List<OrderInfo> checkFinishedOrderByShop(Shop shop);
 	public List<OrderInfo> checkNotFinishedOrderByShop(Shop shop);
 	public List<Room> checkAllRoomAndHasOrder();
+
 	}

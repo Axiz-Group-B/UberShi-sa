@@ -34,22 +34,8 @@
         </div>
         <div class="right-side"  style="display: flex; flex-direction: row; justify-content: center;">
             <!-- <div class="hotel-room"> -->
-                <form id="room-form" action="#">
-                	 <button class="room-btn "th:inline="text" th:each="room : ${session.AllRoomList}" th:classappned="${room.orderId != null} ? 'order-room'">[[${room.roomName}]]</button>
-                   <!--  <button class="room-btn order-room" name="#">101</button>
-                    <button class="room-btn order-room" name="#">102</button>
-                    <button class="room-btn order-room" name="#">103</button>
-                    <button class="room-btn order-room" name="#">201</button>
-                    <button class="room-btn order-room" name="#">202</button>
-                    <button class="room-btn order-room" name="#">203</button>
-                    <button class="room-btn" name="#">301</button>
-                    <button class="room-btn" name="#">302</button>
-                    <button class="room-btn" name="#">303</button>
-                    <button class="room-btn order-room" name="#">203</button>
-                    <button class="room-btn" name="#">301</button>
-                    <button class="room-btn" name="#">302</button>
-                    <button class="room-btn" name="#">303</button>
-                    <button class="room-btn" name="#">303</button> -->
+                <form id="room-form" action="@{/hotel/hotelOrder}">
+                	 <button form="room-form" class="room-btn "th:inline="text" th:each="room : ${session.AllRoomList}" th:class="${room.orderFlag == true} ?'room-btn order-room': room-btn" th:value="${room.orderFlag}" th:name="${room.roomId}" >[[${room.roomName}]]</button>
                 </form>
             <!-- </div> -->
         </div>

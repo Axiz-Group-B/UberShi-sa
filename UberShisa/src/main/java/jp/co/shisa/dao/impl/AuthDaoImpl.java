@@ -30,7 +30,7 @@ public class AuthDaoImpl implements AuthDao{
 	NamedParameterJdbcTemplate namedJT;
 
 	public UserInfo loginCheck (LoginForm form) {
-		String sql = "SELECT * FROM user_info WHERE login_id = :loginId AND pass = :pass AND role_id = :roleId";
+		String sql = SELECT_BY_LOGINID_AND_PASS_AND_ROLEID;
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("loginId", form.getLoginId());
 		param.addValue("pass", form.getPass());
@@ -86,9 +86,21 @@ public class AuthDaoImpl implements AuthDao{
 		return list.isEmpty() ? null : list;
 	}
 
-	public List<Room> checkAllRoomAndHasOrder() {
-	String sql = "SELECT r.*,order_id FROM room r FULL OUTER JOIN order_info oi ON r.room_id = oi.room_id WHERE status BETWEEN 1 AND 6";
+	public List<Room> checkAllRoom() {
+	String sql = "SELECT * FROM room ORDER BY room_id";
 		List<Room> list = namedJT.query(sql,new BeanPropertyRowMapper<Room>(Room.class));
-		return list.isEmpty() ? null : list;
+		return list;
+	}
+
+	public void checkHasOrderByRoom(Room room) {
+		String sql = "SELECT * FROM order_info WHERE status BETWEEN 1 AND 5  AND room_id = :roomId GROUP BY order_id,room_id";
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("roomId",room.getRoomId());
+		List<Room> roomList = namedJT.query(sql,param,new BeanPropertyRowMapper<Room>(Room.class));
+		if(roomList.isEmpty()) {
+			room.setOrderFlag(false);
+		}else {
+			room.setOrderFlag(true);
+		}
 	}
 }
