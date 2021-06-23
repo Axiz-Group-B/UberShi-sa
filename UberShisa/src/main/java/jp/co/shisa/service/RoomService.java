@@ -2,6 +2,7 @@ package jp.co.shisa.service;
 
 import java.util.List;
 
+import jp.co.shisa.entity.OrderInfo;
 import jp.co.shisa.entity.OrderItem;
 import jp.co.shisa.entity.Product;
 import jp.co.shisa.entity.Shop;
@@ -24,5 +25,11 @@ public interface RoomService {
 
 	//注文、insert order_info
 	public void insertOrderAll(Integer roomId, Integer shopId, Integer totalPrice, List<OrderItem> list);
+
+	//
+	public OrderInfo getByRoomIdTime(Integer roomId, String dateTime);
+
+	//１番新しい時間のオーダー取ってくる
+	public OrderInfo getRecentOrder(Integer roomId);
 
 }

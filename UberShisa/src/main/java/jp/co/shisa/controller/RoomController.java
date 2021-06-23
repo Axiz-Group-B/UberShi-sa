@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import jp.co.shisa.controller.form.RoomCartForm;
 import jp.co.shisa.controller.form.RoomOrderForm;
+import jp.co.shisa.entity.OrderInfo;
 import jp.co.shisa.entity.OrderItem;
 import jp.co.shisa.entity.Product;
 import jp.co.shisa.entity.Room;
@@ -223,6 +224,10 @@ public class RoomController {
 		Room room = (Room) session.getAttribute("loginUser");//部屋情報
 		Integer totalPrice = (Integer) session.getAttribute("totalPrice");
 		roomS.insertOrderAll(room.getRoomId(), form.getShopId(), totalPrice, list);
+
+		//insertした注文情報を、modelに入れて持っていく
+		OrderInfo order = roomS.getRecentOrder(room.getRoomId());
+		model.addAttribute("orderInfo", order);
 
 		return "orderHistoryDetail";
 

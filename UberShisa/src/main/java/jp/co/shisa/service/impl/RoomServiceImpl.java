@@ -67,4 +67,14 @@ public class RoomServiceImpl implements RoomService {
 		roomDao.insertLog(order.getOrderId(), dateTime);
 	}
 
+	//
+	public OrderInfo getByRoomIdTime(Integer roomId, String dateTime) {
+		return roomDao.getByRoomIdTime(roomId, dateTime);
+	}
+
+	//１番新しい時間のオーダー取ってくる
+	public OrderInfo getRecentOrder(Integer roomId) {
+		return roomDao.getRecentOrder(roomId);
+	}
+
 }

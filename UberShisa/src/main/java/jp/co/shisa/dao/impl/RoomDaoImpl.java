@@ -82,7 +82,7 @@ public class RoomDaoImpl implements RoomDao{
 	public void insertOrder(Integer roomId, Integer shopId, Integer totalPrice, String dateTime) {
 		String sql = "insert into order_info "
 				+ " (room_id, shop_id, total_price, status, date_time) "
-				+ " values (:roomId, :shopId, :totalPrice, 1, to_timestamp(:dateTime , 'YYYY-Mon-DD HH:MI:SS'))";//statusは１確定
+				+ " values (:roomId, :shopId, :totalPrice, 1, :dateTime)";//statusは１確定
 
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("roomId", roomId);
@@ -130,6 +130,17 @@ public class RoomDaoImpl implements RoomDao{
 
 		List<OrderInfo>list = namedJT.query(sql, param, new BeanPropertyRowMapper<OrderInfo>(OrderInfo.class));
 
+		return list.isEmpty() ? null : list.get(0);
+	}
+
+	//１番新しい時間のオーダー取ってくる
+	public OrderInfo getRecentOrder(Integer roomId) {
+		String sql = "select * from order Info where room_id = :id order by date_time desc";
+
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("roomId", roomId);
+
+		List<OrderInfo>list = namedJT.query(sql, param, new BeanPropertyRowMapper<OrderInfo>(OrderInfo.class));
 		return list.isEmpty() ? null : list.get(0);
 	}
 

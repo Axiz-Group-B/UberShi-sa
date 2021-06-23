@@ -32,4 +32,7 @@ public interface RoomDao {
 		public void insertItem(Integer orderId, Integer productId, Integer amount, Integer subtotal);
 		//insert log
 		public void insertLog(Integer orderId, String dateTime);
+
+	//
+		public OrderInfo getRecentOrder(Integer roomId);
 }
