@@ -15,6 +15,7 @@ import jp.co.shisa.entity.OrderItem;
 
 @Repository
 public class DeliveryManDaoImpl implements DeliveryManDao {
+
 	private String SELECT_FROM_ORDERINFO_BY_ORDERID = "SELECT oi.*,shop_name,shop_tel,address FROM order_info oi JOIN shop s ON oi.shop_id = s.shop_id WHERE order_id = :orderId";
 	private String SELECT_FROM_ORDERITEM_BY_ORDERID = "SELECT oi.*,product_name,text FROM order_item oi JOIN product p ON oi.product_id = p.product_id  WHERE order_id = :orderId";
 
