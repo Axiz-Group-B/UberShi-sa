@@ -37,14 +37,9 @@
 	            <td th:text="${deliveryList.deliveryManId}"></td>
 	    		<td th:text="${deliveryList.deliveryManName}"></td>
 	    		<td th:text="${deliveryList.deliveryManTel}"></td>
-                <td> <form th:object="${hotelDelivery}" action="/hotel/deliveryListDelete" onclick=check() name="deliveryListDelete"><button class="btn-mini del-btn-mini" value="${deliveryList.deliveryManId}" th:field="*{deliveryListDelete}">削除</button></form></td>
+                <td> <form th:object="${hotelDelivery}" action="/hotel/deliveryListDelete" onclick=check() name="deliveryListDelete"><button class="btn-mini del-btn-mini" value="${deliveryList.deliveryManId}">削除</button></form></td>
             </tr>
         </table>
     </div>
-<<<<<<< HEAD
-    <script src="js/js.js" type="text/javascript"></script>
-=======
-
->>>>>>> refs/heads/daito
 </body>
 </html>
