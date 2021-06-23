@@ -20,12 +20,16 @@ import jp.co.shisa.entity.Room;
 import jp.co.shisa.entity.Shop;
 import jp.co.shisa.entity.UserInfo;
 import jp.co.shisa.service.AuthService;
+import jp.co.shisa.service.RoomService;
 
 @Controller
 @EnableAutoConfiguration
 public class AuthController {
 	@Autowired
 	AuthService authService;
+
+	@Autowired
+	RoomService roomService;
 
 	@Autowired
 	HttpSession session;
@@ -54,8 +58,16 @@ public class AuthController {
 
 			switch(roleId) {
 			case 1:
+
 				Room room = authService.loginByRoom(userInfo);
 				session.setAttribute("loginUser", room);
+
+				List<Shop> list = roomService.findAll();
+				//全検索用に、listにadd
+				Shop shopPullDown = new Shop(0,"全店舗から検索");
+				list.add(0,shopPullDown);
+				session.setAttribute("shopList", list);
+
 				return "order";
 
 			case 2:

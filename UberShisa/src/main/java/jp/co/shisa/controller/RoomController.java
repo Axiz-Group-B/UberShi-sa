@@ -32,7 +32,6 @@ public class RoomController {
 
 	@GetMapping("/room/order")
 	public String order(Model model) {
-
 		List<Shop> list = roomS.findAll();
 		//全検索用に、listにadd
 		Shop shop = new Shop(0,"全店舗から検索");

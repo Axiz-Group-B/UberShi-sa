@@ -6,7 +6,7 @@ public class Room extends UserInfo{
 	private String roomName;
 
 	//注文が入っているか入っていないかを判定するのに仕様
-	private Integer orderId;
+	private boolean orderFlag;
 
 
 	public Room() {
@@ -21,36 +21,39 @@ public class Room extends UserInfo{
 	}
 
 
-
-
-	Integer getRoomId() {
+	public Integer getRoomId() {
 		return roomId;
 	}
+
 
 	public void setRoomId(Integer roomId) {
 		this.roomId = roomId;
 	}
 
-	public void setUserId(Integer userId) {
 
-	}
 	public String getRoomName() {
 		return roomName;
 	}
+
 
 	public void setRoomName(String roomName) {
 		this.roomName = roomName;
 	}
 
 
-	public Integer getOrderId() {
-		return orderId;
+	public boolean isOrderFlag() {
+		return orderFlag;
 	}
 
 
-	public void setOrderId(Integer orderId) {
-		this.orderId = orderId;
+	public void setOrderFlag(boolean orderFlag) {
+		this.orderFlag = orderFlag;
 	}
+
+
+
+
+
 
 
 
