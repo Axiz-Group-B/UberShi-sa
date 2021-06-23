@@ -11,4 +11,5 @@ public interface DeliveryManDao {
 	public List<OrderItem> checkOrderContents(Integer orderId);
 //	配達員情報を更新(pha)----------------------------------------------------------------------
 	public void updateDeliveryManInfo(DeliveryMan deliveryMan);
+//	配達員情報を更新(pha)----------------------------------------------------------------------
 }
