@@ -24,15 +24,13 @@ public class ShopController {
 	@Autowired
 	HttpSession session;
 
+//	店舗情報更新(pha) start---------------------------------------------------------
 	@RequestMapping(value="/storeManage")
 	public String storeManage( Model model) {
 		UpdateStoreForm updateStoreForm = new UpdateStoreForm();
 		Shop shop = (Shop) session.getAttribute("loginUser");
 		UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
 		model.addAttribute("updateStoreForm", updateStoreForm);
-		model.addAttribute("oldShop", shop);
-		model.addAttribute("oldUserInfo", userInfo);
-//		session.setAttribute("updateStoreForm", updateStoreForm);
 		updateStoreForm.setLoginId(userInfo.getLoginId());
 		updateStoreForm.setPass(userInfo.getPass());
 		updateStoreForm.setShopName(shop.getShopName());
@@ -40,10 +38,12 @@ public class ShopController {
 		updateStoreForm.setAddress(shop.getAddress());
 			return "storeManage";
 	}
+//	戻るボタンを押すとき
 	@RequestMapping(value="/updateStore", params="backStore")
 	public String backStore(Model model) {
 		return "store";
 	}
+//	更新ボタンを押すとき
 	@RequestMapping(value="/updateStore", params="updateStore")
 	public String updateStore(@Validated UpdateStoreForm updateStoreForm,
 			BindingResult bindingResult,  Model model) {
@@ -51,18 +51,15 @@ public class ShopController {
 			return "storeManage";
 		}
 		else {
-			Shop oldShop = (Shop) session.getAttribute("loginUser");
+//			Shop oldShop = (Shop) session.getAttribute("loginUser");
 			UserInfo oldUserInfo = (UserInfo) session.getAttribute("userInfo");
 			UserInfo userInfo = new UserInfo(oldUserInfo.getUserId(), updateStoreForm.getLoginId(),
 					updateStoreForm.getPass(), oldUserInfo.getRoleId());
 			Shop shop = new Shop(updateStoreForm.getShopName(), updateStoreForm.getShopTel(),
 					updateStoreForm.getAddress());
-			model.addAttribute("oldShop", oldShop);
-			model.addAttribute("oldUserInfo", oldUserInfo);
 			shopService.updateShopInfo(userInfo, shop);
-			session.setAttribute("loginUser", shop);
-			session.setAttribute("userInfo", userInfo);
 			return "storeManage";
 		}
 	}
+//	店舗情報更新(pha) end---------------------------------------------------------
 }

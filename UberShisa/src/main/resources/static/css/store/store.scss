@@ -1,6 +1,6 @@
 @import "../common/variables.scss";
 .wrapper {
-    @include flex-box-option(row, center, center);
+    @include flex-box-option(column, center, center);
     .wrapper {
         overflow: hidden;
     }
