@@ -12,4 +12,25 @@ const changeStotal =()=>{
 
 //amountが変わった時のイベントを定義
 	amount.addEventListener('input',changeStotal);
+//////////////////////////////////////////////////////////////////////////////////
+//削除ボタンポップアップ
+function check(){
 
+	if(window.confirm('操作を確定してよろしいですか？')){ // 確認ダイアログを表示
+
+		// 「OK」時の処理
+		return true;
+
+	}
+	else{ // 「キャンセル」時の処理
+
+		window.alert('キャンセルされました'); // キャンセル押した後にポップアップで出るメッセージ
+		return false; // 送信を中止
+	}
+}
+
+//ここで、ボタン押したときの動きを定義
+/*	var btns = document.getElementsByClassName('deleteItem');
+	for(let i =0; i< btns.length ; i++){
+		btns[i].addEventListener('click', check);
+	}*/

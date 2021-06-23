@@ -108,7 +108,7 @@ body{
     background-color: #36c244a1;
 }
 // input
-input[type="text"], input[type="number"]{
+input[type="text"], input[type="number"], input[type="password"]{
     border: none;
     border-radius: 20px;
     box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
@@ -240,7 +240,11 @@ caption {
         font-size: 1.3rem;
     }
 }
-
+// Error message
+.error-msg {
+    text-align: center;
+    color: red;
+}
 // footer
 footer{
     background-color: $primary-color-black;

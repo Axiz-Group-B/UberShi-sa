@@ -21,6 +21,7 @@ public class Room extends UserInfo{
 	}
 
 
+
 	public Integer getRoomId() {
 		return roomId;
 	}

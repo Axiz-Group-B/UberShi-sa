@@ -2,6 +2,7 @@ package jp.co.shisa.service;
 
 import java.util.List;
 
+import jp.co.shisa.entity.OrderItem;
 import jp.co.shisa.entity.Product;
 import jp.co.shisa.entity.Shop;
 
@@ -20,5 +21,8 @@ public interface RoomService {
 
 	//productIdから情報取得
 	public Product productById(Integer productId);
+
+	//注文、insert order_info
+	public void insertOrderAll(Integer roomId, Integer shopId, Integer totalPrice, List<OrderItem> list);
 
 }

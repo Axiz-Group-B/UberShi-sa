@@ -11,6 +11,8 @@ import jp.co.shisa.dao.DeliveryManDao;
 import jp.co.shisa.dao.ShopDao;
 import jp.co.shisa.entity.OrderInfo;
 import jp.co.shisa.entity.OrderItem;
+import jp.co.shisa.entity.Shop;
+import jp.co.shisa.entity.UserInfo;
 import jp.co.shisa.service.ShopService;
 
 @Service
@@ -19,6 +21,12 @@ public class ShopServiceImpl implements ShopService{
 
 	@Autowired
 	ShopDao shopDao;
+	@Override
+	public void updateShopInfo(UserInfo userInfo, Shop shop) {
+		// TODO 自動生成されたメソッド・スタブ
+		shopDao.updateShopInfo(userInfo, shop);
+	}
+
 
 	@Autowired
 	DeliveryManDao deliveryManDao;

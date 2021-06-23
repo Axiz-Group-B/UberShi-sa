@@ -20,6 +20,7 @@ import jp.co.shisa.controller.form.RoomCartForm;
 import jp.co.shisa.controller.form.RoomOrderForm;
 import jp.co.shisa.entity.OrderItem;
 import jp.co.shisa.entity.Product;
+import jp.co.shisa.entity.Room;
 import jp.co.shisa.entity.Shop;
 import jp.co.shisa.service.RoomService;
 
@@ -37,6 +38,14 @@ public class RoomController {
 		Shop shop = new Shop(0,"全店舗から検索");
 		list.add(0,shop);
 		session.setAttribute("shopList", list);
+		//リストnullなら合計金額も０にしたい
+
+		if(session.getAttribute("roomCart")!=null) {
+			List<OrderItem> itemList = (List<OrderItem>)session.getAttribute("roomCart");
+			if(itemList.isEmpty()) {
+			session.setAttribute("totalPrice","0");
+			}
+		}
 
 		return "order";
 	}
@@ -89,7 +98,7 @@ public class RoomController {
 	@RequestMapping("/room/select/{productId}")
 	public String orderDetail(@PathVariable Integer productId, @ModelAttribute("roomCart") RoomCartForm form, Model model) {
 		Product p = roomS.productById(productId);
-		model.addAttribute("product", p);
+		session.setAttribute("product", p);
 		return "orderDetail";
 	}
 
@@ -115,29 +124,142 @@ public class RoomController {
 
 		//orderItem型のインスタンスをセッションに入れる…？
 		//先にセッションからリスト取得→そこにaddして、セッションにリストを入れなおす
-		OrderItem order = new OrderItem(form.getProductId(),form.getAmount(), form.getSubtotal(), form.getProductName());
+		OrderItem order = new OrderItem(form.getProductId(),form.getAmount(), form.getSubtotal(), form.getProductName(), form.getShopId());
 		List<OrderItem> cartList = new ArrayList<OrderItem>();
 		if(session.getAttribute("roomCart") != null) {
-		cartList = (List<OrderItem>)session.getAttribute("roomCart");//null回避
+			cartList = (List<OrderItem>)session.getAttribute("roomCart");//null回避
+			for(OrderItem i : cartList) {
+				if(i.getProductId() == form.getProductId()) {//カートに入れる商品IDが、リストに入ってると、はじくように。
+					model.addAttribute("msg", "この商品は選択済みです。一度カートから削除して、追加してください。");
+					return "orderDetail";
+				}
+			}
 		}
 		cartList.add(order);
 		session.setAttribute("roomCart", cartList);
 
 		Integer total =0;
-		for(OrderItem i : cartList) {
-			total += i.getSubtotal();
+		if(cartList != null) {//null回避
+			for(OrderItem i : cartList) {
+				total += i.getSubtotal();
+			}
 		}
 		session.setAttribute("totalPrice", total);
 		return "order";
 	}
 
-	//subtotal出すJS用※いらんかも
-	@RequestMapping("/room/subtotal")
-	@ResponseBody
-	public String subtotal() {
+	//カートから商品を削除
+	@RequestMapping(value="/room/deleteCart", params="deleteOne", method=RequestMethod.POST)//1つだけ削除
+	public String deleteCart(@ModelAttribute("roomCart") RoomCartForm form,Model model) {
+		List<OrderItem> list = (List<OrderItem>)session.getAttribute("roomCart");//ここに来る＝リストnullではない
+		int index=0;
+		if(list != null) {//null回避
+			for(OrderItem i : list) {
+				if(i.getProductId() == form.getProductId()) {//削除ボタンと同じpIdなら、nullとする
+					list.remove(index);
+						break;//removeしたらfor文を抜けたい
+				}
+				index ++;
+				//for文に行かせたくない
 
-		return "";
+			}
+		}
+		session.setAttribute("roomCart", list);
+		Integer total =0;
+		if(list != null) {//消した後に…null回避
+			for(OrderItem i : list) {
+				total += i.getSubtotal();
+			}
+		} else {
+			total=0;
+		}
+		session.setAttribute("totalPrice", total);
+
+		if(form.getFrom().equals("order")) {//どのページから来たか判別
+			return "order";
+		}
+		return "orderDetail";
 	}
+
+	//全消し
+	@RequestMapping(value="/room/deleteCart", params="deleteAll", method=RequestMethod.POST)//1つだけ削除
+	public String deleteAll(@ModelAttribute("roomCart") RoomCartForm form,Model model) {
+		List<OrderItem> list = new ArrayList<OrderItem>();
+		if(session.getAttribute("roomCart")!=null){//セッションがnullじゃないときにだけ、listにいれれる
+			list = (List<OrderItem>)session.getAttribute("roomCart");
+		}
+		if(!list.isEmpty()) {
+			list.clear();
+		}
+
+		session.setAttribute("roomCart", list);
+		session.setAttribute("totalPrice", "0");
+		if(form.getFrom().equals("order")) {//どのページから来たか判別
+			return "order";
+		}
+		return "orderDetail";
+	}
+
+	//注文
+	@RequestMapping(value="/room/deleteCart", params="order", method=RequestMethod.POST)
+	public String orderCart(@ModelAttribute("roomCart") RoomCartForm form,Model model) {
+		//カート空なら、はじく
+		List<OrderItem> list = new ArrayList<OrderItem>();
+		if(session.getAttribute("roomCart")!=null){//セッションがnullじゃないときにだけ、listにいれれる
+			list = (List<OrderItem>)session.getAttribute("roomCart");
+		}
+		if(list.isEmpty() || session.getAttribute("roomCart")==null) {//セッションnullか、listが空のとき
+			model.addAttribute("error","カートが空です");
+
+			if(form.getFrom().equals("order")) {//どのページから来たか判別
+				return "order";
+			} else {
+				return "orderDetail";
+			}
+		}
+
+		//if文抜ける＝注文できる(order_info,order_item,logにinsertする)
+		Room room = (Room) session.getAttribute("loginUser");//部屋情報
+		Integer totalPrice = (Integer) session.getAttribute("totalPrice");
+		roomS.insertOrderAll(room.getRoomId(), form.getShopId(), totalPrice, list);
+
+		return "orderHistoryDetail";
+
+	}
+
+	//カート削除ＪＳ用できなさそうだからやめた
+	/*@GetMapping("/room/deleteCart/{b}")
+	@ResponseBody
+	public String deleteCart(@PathVariable("b") Integer productId, @ModelAttribute("roomCart") RoomCartForm form,Model model){
+		List<OrderItem> list = (List<OrderItem>)session.getAttribute("roomCart");//ここに来る＝リストnullではない
+		int index=0;
+		for(OrderItem i : list) {
+			if(i.getProductId() == productId) {//削除ボタンと同じpIdなら、nullとする
+				list.remove(index);
+			}
+			index ++;
+		}
+		session.setAttribute("roomCart", list);
+		Integer total =0;
+		if(list != null) {//null回避
+			for(OrderItem i : list) {
+				total += i.getSubtotal();
+			}
+		}
+		session.setAttribute("totalPrice", total);
+		//HTML
+		String html = "<caption>カート</caption><tr><th>商品名</th><th>個数</th><th></th></tr>";
+		if(list != null) {//消したうえでリストがnullじゃないか確認
+			for(OrderItem i : list) {
+				html += "<tr><td>"+ i.getProductName()+"</td>"
+							+ "<td>"+ i.getAmount() +"<td>"
+							+ "<td><button class=\"btn-mini del-btn-mini deleteItem\" value=\""+i.getProductId()+"\">削除</button></td>";
+			}
+		}
+		html += "</table>";
+		return html;
+	}
+	*/
 
 }
 

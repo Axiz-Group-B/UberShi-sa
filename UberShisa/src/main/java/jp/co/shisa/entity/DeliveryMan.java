@@ -16,6 +16,15 @@ public class DeliveryMan extends UserInfo{
 		this.deliveryManName = deliveryManName;
 		this.deliveryManTel = deliveryManTel;
 	}
+//	配達員情報の更新
+	public DeliveryMan(Integer userId,String loginId,String pass,Integer roleId,String deliveryManName,String deliveryManTel) {
+		super(userId,loginId,pass,roleId);
+//		this.deliveryManId = deliveryManId;
+		this.deliveryManName = deliveryManName;
+		this.deliveryManTel = deliveryManTel;
+	}
+
+
 
 
 

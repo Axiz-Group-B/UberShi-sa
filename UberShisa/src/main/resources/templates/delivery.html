@@ -9,7 +9,7 @@
     <script src="https://kit.fontawesome.com/98ca2fa25d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/css/common/common.css}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+    <link rel="stylesheet" href="css/delivery/delivery.css">
 </head>
 <body>
     <div id="bar">
@@ -17,7 +17,7 @@
         <div id="menu-icon"><i class="fas fa-bars fa-2x"></i></div>
     </div>
     <div class="sidebar-menu">
-        <div class="menu-item"><form action="#"><button class="menu-btn">個人情報</button></form></div>
+        <div class="menu-item"><form action="deliveryInfo"><button class="menu-btn">個人情報</button></form></div>
         <div class="menu-item"><form action="#"><button class="menu-btn">ログアウト</button></form></div>
     </div>
     <div class="wrapper">
@@ -29,7 +29,7 @@
                 <th>住所</th>
             </tr>
             <tr th:inline="text" th:each="order : ${session.noDeliveryManOrderList}">
-                <td><a th:href="@{/deliveryMan/deliveryOrderSelect/{orderId}(orderId=${order.orderId})}" class="bin-mini">[[${order.orderId}]]</a></td>
+                <td><a th:href="@{/deliveryMan/deliveryOrderSelect/{orderId}(orderId=${order.orderId})}" class="btn-mini">[[${order.orderId}]]</a></td>
                 <td>[[${order.shopName}]]</td>
                 <td>[[${order.address}]]</td>
             </tr>
