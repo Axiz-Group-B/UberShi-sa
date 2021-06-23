@@ -5,6 +5,9 @@ public class Room extends UserInfo{
 	private Integer roomId;
 	private String roomName;
 
+	//注文が入っているか入っていないかを判定するのに仕様
+	private Integer orderId;
+
 
 	public Room() {
 
@@ -37,6 +40,16 @@ public class Room extends UserInfo{
 
 	public void setRoomName(String roomName) {
 		this.roomName = roomName;
+	}
+
+
+	public Integer getOrderId() {
+		return orderId;
+	}
+
+
+	public void setOrderId(Integer orderId) {
+		this.orderId = orderId;
 	}
 
 

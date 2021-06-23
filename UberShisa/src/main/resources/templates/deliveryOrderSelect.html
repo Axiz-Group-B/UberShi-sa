@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Uber Shi-sa</title>
-    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
     <script src="https://kit.fontawesome.com/98ca2fa25d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/css/common/common.css}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -24,14 +24,14 @@
     <div class="wrapper">
         <div class="left-side">
             <h1>注文情報</h1>
-            <div><label>注文ID</label><input type="text" th:value="${session.orderInfoForRoom.orderId}" readonly></div>
+            <div><label>注文ID</label><input type="text" th:value="${session.orderInfoForDeliveryMan.orderId}" readonly></div>
             <table>
                 <tr >
                     <th>商品名</th>
                     <th>個数</th>
                     <th>説明</th>
                 </tr>
-                 <tr th:inline="text" th:each="orderItem : ${session.orderItemForRoom}">
+                 <tr th:inline="text" th:each="orderItem : ${session.orderItemForDeliveryMan}">
                 <td>[[${orderItem.productName}]]</td>
                 <td>[[${orderItem.amount}]]</td>
                 <td>[[${orderItem.text}]]</td>
@@ -44,11 +44,11 @@
             </table>
         </div>
         <div class="right-side">
-            <div><label class="label-format">店舗名</label><input type="text" th:value="${session.orderInfoForRoom.shopName}" readonly></div>
-            <div><label class="label-format">住所</label><input type="text" th:value="${session.orderInfoForRoom.address}" readonly></div>
+            <div><label class="label-format">店舗名</label><input type="text" th:value="${session.orderInfoForDeliveryMan.shopName}" readonly></div>
+            <div><label class="label-format">住所</label><input type="text" th:value="${session.orderInfoForDeliveryMan.address}" readonly></div>
             <div class="btn-container">
-                <form action="#"><button class="btn add-btn">選択</button></form>
-                <button type="button" class="btn back-btn" >戻る</button>
+                <button class="btn add-btn" th:attr="onClick='location.href=\''+@{/deliveryMan/deliveryOrderSelected}+'\''">選択</button>
+                <button type="button" class="btn back-btn" th:attr="onClick='location.href=\''+@{/deliveryMan/delivery}+'\''">戻る</button>
             </div>
         </div>
     </div>

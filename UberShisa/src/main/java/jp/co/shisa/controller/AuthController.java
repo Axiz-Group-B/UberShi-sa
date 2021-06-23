@@ -62,7 +62,6 @@ public class AuthController {
 				DeliveryMan deliveryMan = authService.loginByDeliveryMan(userInfo);
 				session.setAttribute("loginUser", deliveryMan);
 				List<OrderInfo> noDeliveryManOrderList = authService.checkNoDeliveryManOrder();
-				System.out.println(noDeliveryManOrderList.get(0).getAddress());
 				session.setAttribute("noDeliveryManOrderList", noDeliveryManOrderList);
 				return "delivery";
 			case 3:
@@ -70,13 +69,14 @@ public class AuthController {
 				session.setAttribute("loginUser",shop);
 				List<OrderInfo> finishedOrderList = authService.checkFinishedOrderByShop(shop);
 				List<OrderInfo> notFinishedOrderList = authService.checkNotFinishedOrderByShop(shop);
-				session.setAttribute("finishedOrderListBy",finishedOrderList);
+
+				session.setAttribute("finishedOrderList",finishedOrderList);
 				session.setAttribute("notFinishedOrderList",notFinishedOrderList);
-				return "store";
+				return "shop";
 
 			case 4:
 				session.setAttribute("loginUser",userInfo);
-				List<Room> AllRoomList = authService.checkAllRoom();
+				List<Room> AllRoomList = authService.checkAllRoomAndHasOrder();
 				session.setAttribute("AllRoomList",AllRoomList);
 				return "hotel";
 			default:
