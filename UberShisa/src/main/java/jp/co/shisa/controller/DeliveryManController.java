@@ -26,6 +26,11 @@ import jp.co.shisa.service.DeliveryManService;
 
 @Controller
 @EnableAutoConfiguration
+
+
+
+
+
 public class DeliveryManController {
 	@Autowired
 	private DeliveryManService deliveryManService;
