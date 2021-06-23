@@ -12,6 +12,13 @@ public class RoomCartForm {
 	//カートに追加する時に便利なので入れました
 	private Integer productId;
 
+	//削除用
+	private String from;
+
+	//注文用
+	private Integer shopId;
+	private Integer totalPrice;
+
 	public Integer getAmount() {
 		return amount;
 	}
@@ -53,5 +60,23 @@ public class RoomCartForm {
 	}
 	public void setProductName(String productName) {
 		this.productName = productName;
+	}
+	public String getFrom() {
+		return from;
+	}
+	public void setFrom(String from) {
+		this.from = from;
+	}
+	public Integer getShopId() {
+		return shopId;
+	}
+	public void setShopId(Integer shopId) {
+		this.shopId = shopId;
+	}
+	public Integer getTotalPrice() {
+		return totalPrice;
+	}
+	public void setTotalPrice(Integer totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 }
