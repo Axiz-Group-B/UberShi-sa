@@ -3,6 +3,7 @@ package jp.co.shisa.service.impl;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,9 +54,11 @@ public class RoomServiceImpl implements RoomService {
 	//注文。トランザクションのために１つのメソッドで全部のinsert実行する
 	@Override
 	public void insertOrderAll(Integer roomId, Integer shopId, Integer totalPrice, List<OrderItem> list) {
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mi:ss");
+		Timestamp timestamp = new Timestamp(LocalDateTime.now());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		String dateTime = sdf.format(timestamp);
+		System.out.println(timestamp);
+		System.out.println(dateTime);
 
 		roomDao.insertOrder(roomId, shopId, totalPrice, dateTime);
 		OrderInfo order = roomDao.getByRoomIdTime(roomId, dateTime);

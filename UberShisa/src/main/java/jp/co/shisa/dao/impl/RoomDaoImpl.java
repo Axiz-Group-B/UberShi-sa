@@ -82,7 +82,7 @@ public class RoomDaoImpl implements RoomDao{
 	public void insertOrder(Integer roomId, Integer shopId, Integer totalPrice, String dateTime) {
 		String sql = "insert into order_info "
 				+ " (room_id, shop_id, total_price, status, date_time) "
-				+ " values (:roomId, :shopId, :totalPrice, 1, :dateTime)";//statusは１確定
+				+ " values (:roomId, :shopId, :totalPrice, 1, to_timestamp(:dateTime, 'YY/MM/DD HH:mi:ss))";//statusは１確定
 
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("roomId", roomId);
