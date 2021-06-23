@@ -31,12 +31,7 @@
         <h1>注文履歴</h1>
         <div class="content-container">
             <div class="left-side">
-<<<<<<< HEAD
             	<form th:action="@{/hotel/orderHistory}" th:object="${orderHistory}">
-=======
-<<<<<<< HEAD
-            	<form th:action="@{/hotel/orderHistory}">
->>>>>>> branch 'main' of https://github.com/Axiz-Group-B/UberShi-sa.git
 	                <div>
 	                	<label class="label-format">月</label>
 	                    <select name="Month" id="MonthNum">
@@ -63,52 +58,16 @@
 	                </div>
                 </form>
                <table>
-=======
-                <div class="select-option">
-                    <label class="label-format">月</label>
-                    <select name="Month" id="MonthNum">
-                        <option value="1">01</option>
-                        <option value="2">02</option>
-                        <option value="3">03</option>
-                        <option value="4">04</option>
-                        <option value="5">05</option>
-                        <option value="6">06</option>
-                        <option value="7">07</option>
-                        <option value="8">08</option>
-                        <option value="9">09</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                    </select>
-                </div>
-                <div class="select-option">
-                    <label class="label-format">店舗</label>
-                    <select name="#" id="#">
-                        <option value="#">A店舗</option>
-                        <option value="#">B店舗</option>
-                        <option value="#">C店舗</option>
-                    </select>
-                </div>
-               <table border=1>
->>>>>>> refs/remotes/origin/pha
                    <tr>
                        <th>注文ID</th>
                        <th>日付</th>
                        <th>金額(円)</th>
                    </tr>
-<<<<<<< HEAD
                    <tr th:each="orderList : ${oList}">
                         <td><form th:object="${orderHistory}" action="/hotel/orderHistoryFind"><button class="btn-mini" name="orderListId" th:value="${orderList.orderId}"  th:text="${orderList.orderId}"></button></form></td>
                         <td th:text="${orderList.dateTime}"></td>
 			    		<td th:text="${orderList.totalPrice}"></td>
                     </tr>
-=======
-                   <tr th:each="orderInfo : ${oList}">
-	               		<td><form action="/hotel/orderHistory"><button class="btn-mini" name="orderId" value="${orderInfo.orderId}" th:text="${orderInfo.orderId}"></button></form></td>
-	    				<td th:text="${orderInfo.date}"></td>
-	    				<td th:text="${orderInfo.totalPrice}"></td>
-	    			</tr>
->>>>>>> branch 'main' of https://github.com/Axiz-Group-B/UberShi-sa.git
                </table>
 
                <p class="total-price">合計金額(円)：<span>15000</span></p>
