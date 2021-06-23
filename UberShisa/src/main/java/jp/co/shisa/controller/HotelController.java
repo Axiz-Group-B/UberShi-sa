@@ -39,7 +39,8 @@ public class HotelController {
 	}
 
 	@RequestMapping("/hotel/delivery")
-	public String hotelDelivery(Model model){
+	public String hotelDelivery(@ModelAttribute("hotelDelivery") hotelDeliveryForm form,
+								Model model){
 		List<DeliveryMan> dList = null;
 
 		dList = hotelService.DeliveryManFindAll();
@@ -50,8 +51,7 @@ public class HotelController {
 	}
 
 	@RequestMapping("/hotel/deliveryListDelete")
-	public String hotelDeliveryListDelete(
-											@ModelAttribute("hotelDelivery") hotelDeliveryForm form,
+	public String hotelDeliveryListDelete(@ModelAttribute("hotelDelivery") hotelDeliveryForm form,
 											Model model){
 		List<DeliveryMan> dList = null;
 
@@ -59,7 +59,7 @@ public class HotelController {
 
 		System.out.println(form.getDeliveryListDelete());
 
-		model.addAttribute("ListDelete",form.getDeliveryListDelete());
+		//model.addAttribute("ListDelete",form.getDeliveryListDelete());
 		model.addAttribute("dList",dList);
 
 		return "hotelDelivery";
