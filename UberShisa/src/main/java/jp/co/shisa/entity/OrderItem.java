@@ -9,6 +9,8 @@ public class OrderItem {
 
 	//カートに入れるときに便利なので入れました
 	private String productName;
+	private Integer ShopId;
+	private Integer totalPrice;
 
 	public OrderItem() {
 
@@ -24,11 +26,12 @@ public class OrderItem {
 	}
 
 	//カートに入れるためにつくりました
-	public OrderItem(Integer productId, Integer amount, Integer subtotal, String productName) {
+	public OrderItem(Integer productId, Integer amount, Integer subtotal, String productName, Integer shopId) {
 		this.productId = productId;
 		this.amount = amount;
 		this.subtotal = subtotal;
 		this.productName = productName;
+		this.ShopId = shopId;
 	}
 
 	public Integer getItemId() {
@@ -77,6 +80,22 @@ public class OrderItem {
 
 	public void setProductName(String productName) {
 		this.productName = productName;
+	}
+
+	public Integer getShopId() {
+		return ShopId;
+	}
+
+	public void setShopId(Integer shopId) {
+		ShopId = shopId;
+	}
+
+	public Integer getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(Integer totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 
 

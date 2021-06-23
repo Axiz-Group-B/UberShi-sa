@@ -23,19 +23,20 @@
 
     <div class="wrapper">
         <div class="left-side">
+        <p th:text="${msg}"></p>
         <form action="#" th:action="@{/room/order}" th:object="${roomCart}" method="post">
             <div><label class="label-format">画像：</label>
-                <img src="${product.image}" alt="商品の画像" name="image">
+                <img src="${session.product.image}" alt="商品の画像" name="image">
             </div>
             <div><label class="label-format">説明：</label>
-                <textarea name="text" id="#" rows="3" th:text="${product.text}" readonly>
+                <textarea name="text" id="#" rows="3" th:text="${session.product.text}" readonly>
                 </textarea>
             </div>
             <div><label class="label-format">商品名：</label>
-                <input type="text" name="productName" th:value="${product.productName}" readonly>
+                <input type="text" name="productName" th:value="${session.product.productName}" readonly>
             </div>
             <div><label class="label-format" aria-readonly="true">単価(円)：</label>
-                <input type="text" name="price" th:value="${product.price}" readonly id="price">
+                <input type="text" name="price" th:value="${session.product.price}" readonly id="price">
             </div>
                 <div><label class="label-format">個数：</label>
                     <input type="number" min="1" max="10" name="amount" id="amount">
@@ -44,7 +45,8 @@
                     <input type="text" readonly name="subtotal" id="subtotal">
                 </div>
                 <div class="btn-container">
-                <input type="hidden" name="productId" th:value="${product.productId}">
+                <input type="hidden" name="productId" th:value="${session.product.productId}">
+                <input type="hidden" name="shopId" th:value="${session.product.shopId}">
                     <button name="roomBack" class="btn back-btn">戻る</button>
                     <button name="cart" class="btn primary-btn">カートに入れる</button>
                 </div>
@@ -52,6 +54,8 @@
 
         </div>
         <div class="right-side">
+        <form th:action="@{/room/deleteCart}" th:object="${roomCart}" method="post" onSubmit="return check()">
+        <p th:text="${error}"></p>
             <table>
                 <caption>カート</caption>
                 <tr>
@@ -60,16 +64,19 @@
                     <th></th>
                 </tr>
                 <tr th:inline="text" th:each="item : ${session.roomCart}">
-				<td>[[${item.productName}]]</td>
-				<td>[[${item.amount}]]</td>
-				<td><button class="btn-mini del-btn-mini" id="deleteItem" th:value="${item.productId}">削除</button></td>
+				<td>[[${item.productName}]]<input type="hidden" name="from" th:value="orderDetail"></td>
+				<td>[[${item.amount}]]<input type="hidden" name="productId" th:value="${item.productId}">
+				<input type="hidden" name="shopId" th:value="${item.shopId}"></td>
+				<td><button class="btn-mini del-btn-mini deleteItem" name="deleteOne">削除</button></td>
 				</tr>
             </table>
             <p class="total-price">合計金額(円)：<span th:inline="text">[[${session.totalPrice}]]</span></p>
+            <input type="hidden" name="totalPrice" th:value="${session.totalPrice}">
             <div class="btn-container">
-                <button class="btn cancel-btn">キャンセル</button>
-                <button class="btn primary-btn">確定</button>
+                <button class="btn cancel-btn" name="deleteAll">キャンセル</button>
+                <button class="btn primary-btn" name="order">確定</button>
             </div>
+            </form>
         </div>
     </div>
     <script type="text/javascript" src="/js/orderDetail.js"></script>
