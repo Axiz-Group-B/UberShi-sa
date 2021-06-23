@@ -23,14 +23,14 @@ public class AuthDaoImpl implements AuthDao{
 	String SELECT_FROM_USERINFO_AND_ROOM = "SELECT ui.*, room_id,room_name FROM user_info ui JOIN room r ON ui.user_id = r.user_id WHERE ui.user_id = :userId";
 	String SELECT_FROM_USERINFO_AND_DELIVERY_MAN = "SELECT ui.*,delivery_man_id,delivery_man_name,delivery_man_tel FROM user_info ui JOIN delivery_man dm ON ui.user_id = dm.user_id WHERE ui.user_id = :userId ";
 	String SELECT_FROM_USERINFO_AND_SHOP = "SELECT ui.*,shop_id,shop_name,shop_tel,address FROM user_info ui JOIN shop s ON ui.user_id = s.user_id WHERE ui.user_id = :userId";
-	String SELECT_FROM_USERINFO_FINISHED_ORDER_BY_SHOP = "SELECT oi.*,delivery_man_name,delivery_man_tel FROM order_info oi JOIN delivery_man dm ON oi.delivery_man_id = dm.delivery_man_id WHERE shop_id = :shopId AND status BETWEEN 1 AND 3";
-	String SELECT_FROM_USERINFO_NOT_FINISHED_ORDER_BY_SHOP = "SELECT oi.*,delivery_man_name,delivery_man_tel FROM order_info oi JOIN delivery_man dm ON oi.delivery_man_id = dm.delivery_man_id WHERE shop_id = :shopId AND status BETWEEN 4 AND 7";
+	String SELECT_FROM_USERINFO_FINISHED_ORDER_BY_SHOP = "SELECT oi.*,delivery_man_name,delivery_man_tel FROM order_info oi JOIN delivery_man dm ON oi.delivery_man_id = dm.delivery_man_id WHERE shop_id = :shopId AND status BETWEEN 4 AND 7";
+	String SELECT_FROM_USERINFO_NOT_FINISHED_ORDER_BY_SHOP = "SELECT oi.*,delivery_man_name,delivery_man_tel FROM order_info oi JOIN delivery_man dm ON oi.delivery_man_id = dm.delivery_man_id WHERE shop_id = :shopId AND status BETWEEN 1 AND 3";
 
 	@Autowired
 	NamedParameterJdbcTemplate namedJT;
 
 	public UserInfo loginCheck (LoginForm form) {
-		String sql = "SELECT * FROM user_info WHERE login_id = :loginId AND pass = :pass AND role_id = :roleId";
+		String sql = SELECT_BY_LOGINID_AND_PASS_AND_ROLEID;
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("loginId", form.getLoginId());
 		param.addValue("pass", form.getPass());
@@ -87,8 +87,20 @@ public class AuthDaoImpl implements AuthDao{
 	}
 
 	public List<Room> checkAllRoom() {
-		String sql = "SELECT * FROM room";
+	String sql = "SELECT * FROM room ORDER BY room_id";
 		List<Room> list = namedJT.query(sql,new BeanPropertyRowMapper<Room>(Room.class));
-		return list.isEmpty() ? null : list;
+		return list;
+	}
+
+	public void checkHasOrderByRoom(Room room) {
+		String sql = "SELECT * FROM order_info WHERE status BETWEEN 1 AND 5  AND room_id = :roomId GROUP BY order_id,room_id";
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("roomId",room.getRoomId());
+		List<Room> roomList = namedJT.query(sql,param,new BeanPropertyRowMapper<Room>(Room.class));
+		if(roomList.isEmpty()) {
+			room.setOrderFlag(false);
+		}else {
+			room.setOrderFlag(true);
+		}
 	}
 }

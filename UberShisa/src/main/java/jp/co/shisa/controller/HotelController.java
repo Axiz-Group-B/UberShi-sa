@@ -25,6 +25,7 @@ public class HotelController {
 	@Autowired
 	private HotelService hotelService;
 
+
 	@RequestMapping("/hotel/orderHistory")
 	public String hotelOrderHistory(@ModelAttribute("orderHistory") hotelOrderHistoryForm form,
 									Model model){
@@ -93,5 +94,55 @@ public class HotelController {
 		model.addAttribute("dList",dList);
 
 		return "hotelDelivery";
+	}
+
+
+	//店舗管理画面　店舗一覧表
+	//@RequestMapping("hotel/hotelAddStore")
+//	public String index(Model model) {
+//		List<Shop> list = hotelService.shopFindAll();
+//		model.addAttribute("shop",list);
+//		return "index";
+//	}
+
+
+    // @GetMapping("hotelshop")
+
+
+
+
+
+
+	//ホテルトップへ遷移
+	@RequestMapping("/hotel")
+	public String hotel(Model model) {
+		//session.invalidate();
+		return "hotel";
+		//hotelに遷移
+	}
+
+
+	//注文履歴画面へ遷移
+		@RequestMapping("/order")
+		public String order(Model model) {
+			return "hotelOrderHistory";
+			//hotelOrderHistoryに遷移
+		}
+
+
+	//キャンセル注文画面へ遷移
+	@RequestMapping("/cancel")
+	public String cancel(Model model) {
+		return "hotelCancelOrderOfRoom";
+		//hotelCancelOrderOfRoomに遷移
+	}
+
+
+	//shopをリストに取得して店舗管理画面へ遷移
+	@RequestMapping("hotelAddStore")
+	public String hotelAddStore(Model model) {
+		List<Shop> list = hotelService.shopFindAll();
+		model.addAttribute("shop",list);
+		return "hotelAddStore"; //hotelAddStoreに遷移
 	}
 }

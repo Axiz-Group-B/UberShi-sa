@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.shisa.controller.form.LoginForm;
 import jp.co.shisa.dao.AuthDao;
@@ -15,6 +16,7 @@ import jp.co.shisa.entity.UserInfo;
 import jp.co.shisa.service.AuthService;
 
 @Service
+@Transactional
 public class AuthServiceImpl implements AuthService{
 	@Autowired
 	AuthDao authDao;
@@ -47,9 +49,18 @@ public class AuthServiceImpl implements AuthService{
 		return authDao.checkNotFinishedOrderByShop(shop);
 	}
 
-	public List<Room> checkAllRoom() {
-		return authDao.checkAllRoom();
+	public List<Room> checkAllRoomAndHasOrder() {
+		List<Room> roomList = authDao.checkAllRoom();
+		for(Room r : roomList) {
+			authDao.checkHasOrderByRoom(r);
+		}
+
+		return roomList;
 	}
 
 
+
+
+
 }
+

@@ -2,6 +2,7 @@ package jp.co.shisa.dao;
 
 import java.util.List;
 
+import jp.co.shisa.entity.OrderInfo;
 import jp.co.shisa.entity.Product;
 import jp.co.shisa.entity.Shop;
 
@@ -21,4 +22,17 @@ public interface RoomDao {
 
 	//productIdから情報取得
 	public Product productById(Integer productId);
+
+	//注文
+		//insert order_info
+		public void insertOrder(Integer roomId, Integer shopId, Integer totalPrice, String dateTime);
+		//insert後に、order_idほしいので、探す
+		public OrderInfo getByRoomIdTime(Integer roomId, String dateTime);
+		//insert order_item
+		public void insertItem(Integer orderId, Integer productId, Integer amount, Integer subtotal);
+		//insert log
+		public void insertLog(Integer orderId, String dateTime);
+
+	//
+		public OrderInfo getRecentOrder(Integer roomId);
 }

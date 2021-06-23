@@ -20,12 +20,16 @@ import jp.co.shisa.entity.Room;
 import jp.co.shisa.entity.Shop;
 import jp.co.shisa.entity.UserInfo;
 import jp.co.shisa.service.AuthService;
+import jp.co.shisa.service.RoomService;
 
 @Controller
 @EnableAutoConfiguration
 public class AuthController {
 	@Autowired
 	AuthService authService;
+
+	@Autowired
+	RoomService roomService;
 
 	@Autowired
 	HttpSession session;
@@ -45,44 +49,54 @@ public class AuthController {
 		UserInfo userInfo = authService.loginCheck(form);
 
 		if (userInfo == null) {
+
 			String errorMsg = "IDまたはPASSが間違っています";
 			attr.addFlashAttribute("errorMsg", errorMsg);
 			return "redirect:index";
 		}
 
-			Integer roleId = userInfo.getRoleId();
+		Integer roleId = userInfo.getRoleId();
+
 
 			switch(roleId) {
 			case 1:
+
 				Room room = authService.loginByRoom(userInfo);
 				session.setAttribute("loginUser", room);
-				return "order";
 
-			case 2:
-				DeliveryMan deliveryMan = authService.loginByDeliveryMan(userInfo);
-				session.setAttribute("loginUser", deliveryMan);
-				List<OrderInfo> noDeliveryManOrderList = authService.checkNoDeliveryManOrder();
-				System.out.println(noDeliveryManOrderList.get(0).getAddress());
-				session.setAttribute("noDeliveryManOrderList", noDeliveryManOrderList);
-				return "delivery";
-			case 3:
-				Shop shop = authService.loginByShop(userInfo);
-				session.setAttribute("loginUser",shop);
-				List<OrderInfo> finishedOrderList = authService.checkFinishedOrderByShop(shop);
-				List<OrderInfo> notFinishedOrderList = authService.checkNotFinishedOrderByShop(shop);
-				session.setAttribute("finishedOrderListBy",finishedOrderList);
-				session.setAttribute("notFinishedOrderList",notFinishedOrderList);
-				return "store";
-
-			case 4:
-				session.setAttribute("loginUser",userInfo);
-				List<Room> AllRoomList = authService.checkAllRoom();
-				session.setAttribute("AllRoomList",AllRoomList);
-				return "hotel";
-			default:
-				String errorMsg = "IDまたはPASSが間違っています";
-				attr.addFlashAttribute("errorMsg", errorMsg);
-				return "redirect:index";
+				List<Shop> list = roomService.findAll();
+				//全検索用に、listにadd
+				Shop shopPullDown = new Shop(0,"全店舗から検索");
+				list.add(0,shopPullDown);
+				String str = "0";
+				session.setAttribute("totalPrice", str);
+				session.setAttribute("shopList", list);
+			return "order";
+		case 2:
+			DeliveryMan deliveryMan = authService.loginByDeliveryMan(userInfo);
+			session.setAttribute("loginUser", deliveryMan);
+			session.setAttribute("userInfo", userInfo);
+			List<OrderInfo> noDeliveryManOrderList = authService.checkNoDeliveryManOrder();
+			session.setAttribute("noDeliveryManOrderList", noDeliveryManOrderList);
+			return "delivery";
+		case 3:
+			Shop shop = authService.loginByShop(userInfo);
+			session.setAttribute("loginUser", shop);
+			session.setAttribute("userInfo", userInfo);
+			List<OrderInfo> finishedOrderList = authService.checkFinishedOrderByShop(shop);
+			List<OrderInfo> notFinishedOrderList = authService.checkNotFinishedOrderByShop(shop);
+			session.setAttribute("finishedOrderListBy", finishedOrderList);
+			session.setAttribute("notFinishedOrderList", notFinishedOrderList);
+			return "store";
+		case 4:
+			session.setAttribute("loginUser", userInfo);
+			List<Room> AllRoomList = authService.checkAllRoomAndHasOrder();
+			session.setAttribute("AllRoomList", AllRoomList);
+			return "hotel";
+		default:
+			String errorMsg = "IDまたはPASSが間違っています";
+			attr.addFlashAttribute("errorMsg", errorMsg);
+			return "redirect:index";
 			}
 
 	}

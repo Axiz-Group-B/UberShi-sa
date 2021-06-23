@@ -113,5 +113,4 @@ public class OrderInfo {
 		this.price = price;
 	}
 
-
 }
