@@ -1,5 +1,6 @@
 package jp.co.shisa.service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import jp.co.shisa.entity.OrderInfo;
@@ -27,7 +28,7 @@ public interface RoomService {
 	public void insertOrderAll(Integer roomId, Integer shopId, Integer totalPrice, List<OrderItem> list);
 
 	//
-	public OrderInfo getByRoomIdTime(Integer roomId, String dateTime);
+	public OrderInfo getByRoomIdTime(Integer roomId, Timestamp dateTime);
 
 	//１番新しい時間のオーダー取ってくる
 	public OrderInfo getRecentOrder(Integer roomId);
