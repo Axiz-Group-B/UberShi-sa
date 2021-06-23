@@ -10,6 +10,7 @@ public interface HotelService {
 
 	public List<Shop> shopFindAll();
 	public List<OrderInfo> orderInfoFindAll();
+	
 	public List<DeliveryMan> DeliveryManFindAll();
 }
 
