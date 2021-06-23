@@ -24,6 +24,7 @@ public class HotelController {
 	@Autowired
 	private HotelService hotelService;
 
+
 	@RequestMapping("/hotel/orderHistory")
 	public String hotelOrderHistory(Model model){
 		List<Shop> sList = null;
@@ -38,6 +39,7 @@ public class HotelController {
 		return "hotelOrderHistory";
 	}
 
+
 	@RequestMapping("/hotel/delivery")
 	public String hotelDelivery(Model model){
 		List<DeliveryMan> dList = null;
@@ -50,7 +52,9 @@ public class HotelController {
 	}
 
 	@RequestMapping("/hotel/deliveryListDelete")
-	public String hotelDeliveryListDelete(@ModelAttribute("hotelDelivery") hotelDeliveryForm form,Model model){
+	public String hotelDeliveryListDelete(
+											@ModelAttribute("hotelDelivery") hotelDeliveryForm form,
+											Model model){
 		List<DeliveryMan> dList = null;
 
 		dList = hotelService.DeliveryManFindAll();
@@ -63,8 +67,53 @@ public class HotelController {
 		return "hotelDelivery";
 	}
 
-	@RequestMapping("/hotel/hotelOrder")
-	public String hotelOrder(Model model) {
-		return "hotelOrder";
+
+	//店舗管理画面　店舗一覧表
+	//@RequestMapping("hotel/hotelAddStore")
+//	public String index(Model model) {
+//		List<Shop> list = hotelService.shopFindAll();
+//		model.addAttribute("shop",list);
+//		return "index";
+//	}
+
+
+    // @GetMapping("hotelshop")
+
+
+
+
+
+
+	//ホテルトップへ遷移
+	@RequestMapping("/hotel")
+	public String hotel(Model model) {
+		//session.invalidate();
+		return "hotel";
+		//hotelに遷移
+	}
+
+
+	//注文履歴画面へ遷移
+		@RequestMapping("/order")
+		public String order(Model model) {
+			return "hotelOrderHistory";
+			//hotelOrderHistoryに遷移
+		}
+
+
+	//キャンセル注文画面へ遷移
+	@RequestMapping("/cancel")
+	public String cancel(Model model) {
+		return "hotelCancelOrderOfRoom";
+		//hotelCancelOrderOfRoomに遷移
+	}
+
+
+	//shopをリストに取得して店舗管理画面へ遷移
+	@RequestMapping("hotelAddStore")
+	public String hotelAddStore(Model model) {
+		List<Shop> list = hotelService.shopFindAll();
+		model.addAttribute("shop",list);
+		return "hotelAddStore"; //hotelAddStoreに遷移
 	}
 }
