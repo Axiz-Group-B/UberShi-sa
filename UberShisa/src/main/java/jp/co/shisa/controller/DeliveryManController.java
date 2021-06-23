@@ -31,17 +31,23 @@ public class DeliveryManController {
 	@Autowired
 	HttpSession session;
 
-	@RequestMapping("/deliveryman/delivery")
-	public String delivery(Model model) {
+	@RequestMapping("/deliveryMan/delivery")
+	public String deliveryView(Model model) {
 		return "delivery";
 	}
+
+	@RequestMapping("/deliveryMan/deliveryOrderSelected")
+	public String deliveryOrderSelected(Model model) {
+		return "deliveryOrderSelected";
+	}
+
 
 	@RequestMapping("/deliveryMan/deliveryOrderSelect/{orderId}")
 	public String deliveryOrderSelect(@PathVariable Integer orderId,Model model) {
 		OrderInfo orderInfo = deliveryManService.checkOrder(orderId);
 		List<OrderItem> orderItem = deliveryManService.checkOrderContents(orderId);
-		session.setAttribute("orderInfoForRoom",orderInfo);
-		session.setAttribute("orderItemForRoom", orderItem);
+		session.setAttribute("orderInfoForDeliveryMan",orderInfo);
+		session.setAttribute("orderItemForDeliveryMan", orderItem);
 		return "deliveryOrderSelect";
 	}
 //	配達員情報　更新するため(pha)start-----------------------------------------------------------------

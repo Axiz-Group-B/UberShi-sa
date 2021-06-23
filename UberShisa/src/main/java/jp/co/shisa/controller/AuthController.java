@@ -77,7 +77,7 @@ public class AuthController {
 
 		case 4:
 			session.setAttribute("loginUser", userInfo);
-			List<Room> AllRoomList = authService.checkAllRoom();
+			List<Room> AllRoomList = authService.checkAllRoomAndHasOrder();
 			session.setAttribute("AllRoomList", AllRoomList);
 			return "hotel";
 		default:
