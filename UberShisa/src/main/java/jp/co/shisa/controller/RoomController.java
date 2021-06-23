@@ -228,6 +228,15 @@ public class RoomController {
 		OrderInfo order = roomS.getRecentOrder(room.getRoomId());
 		model.addAttribute("orderInfo", order);
 
+		//オーダーidからorderItem取ってくる。
+		List<OrderItem> itemList = roomS.getOrderItem(order.getOrderId());
+		model.addAttribute("itemList", itemList);
+
+		//カートと、合計金額消す
+		session.removeAttribute("roomCart");
+		session.setAttribute("totalPrice", "0");
+		//お礼メッセージ
+		model.addAttribute("thankyou","ご注文ありがとうございました。");
 		return "orderHistoryDetail";
 
 	}

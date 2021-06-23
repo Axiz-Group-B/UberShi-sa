@@ -2,8 +2,6 @@ package jp.co.shisa.service.impl;
 
 
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,14 +52,16 @@ public class RoomServiceImpl implements RoomService {
 	//注文。トランザクションのために１つのメソッドで全部のinsert実行する
 	@Override
 	public void insertOrderAll(Integer roomId, Integer shopId, Integer totalPrice, List<OrderItem> list) {
-		Timestamp timestamp = new Timestamp(LocalDateTime.now());
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		String dateTime = sdf.format(timestamp);
-		System.out.println(timestamp);
-		System.out.println(dateTime);
+		/*
+		String now =
+		String dateTime = sdf.format();*/
+
+		//SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD hh:mm:ss");
+
+		Timestamp dateTime = new Timestamp(System.currentTimeMillis());
 
 		roomDao.insertOrder(roomId, shopId, totalPrice, dateTime);
-		OrderInfo order = roomDao.getByRoomIdTime(roomId, dateTime);
+		OrderInfo order = roomDao.getRecentOrder(roomId);
 
 		for(OrderItem i : list) {
 			roomDao.insertItem(order.getOrderId(), i.getProductId(), i.getAmount(), i.getSubtotal());
@@ -71,13 +71,18 @@ public class RoomServiceImpl implements RoomService {
 	}
 
 	//
-	public OrderInfo getByRoomIdTime(Integer roomId, String dateTime) {
+	public OrderInfo getByRoomIdTime(Integer roomId, Timestamp dateTime) {
 		return roomDao.getByRoomIdTime(roomId, dateTime);
 	}
 
 	//１番新しい時間のオーダー取ってくる
 	public OrderInfo getRecentOrder(Integer roomId) {
 		return roomDao.getRecentOrder(roomId);
+	}
+
+	//orderIdからorderItemとる。ほしいのはproductName,amount,subtotal,なので、productNameのためにJOINする
+	public List<OrderItem> getOrderItem(Integer orderId){
+		return roomDao.getOrderItem(orderId);
 	}
 
 }

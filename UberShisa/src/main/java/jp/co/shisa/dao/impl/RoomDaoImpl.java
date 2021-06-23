@@ -1,5 +1,6 @@
 package jp.co.shisa.dao.impl;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import jp.co.shisa.dao.RoomDao;
 import jp.co.shisa.entity.OrderInfo;
+import jp.co.shisa.entity.OrderItem;
 import jp.co.shisa.entity.Product;
 import jp.co.shisa.entity.Shop;
 @Repository
@@ -79,10 +81,10 @@ public class RoomDaoImpl implements RoomDao{
 
 	//注文、insert order_info
 	@Override
-	public void insertOrder(Integer roomId, Integer shopId, Integer totalPrice, String dateTime) {
+	public void insertOrder(Integer roomId, Integer shopId, Integer totalPrice, Timestamp dateTime) {
 		String sql = "insert into order_info "
 				+ " (room_id, shop_id, total_price, status, date_time) "
-				+ " values (:roomId, :shopId, :totalPrice, 1, to_timestamp(:dateTime, 'YY/MM/DD HH:mi:ss))";//statusは１確定
+				+ " values (:roomId, :shopId, :totalPrice, 1, to_timestamp(:dateTime , 'YYYY-MM-DD HH24:MI:SS'))";//statusは１確定
 
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("roomId", roomId);
@@ -109,7 +111,7 @@ public class RoomDaoImpl implements RoomDao{
 	}
 
 	//insert log
-	public void insertLog(Integer orderId, String dateTime) {
+	public void insertLog(Integer orderId, Timestamp dateTime) {
 		String sql = "insert into log(order_id, status, date_time, check_flag) "
 				+ " values(:orderId, 1, :dateTime, 1);";//statusは1で確定check_flagは、0の時通知してないって感じにするのか？１は通知しないからどっちでもいいけど…
 
@@ -121,7 +123,7 @@ public class RoomDaoImpl implements RoomDao{
 	}
 
 	//insert後に、order_idほしいので、探す
-	public OrderInfo getByRoomIdTime(Integer roomId, String dateTime) {
+	public OrderInfo getByRoomIdTime(Integer roomId, Timestamp dateTime) {
 		String sql = "select * from order_info where room_id=:roomId and date_time=:dateTime";
 
 		MapSqlParameterSource param = new MapSqlParameterSource();
@@ -135,14 +137,23 @@ public class RoomDaoImpl implements RoomDao{
 
 	//１番新しい時間のオーダー取ってくる
 	public OrderInfo getRecentOrder(Integer roomId) {
-		String sql = "select * from order Info where room_id = :id order by date_time desc";
+		String sql = "select * from order_info where room_id = :id order by date_time desc";
 
 		MapSqlParameterSource param = new MapSqlParameterSource();
-		param.addValue("roomId", roomId);
+		param.addValue("id", roomId);
 
 		List<OrderInfo>list = namedJT.query(sql, param, new BeanPropertyRowMapper<OrderInfo>(OrderInfo.class));
 		return list.isEmpty() ? null : list.get(0);
 	}
 
+	//orderIdからorderItemとる。ほしいのはproductName,amount,subtotal,なので、productNameのためにJOINする
+	public List<OrderItem> getOrderItem(Integer orderId){
+		String sql = "select i.*, p.* from order_item i join product p "
+				+ " on i.product_id=p.product_id "
+				+ " where i.order_id=:orderId";
 
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("orderId", orderId);
+		return namedJT.query(sql, param, new BeanPropertyRowMapper<OrderItem>(OrderItem.class));
+	}
 }

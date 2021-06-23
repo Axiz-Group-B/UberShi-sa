@@ -1,8 +1,10 @@
 package jp.co.shisa.dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import jp.co.shisa.entity.OrderInfo;
+import jp.co.shisa.entity.OrderItem;
 import jp.co.shisa.entity.Product;
 import jp.co.shisa.entity.Shop;
 
@@ -25,14 +27,18 @@ public interface RoomDao {
 
 	//注文
 		//insert order_info
-		public void insertOrder(Integer roomId, Integer shopId, Integer totalPrice, String dateTime);
+		public void insertOrder(Integer roomId, Integer shopId, Integer totalPrice, Timestamp dateTime);
 		//insert後に、order_idほしいので、探す
-		public OrderInfo getByRoomIdTime(Integer roomId, String dateTime);
+		public OrderInfo getByRoomIdTime(Integer roomId, Timestamp dateTime);
 		//insert order_item
 		public void insertItem(Integer orderId, Integer productId, Integer amount, Integer subtotal);
 		//insert log
-		public void insertLog(Integer orderId, String dateTime);
+		public void insertLog(Integer orderId, Timestamp dateTime);
 
 	//
 		public OrderInfo getRecentOrder(Integer roomId);
+
+	//orderIdからorderItemとる。ほしいのはproductName,amount,subtotal,なので、productNameのためにJOINする
+		public List<OrderItem> getOrderItem(Integer orderId);
+
 }

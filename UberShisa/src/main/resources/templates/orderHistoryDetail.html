@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en"xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/reset.css">
+    <link th:href="@{/css/reset.css}" rel="stylesheet">
     <script src="https://kit.fontawesome.com/98ca2fa25d.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="css/common/common.css">
+    <link th:href="@{/css/common/common.css}" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Uber Shi-sa</title>
 </head>
@@ -21,6 +21,7 @@
     </div>
     <div class="wrapper">
         <div class="left-side">
+        <p th:text="${thankyou}"></p>
             <div><label class="label-format">注文ID</label>
                 <input type="text" th:value="${orderInfo.orderId}" readonly>
             </div>
@@ -28,29 +29,18 @@
                 <tr>
                     <th>商品名</th>
                     <th>個数</th>
-                    <th>単価</th>
+                    <th>小計</th>
                 </tr>
-                <tr>
-                    <td>元祖紅いもタルト</td>
-                    <td>10</td>
-                    <td>500<label>円</label></td>
-                </tr>
-                <tr>
-                    <td>元祖紅いもタルト</td>
-                    <td>10</td>
-                    <td>500<label>円</label></td>
-                </tr>
-                <tr>
-                    <td>元祖紅いもタルト</td>
-                    <td>10</td>
-                    <td>500<label>円</label></td>
+                <tr th:inline="text" th:each="item : ${itemList}">
+                    <td>[[${item.productName}]]</td>
+                    <td>[[${item.amount}]]</td>
+                    <td>[[${item.subtotal}]]<label>円</label></td>
                 </tr>
             </table>
-            <div><label>合計金額(円)：</label><input type="text" value="5000" readonly></div>
+            <div><label>合計金額(円)：</label><input type="text" th:value="${orderInfo.totalPrice}" readonly></div>
+            <form th:action="@{/room/order}"><button class="btn back-btn">戻る</button></form>
         </div>
-
-        <button class="btn back-btn">戻る</button>
     </div>
-    <script src="js/js.js" type="text/javascript"></script>
+    <script src="../../js/js.js" type="text/javascript"></script>
 </body>
 </html>
