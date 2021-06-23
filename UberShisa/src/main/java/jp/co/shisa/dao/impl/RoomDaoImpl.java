@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import jp.co.shisa.dao.RoomDao;
 import jp.co.shisa.entity.OrderInfo;
+import jp.co.shisa.entity.OrderItem;
 import jp.co.shisa.entity.Product;
 import jp.co.shisa.entity.Shop;
 @Repository
@@ -145,5 +146,14 @@ public class RoomDaoImpl implements RoomDao{
 		return list.isEmpty() ? null : list.get(0);
 	}
 
+	//orderIdからorderItemとる。ほしいのはproductName,amount,subtotal,なので、productNameのためにJOINする
+	public List<OrderItem> getOrderItem(Integer orderId){
+		String sql = "select i.*, p.* from order_item i join product p "
+				+ " on i.product_id=p.product_id "
+				+ " where i.order_id=:orderId";
 
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("orderId", orderId);
+		return namedJT.query(sql, param, new BeanPropertyRowMapper<OrderItem>(OrderItem.class));
+	}
 }

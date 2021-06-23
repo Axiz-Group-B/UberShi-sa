@@ -80,4 +80,9 @@ public class RoomServiceImpl implements RoomService {
 		return roomDao.getRecentOrder(roomId);
 	}
 
+	//orderIdからorderItemとる。ほしいのはproductName,amount,subtotal,なので、productNameのためにJOINする
+	public List<OrderItem> getOrderItem(Integer orderId){
+		return roomDao.getOrderItem(orderId);
+	}
+
 }

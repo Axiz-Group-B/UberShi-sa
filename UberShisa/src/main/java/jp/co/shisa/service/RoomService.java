@@ -33,4 +33,7 @@ public interface RoomService {
 	//１番新しい時間のオーダー取ってくる
 	public OrderInfo getRecentOrder(Integer roomId);
 
+	//orderIdからorderItemとる。ほしいのはproductName,amount,subtotal,なので、productNameのためにJOINする
+	public List<OrderItem> getOrderItem(Integer orderId);
+
 }

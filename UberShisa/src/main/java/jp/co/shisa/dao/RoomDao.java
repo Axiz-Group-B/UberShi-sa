@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import jp.co.shisa.entity.OrderInfo;
+import jp.co.shisa.entity.OrderItem;
 import jp.co.shisa.entity.Product;
 import jp.co.shisa.entity.Shop;
 
@@ -36,4 +37,8 @@ public interface RoomDao {
 
 	//
 		public OrderInfo getRecentOrder(Integer roomId);
+
+	//orderIdからorderItemとる。ほしいのはproductName,amount,subtotal,なので、productNameのためにJOINする
+		public List<OrderItem> getOrderItem(Integer orderId);
+
 }
