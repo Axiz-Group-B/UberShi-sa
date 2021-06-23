@@ -17,10 +17,10 @@
 <body>
     <div id="bar">
         <div class="page-name">ホテル名</div>
-        <div id="menu-icon"><i class="fas fa-bars fa-2x"></i></div>
+        <div class="menu-icon"><i class="fas fa-bars fa-2x"></i></div>
     </div>
 
-    <div id="sidebar-menu">
+    <div class="sidebar-menu">
         <div class="menu-item"><form action="/hotel/delivery"><button class="menu-btn">配達員一覧</button></form></div>
         <div class="menu-item"><form action="/hotel/orderHistory"><button class="menu-btn">注文履歴</button></form></div>
         <div class="menu-item"><form action="#"><button class="menu-btn">キャンセル注文</button></form></div>
@@ -63,20 +63,10 @@
                        <th>日付</th>
                        <th>金額(円)</th>
                    </tr>
-                   <tr>
-                        <td><form action="#"><button class="btn-mini" name="#">1234</button></form></td>
-                        <td>17日</td>
-                        <td>5000</td>
-                    </tr>
-                    <tr>
-                        <td><form action="#"><button class="btn-mini" name="#">1234</button></form></td>
-                        <td>17日</td>
-                        <td>5000</td>
-                    </tr>
-                    <tr>
-                        <td><form action="#"><button class="btn-mini" name="#">1234</button></form></td>
-                        <td>17日</td>
-                        <td>5000</td>
+                   <tr th:each="orderList : ${oList}">
+                        <td><form action="#"><button class="btn-mini" name="#"  th:text="${orderList.orderId}"></button></form></td>
+                        <td th:text="${orderList.dateTime}"></td>
+			    		<td th:text="${orderList.totalPrice}"></td>
                     </tr>
                </table>
 
@@ -84,7 +74,7 @@
                <button class="btn back-btn">戻る</button>
             </div>
             <div class="right-side">
-                <div><label class="lable-format" th:text="'注文ID:' + ${orderId}"></label></div>
+                <div><label class="lable-format" th:text="'注文ID:'+${orderId}"></label></div>
                 <table>
                     <caption>注文情報</caption>
                     <tr>
