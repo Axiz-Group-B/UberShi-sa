@@ -68,12 +68,9 @@ public class AuthController {
 				//全検索用に、listにadd
 				Shop shopPullDown = new Shop(0,"全店舗から検索");
 				list.add(0,shopPullDown);
+				String str = "0";
+				session.setAttribute("totalPrice", str);
 				session.setAttribute("shopList", list);
-
-		switch (roleId) {
-		case 1:
-			Room loginRoom = authService.loginByRoom(userInfo);
-			session.setAttribute("loginUser", loginRoom);
 			return "order";
 		case 2:
 			DeliveryMan deliveryMan = authService.loginByDeliveryMan(userInfo);
@@ -100,35 +97,7 @@ public class AuthController {
 			String errorMsg = "IDまたはPASSが間違っています";
 			attr.addFlashAttribute("errorMsg", errorMsg);
 			return "redirect:index";
-		}
-
-			case 2:
-				DeliveryMan deliveryMan = authService.loginByDeliveryMan(userInfo);
-				session.setAttribute("loginUser", deliveryMan);
-				List<OrderInfo> noDeliveryManOrderList = authService.checkNoDeliveryManOrder();
-				session.setAttribute("noDeliveryManOrderList", noDeliveryManOrderList);
-				return "delivery";
-			case 3:
-				Shop shop = authService.loginByShop(userInfo);
-				session.setAttribute("loginUser",shop);
-				List<OrderInfo> finishedOrderList = authService.checkFinishedOrderByShop(shop);
-				List<OrderInfo> notFinishedOrderList = authService.checkNotFinishedOrderByShop(shop);
-
-				session.setAttribute("finishedOrderList",finishedOrderList);
-				session.setAttribute("notFinishedOrderList",notFinishedOrderList);
-				return "store";
-
-			case 4:
-				session.setAttribute("loginUser",userInfo);
-				List<Room> AllRoomList = authService.checkAllRoomAndHasOrder();
-				session.setAttribute("AllRoomList",AllRoomList);
-				return "hotel";
-			default:
-				String errorMsg = "IDまたはPASSが間違っています";
-				attr.addFlashAttribute("errorMsg", errorMsg);
-				return "redirect:index";
 			}
-
 
 	}
 
