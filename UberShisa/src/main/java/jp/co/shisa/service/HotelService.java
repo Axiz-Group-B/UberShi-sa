@@ -12,5 +12,6 @@ public interface HotelService {
 	public List<OrderInfo> orderInfoFind(Integer shopId);
 	public List<DeliveryMan> DeliveryManFindAll();
 	public List<OrderInfo> OrderInfoFindId(Integer orderId);
+	public void UserInfoDelete(Integer deliveryManId);
 }
 

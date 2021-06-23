@@ -41,5 +41,10 @@ public class HotelServiceImpl implements HotelService {
 		return hotelDao.OrderInfoFindId(orderId);
 	}
 
+	@Override
+	public void UserInfoDelete(Integer deliveryManId) {
+		// TODO 自動生成されたメソッド・スタブ
+	}
+
 }
 

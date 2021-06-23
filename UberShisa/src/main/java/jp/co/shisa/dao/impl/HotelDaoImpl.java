@@ -19,6 +19,8 @@ public class HotelDaoImpl implements HotelDao{
 	private static final String ORDER_INFO_FIND = "SELECT * FROM order_info WHERE shop_id= :shopId";
 	private static final String DELIVERY_MAN_FINDALL = "SELECT * FROM delivery_man";
 	private static final String ORDER_INFO_FIND_ID = "SELECT order_info.order_id as order_id, product_name, amount, price FROM order_info JOIN order_item ON order_info.order_id = order_item.order_id JOIN product ON order_item.product_id = product.product_id WHERE order_info.order_id= :orderId";
+	private static final String USER_INFO_DELETE = "DELETE FROM user_info WHERE user_id=(SELECT u.user_id FROM user_info AS u LEFT JOIN delivery_man AS d ON u.user_id = d.user_id WHERE d.delivery_man_id= :deliveryManId)";
+	private static final String DELIVERY_MAN_DELETE = "DELETE FROM delivery_man WHERE delivery_man_id= :deliveryManId";
 	private static final String TOTAL_PRICE = "SELECT SUM(total_price) FROM order_info";
 	private static final String PRICE_SUM = "SELECT SUM(total_price) FROM order_info JOIN order_item ON order_info.order_id = order_item.order_id JOIN product ON order_item.product_id = product.product_id WHERE order_info.order_id= :orderId";
 
@@ -65,6 +67,15 @@ public class HotelDaoImpl implements HotelDao{
 		 List<OrderInfo> list = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<OrderInfo>(OrderInfo.class));
 
 		 return list;
+	 }
+
+	 public void UserInfoDelete(Integer deliveryManId) {
+		 String sql = USER_INFO_DELETE;
+
+		 MapSqlParameterSource param = new MapSqlParameterSource();
+		 param.addValue("deliveryManId", deliveryManId);
+
+		 jdbcTemplate.update(sql, param);
 	 }
 
 	 //合計金額表示

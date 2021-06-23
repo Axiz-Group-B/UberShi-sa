@@ -14,4 +14,6 @@ public interface HotelDao {
 	public List<DeliveryMan> DeliveryManFindAll();
 
 	public List<OrderInfo> OrderInfoFindId(Integer orderId);
+
+	public void UserInfoDelete(Integer deliveryManId);
 }

@@ -84,6 +84,7 @@ public class HotelController {
 
 		dList = hotelService.DeliveryManFindAll();
 
+		//hotelService.UserInfoDelete(Integer deliveryManId);
 
 		//確認
 		System.out.println(form.getDeliveryListDelete());
