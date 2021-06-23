@@ -30,7 +30,7 @@
                     <th>個数</th>
                     <th>単価</th>
                 </tr>
-                <tr>
+                <tr th:inline="text" th:each="item : ${session.roomCart}">
                     <td>元祖紅いもタルト</td>
                     <td>10</td>
                     <td>500<label>円</label></td>
