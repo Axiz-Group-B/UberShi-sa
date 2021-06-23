@@ -72,7 +72,7 @@ public class AuthController {
 
 				session.setAttribute("finishedOrderList",finishedOrderList);
 				session.setAttribute("notFinishedOrderList",notFinishedOrderList);
-				return "shop";
+				return "store";
 
 			case 4:
 				session.setAttribute("loginUser",userInfo);
