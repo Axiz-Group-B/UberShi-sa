@@ -15,5 +15,10 @@ public interface HotelService {
 	public void UserInfoDelete(Integer deliveryManId);
 	public void DeliveryManDelete(Integer deliveryManId);
 	public Integer totalPrice(Integer shopId);
+
+	public void hotelUserInfoDelete(Integer shopId);
+	public void HotelShopDelete(Integer shopId);
+
+
 }
 
