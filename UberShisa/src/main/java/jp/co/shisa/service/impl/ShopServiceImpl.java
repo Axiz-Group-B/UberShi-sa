@@ -44,4 +44,11 @@ public class ShopServiceImpl implements ShopService{
 		return shopDao.selectAllProductByShopId(shopId);
 	}
 
+	public void insertProduct(Product product) {
+		shopDao.insertProduct(product);
+	}
+
+	public Product selectUpdateProductByProductId(Integer productId) {
+		return shopDao.selectUpdateProductByProductId(productId);
+	}
 }

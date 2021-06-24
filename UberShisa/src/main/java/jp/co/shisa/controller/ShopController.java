@@ -10,9 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jp.co.shisa.controller.form.ProductAddForm;
 import jp.co.shisa.controller.form.UpdateStoreForm;
 import jp.co.shisa.entity.OrderInfo;
 import jp.co.shisa.entity.OrderItem;
@@ -100,11 +102,34 @@ public class ShopController {
 	}
 
 	@RequestMapping("/shop/storeProductAdd")
-	public String storeProductAdd(Model model) {
+	public String storeProductAdd(@ModelAttribute("productAdd")ProductAddForm form,BindingResult bindingResult,Model model){
 		return "storePoductAdd";
 	}
 
+	@RequestMapping(value="/shop/productAddComplete" ,params="add")
+	public String shopProductAddComplete(@Validated @ModelAttribute("productAdd")ProductAddForm form,BindingResult bindingResult,Model model) {
+		if(bindingResult.hasErrors()) {
+
+			return "storePoductAdd";
+		}
+
+				Shop loginShop = (Shop) session.getAttribute("loginUser");
+				Product addProduct = new Product(loginShop.getShopId(),form.getImage(),form.getText(),form.getProductName(),form.getPrice(),form.getStock());
+				shopService.insertProduct(addProduct);
+				Shop shop = (Shop) session.getAttribute("loginUser");
+				List<Product> list = shopService.selectAllProductByShopId(shop.getShopId());
+				session.setAttribute("shopProductList",list);
+
+		return "redirect:/shop/storeProductManage";
+	}
+
+
+	@RequestMapping("/shop/productUpdate/{productId}")
+	public String productUpdate(@PathVariable Integer productId,Model model) {
+		Product updatingProduct = shopService.selectUpdateProductByProductId(productId);
+		session.setAttribute("updateingProduct", updatingProduct);
+
+		return "#";
+	}
+
 }
-
-
-

@@ -14,4 +14,6 @@ public interface ShopService {
 	public OrderInfo checkOrder(Integer orderId);
 	public List<OrderItem> checkOrderContents(Integer orderId);
 	public List<Product> selectAllProductByShopId(Integer shopId);
+	public void insertProduct(Product product);
+	public Product selectUpdateProductByProductId(Integer productId);
 }
