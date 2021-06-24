@@ -1,4 +1,6 @@
-const order = ()=>{
+//配達員に渡していない注文があることを知らせる
+setInterval(function(){
+	// ここに処理
 	fetch('/room/orderNotifShop', {
 					method: 'get',
 					})
@@ -8,7 +10,7 @@ const order = ()=>{
 				console.log(t)
 				if(t==='Yes'){
 					Push.create('Uber-Shisaからのお知らせ', {
-						body: '未完了の注文があります。',
+						body: '進行中の注文があります。',
 						timeout:8000
 					});
 				}
@@ -18,6 +20,4 @@ const order = ()=>{
 	.catch(reason=>{
 		console.log('catch');
 	})
-}
-
-setInterval(leaveShop, 1200000);
+}, 600000)
