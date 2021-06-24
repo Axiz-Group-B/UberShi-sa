@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jp.co.shisa.controller.form.UpdateStoreForm;
 import jp.co.shisa.entity.OrderInfo;
 import jp.co.shisa.entity.OrderItem;
+import jp.co.shisa.entity.Product;
 import jp.co.shisa.entity.Shop;
 import jp.co.shisa.entity.UserInfo;
 import jp.co.shisa.service.ShopService;
@@ -89,4 +90,21 @@ public class ShopController {
 		}
 	}
 //	店舗情報更新(pha) end---------------------------------------------------------
+
+	@RequestMapping("/shop/storeProductManage")
+	public String storeProductManage(Model model) {
+		Shop shop = (Shop) session.getAttribute("loginUser");
+		List<Product> list = shopService.selectAllProductByShopId(shop.getShopId());
+		session.setAttribute("shopProductList",list);
+		return "storePoductManage";
+	}
+
+	@RequestMapping("/shop/storeProductAdd")
+	public String storeProductAdd(Model model) {
+		return "storePoductAdd";
+	}
+
 }
+
+
+
