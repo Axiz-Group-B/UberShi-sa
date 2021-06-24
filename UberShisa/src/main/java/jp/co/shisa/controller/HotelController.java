@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jp.co.shisa.controller.form.hotelAddStoreForm;
 import jp.co.shisa.controller.form.hotelDeliveryForm;
 import jp.co.shisa.controller.form.hotelOrderHistoryForm;
 import jp.co.shisa.entity.DeliveryMan;
@@ -79,8 +80,7 @@ public class HotelController {
 	}
 
 	@RequestMapping("/hotel/deliveryListDelete")
-	public String hotelDeliveryListDelete(@ModelAttribute("hotelDelivery") hotelDeliveryForm form,
-											Model model){
+	public String hotelDeliveryListDelete(@ModelAttribute("hotelDelivery") hotelDeliveryForm form,Model model){
 		List<DeliveryMan> dList = null;
 
 		dList = hotelService.DeliveryManFindAll();
@@ -97,20 +97,26 @@ public class HotelController {
 	}
 
 
-	//店舗管理画面　店舗一覧表
-	//@RequestMapping("hotel/hotelAddStore")
-//	public String index(Model model) {
-//		List<Shop> list = hotelService.shopFindAll();
-//		model.addAttribute("shop",list);
-//		return "index";
-//	}
+	//店舗を削除して店舗管理画面へ遷移
+	@RequestMapping("hotelAddStoreDelete")
+	public String hotelAddStoreDelete(@ModelAttribute("hotelAddStore") hotelAddStoreForm form, Model model) {
+		List<Shop> list = hotelService.shopFindAll();
+		//確認
+		//System.out.println(form.getHotelShopDelete());
+		model.addAttribute("shop",list);
+		return "hotelAddStore"; //hotelAddStoreに遷移
+	}
 
 
-    // @GetMapping("hotelshop")
 
 
-
-
+	//shopをリストに取得して店舗管理画面へ遷移
+	@RequestMapping("hotelAddStore")
+	public String hotelAddStore(Model model) {
+		List<Shop> list = hotelService.shopFindAll();
+		model.addAttribute("shop",list);
+		return "hotelAddStore"; //hotelAddStoreに遷移
+	}
 
 
 	//ホテルトップへ遷移
@@ -138,13 +144,5 @@ public class HotelController {
 	}
 
 
-	//shopをリストに取得して店舗管理画面へ遷移
-	@RequestMapping("hotelAddStore")
-	public String hotelAddStore(Model model) {
-		List<Shop> list = hotelService.shopFindAll();
-		model.addAttribute("shop",list);
-		return "hotelAddStore"; //hotelAddStoreに遷移
-	}
-}
 
-//asdfgh
+}
