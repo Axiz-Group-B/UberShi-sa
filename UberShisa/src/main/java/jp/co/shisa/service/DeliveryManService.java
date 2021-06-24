@@ -18,4 +18,6 @@ public interface DeliveryManService {
 	public void insertDeliveryMan(SignupForm deliveryMan);
 
 	public void insertUserInfo(SignupForm userInfo);
+
+	public boolean checkLoginId(SignupForm signupForm);
 }
