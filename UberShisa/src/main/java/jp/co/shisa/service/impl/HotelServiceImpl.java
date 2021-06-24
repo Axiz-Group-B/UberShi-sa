@@ -59,5 +59,11 @@ public class HotelServiceImpl implements HotelService {
 		return hotelDao.totalPrice(shopId);
 	}
 
+	@Override
+	public Integer priceSum(Integer orderId) {
+		// TODO 自動生成されたメソッド・スタブ
+		return hotelDao.priceSum(orderId);
+	}
+
 }
 
