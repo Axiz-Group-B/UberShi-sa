@@ -1,5 +1,6 @@
-//JSからコントローラーに飛ぶ.あとでsetIntervalに入れられるように…関数名必須
-const delivery = ()=>{
+//配達員決まった通知
+setInterval(function(){
+
 	fetch('/room/orderNotif', {
 					method: 'get',
 					})
@@ -19,9 +20,11 @@ const delivery = ()=>{
 	.catch(reason=>{
 		console.log('catch');
 	})
-}
+}, 600000)
 
-const leaveShop = ()=>{
+//配達員が商品受け取った通知
+setInterval(function(){
+	// ここに処理
 	fetch('/room/orderNotifFour', {
 					method: 'get',
 					})
@@ -41,9 +44,11 @@ const leaveShop = ()=>{
 	.catch(reason=>{
 		console.log('catch');
 	})
-}
+}, 600000)
 
-const hotelArrived = ()=>{
+//ホテルに注文商品届いた通知
+setInterval(function(){
+	// ここに処理
 	fetch('/room/orderNotifFive', {
 					method: 'get',
 					})
@@ -68,8 +73,4 @@ const hotelArrived = ()=>{
 	.catch(reason=>{
 		console.log('catch');
 	})
-}
-//一定間隔で実行。通知被らないようにずらしてる
-setInterval(delivery, 500000);
-setInterval(leaveShop, 600000);
-setInterval(hotelArrived, 700000);
+}, 600000)

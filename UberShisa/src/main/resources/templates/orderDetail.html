@@ -18,7 +18,7 @@
     </div>
     <div class="sidebar-menu">
         <div class="menu-item"><form th:action="@{/room/orderHistory}"><button class="menu-btn">履歴</button></form></div>
-        <div class="menu-item"><form action="logout"><button class="menu-btn">ログアウト</button></form></div>
+        <div class="menu-item"><form th:action="@{logout}"><button class="menu-btn">ログアウト</button></form></div>
     </div>
 
     <div class="wrapper">
@@ -26,7 +26,7 @@
         <p th:text="${msg}"></p>
         <form action="#" th:action="@{/room/order}" th:object="${roomCart}" method="post">
             <div><label class="label-format">画像：</label>
-                <img src="${session.product.image}" alt="商品の画像" name="image">
+                <img th:src="${session.product.image}" alt="商品の画像" name="image" width="400" height="300">
             </div>
             <div><label class="label-format">説明：</label>
                 <textarea name="text" id="#" rows="3" th:text="${session.product.text}" readonly>

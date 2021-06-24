@@ -1,5 +1,7 @@
-const leaveShop = ()=>{
-	fetch('/room/orderNotifHotel', {
+//配達員がお店で商品を受け取った事を知らせる（そろぼち来るか的な）
+setInterval(function(){
+	// ここに処理
+		fetch('/room/orderNotifHotel', {
 					method: 'get',
 					})
 	.then(response=>{
@@ -18,6 +20,4 @@ const leaveShop = ()=>{
 	.catch(reason=>{
 		console.log('catch');
 	})
-}
-
-setInterval(leaveShop, 1200000);
+}, 600000)
