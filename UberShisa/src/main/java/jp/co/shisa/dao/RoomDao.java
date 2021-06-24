@@ -41,4 +41,20 @@ public interface RoomDao {
 	//orderIdからorderItemとる。ほしいのはproductName,amount,subtotal,なので、productNameのためにJOINする
 		public List<OrderItem> getOrderItem(Integer orderId);
 
+	//orderIdからorderInfoとる
+		public OrderInfo getOrderInfo(Integer orderId);
+
+	//statusが6,7以外(進行中注文)を取る
+		public List<OrderInfo> getUncompOrder(Integer roomId);
+/////////////////////////////////////////////////////////////////
+	//ホテルに届きました通知のために、roomIdと任意のstatusでレコード探す。１以上あれば通知するから、リストで返さない
+		//予定だったけど、そうもいかない
+	public List<OrderInfo> searchStatus(Integer roomId, Integer status);
+
+	//Shop用
+	public OrderInfo statusForShop(Integer shopId, Integer status);
+
+	//hotel用
+	public OrderInfo statusForHotel(Integer status);
+
 }

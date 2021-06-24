@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,7 +17,7 @@
         <div id="menu-icon"><i class="fas fa-bars fa-2x"></i></div>
     </div>
     <div class="sidebar-menu">
-        <div class="menu-item"><form action="#"><button class="menu-btn">履歴</button></form></div>
+        <div class="menu-item"><form th:action="@{/room/orderHistory}"><button class="menu-btn">履歴</button></form></div>
         <div class="menu-item"><form action="logout"><button class="menu-btn">ログアウト</button></form></div>
     </div>
 
@@ -54,7 +54,7 @@
 
         </div>
         <div class="right-side">
-        <form th:action="@{/room/deleteCart}" th:object="${roomCart}" method="post" onSubmit="return check()">
+        <form th:action="@{/room/deleteCart}" th:object="${roomCart}" method="post" onSubmit="return checkOrder()">
         <p th:text="${error}"></p>
             <table>
                 <caption>カート</caption>
@@ -64,7 +64,7 @@
                     <th></th>
                 </tr>
                 <tr th:inline="text" th:each="item : ${session.roomCart}">
-				<td>[[${item.productName}]]<input type="hidden" name="from" th:value="orderDetail"></td>
+				<td>[[${item.productName}]]</td>
 				<td>[[${item.amount}]]<input type="hidden" name="productId" th:value="${item.productId}">
 				<input type="hidden" name="shopId" th:value="${item.shopId}"></td>
 				<td><button class="btn-mini del-btn-mini deleteItem" name="deleteOne">削除</button></td>
@@ -72,9 +72,10 @@
             </table>
             <p class="total-price">合計金額(円)：<span th:inline="text">[[${session.totalPrice}]]</span></p>
             <input type="hidden" name="totalPrice" th:value="${session.totalPrice}">
+            <input type="hidden" name="from" th:value="orderDetail">
             <div class="btn-container">
-                <button class="btn cancel-btn" name="deleteAll">キャンセル</button>
-                <button class="btn primary-btn" name="order">確定</button>
+                <button class="btn cancel-btn" name="deleteAll">全削除</button>
+                <button class="btn primary-btn" name="order">注文確定</button>
             </div>
             </form>
         </div>

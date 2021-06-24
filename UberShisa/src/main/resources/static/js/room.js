@@ -30,7 +30,7 @@
 
 	//////////////////////////////////////////////////////////////////////////////////
 //削除ボタンポップアップ
-function check(){
+function checkRoom(){
 
 	if(window.confirm('操作を確定してよろしいですか？')){ // 確認ダイアログを表示
 
@@ -49,7 +49,7 @@ function check(){
 /*	var btns = document.getElementsByClassName('deleteItem');//idじゃなくて配列でとってきて、あとでイベント情報からvalueとれる
 	//引数にイベントeをとって、.toElement(イベント情報のプロパティを取れる感じ)してから、.valueするとか？どうにかしてやる
 	for(let i =0; i< btns.length ; i++){
-		btns[i].addEventListener('click', check);
+		btns[i].addEventListener('click', checkRoom);
 	}
 */
 

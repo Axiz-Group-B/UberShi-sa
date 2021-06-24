@@ -19,6 +19,9 @@ public class OrderInfo {
 	private Integer amount;
 	private Integer price;
 
+	//datetime表示用
+	private String dateTimeStr;
+
 	public Integer getOrderId() {
 		return orderId;
 	}
@@ -111,6 +114,12 @@ public class OrderInfo {
 	}
 	public void setPrice(Integer price) {
 		this.price = price;
+	}
+	public String getDateTimeStr() {
+		return dateTimeStr;
+	}
+	public void setDateTimeStr(String dateTimeStr) {
+		this.dateTimeStr = dateTimeStr;
 	}
 
 }
