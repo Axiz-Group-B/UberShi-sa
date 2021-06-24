@@ -51,4 +51,16 @@ public class DeliveryManServiceImpl implements DeliveryManService{
 		// TODO 自動生成されたメソッド・スタブ
 		deliveryManDao.updateDeliveryManInfo(deliveryMan);
 	}
+
+	public boolean checkLoginId(SignupForm signupForm) {
+		//checkLoginIdを実行して、それをnullかどうか判断する
+
+		String checkLoginId = deliveryManDao.checkLoginId(signupForm);
+
+		if(checkLoginId == null) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 }

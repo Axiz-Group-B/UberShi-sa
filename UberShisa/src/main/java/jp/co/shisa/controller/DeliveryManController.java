@@ -32,18 +32,29 @@ public class DeliveryManController {
 
 	//signup.htmlでアカウントを持っている方を押した時と新規ユーザー登録したときにindex画面に遷移
 	@RequestMapping("/newInsert")
-	public String index(@ModelAttribute("insert") LoginForm form) {
+	public String index( @ModelAttribute("insert") LoginForm form) {
 		return "signup";
 	}
 	//バリデーションどこだっけ
 
 	//signup.htmlでパスワードと確認パスワードが間違ってた時とポップアップで戻る押した時にsignup.htmlに戻る
 	@RequestMapping("/signup")
-	public String insertDeliveryMan(@ModelAttribute("insert") SignupForm form, Model model) {
+	public String insertDeliveryMan(@Validated @ModelAttribute("insert") SignupForm form, BindingResult bindingResult,Model model) {
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("errorPassMsg", "値が入力されていない場所があります");
+			return "signup";
+		}
 		if (form.getPass().equals(form.getRePass())) {
-			deliveryManService.insertUserInfo(form);
-			deliveryManService.insertDeliveryMan(form);
-			return "index";
+			deliveryManService.checkLoginId(form);
+			if(deliveryManService.checkLoginId(form)) {
+				deliveryManService.insertUserInfo(form);
+				deliveryManService.insertDeliveryMan(form);
+
+				return "index";
+			}else {
+				model.addAttribute("errorPassMsg", "ログインIDが重複しています");
+				return "signup";
+			}
 
 		} else {
 			//passとrepassが同じじゃなかったらエラーメッセージ
