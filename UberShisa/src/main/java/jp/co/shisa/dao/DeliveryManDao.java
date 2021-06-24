@@ -26,4 +26,8 @@ public interface DeliveryManDao {
 //	配達員情報を更新(pha)----------------------------------------------------------------------
 	public void updateDeliveryManInfo(DeliveryMan deliveryMan);
 //	配達員情報を更新(pha)----------------------------------------------------------------------
+
+	public void addDeliveryManIdInOrder(Integer orderId,Integer deliveryManId);
+	public void insertLogStatusIsTwo(Integer orderId);
+
 }

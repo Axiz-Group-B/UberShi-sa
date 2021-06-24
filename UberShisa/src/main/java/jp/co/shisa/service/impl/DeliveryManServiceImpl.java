@@ -51,4 +51,9 @@ public class DeliveryManServiceImpl implements DeliveryManService{
 		// TODO 自動生成されたメソッド・スタブ
 		deliveryManDao.updateDeliveryManInfo(deliveryMan);
 	}
+
+	public void addDeliveryManIdInOrderAndAddLog(Integer orderId,Integer deliveryManId) {
+		deliveryManDao.addDeliveryManIdInOrder(orderId, deliveryManId);
+		deliveryManDao.insertLogStatusIsTwo(orderId);
+	}
 }
