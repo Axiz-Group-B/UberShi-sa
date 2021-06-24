@@ -78,6 +78,7 @@ public class HotelDaoImpl implements HotelDao{
 		 jdbcTemplate.update(sql, param);
 	 }
 
+
 	 public void DeliveryManDelete(Integer deliveryManId) {
 		 String sql = DELIVERY_MAN_DELETE;
 
@@ -86,6 +87,20 @@ public class HotelDaoImpl implements HotelDao{
 
 		 jdbcTemplate.update(sql, param);
 	 }
+
+
+
+	 //ホテルが店舗を削除-------------------------------------
+	 public void HotelShopDelete(Integer shopId) {
+		 String sql = USER_INFO_DELETE;
+
+		 MapSqlParameterSource param = new MapSqlParameterSource();
+		 param.addValue("shopId", shopId);
+
+		 jdbcTemplate.update(sql, param);
+	 }
+     //-------------------------------------------------------
+
 
 	 //合計金額表示
 	 public Integer totalPrice(Integer shopId) {
