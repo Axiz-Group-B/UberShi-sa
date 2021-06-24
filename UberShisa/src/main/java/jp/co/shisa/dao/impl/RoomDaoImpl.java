@@ -111,13 +111,15 @@ public class RoomDaoImpl implements RoomDao{
 	}
 
 	//insert log
-	public void insertLog(Integer orderId, Timestamp dateTime) {
-		String sql = "insert into log(order_id, status, date_time, check_flag) "
-				+ " values(:orderId, 1, :dateTime, 1);";//statusは1で確定check_flagは、0の時通知してないって感じにするのか？１は通知しないからどっちでもいいけど…
+	@Override
+	public void insertLog(Integer orderId, Timestamp dateTime, Integer status) {
+		String sql = "insert into log(order_id, status, date_time) "
+				+ " values(:orderId, :status, :dateTime);";//statusは1で確定check_flagはなくす
 
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("orderId", orderId);
 		param.addValue("dateTime", dateTime);
+		param.addValue("status", status);
 
 		namedJT.update(sql, param);
 	}
@@ -200,11 +202,22 @@ public class RoomDaoImpl implements RoomDao{
 
 	//hotel用
 	@Override
-	public OrderInfo statusForHotel(Integer status) {
+	public List<OrderInfo> statusForHotel(Integer status) {
 		String sql = "select * from order_info where status=:status";
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("status", status);
 		List<OrderInfo> list = namedJT.query(sql, param, new BeanPropertyRowMapper<OrderInfo>(OrderInfo.class));
-		return list.isEmpty() ? null : list.get(0);
+		return list.isEmpty() ? null : list;
 	}
+
+	//キャンセル注文処理
+	@Override
+	public void  statusUpdate(Integer orderId, Integer status) {
+		String sql = "update order_info set status=:status where order_id=:orderId";
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("status", status);
+		param.addValue("orderId", orderId);
+		namedJT.update(sql, param);
+	}
+
 }

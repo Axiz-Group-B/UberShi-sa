@@ -226,7 +226,7 @@ public class RoomController {
 		//if文抜ける＝注文できる(order_info,order_item,logにinsertする)
 		Room room = (Room) session.getAttribute("loginUser");//部屋情報
 		Integer totalPrice = (Integer) session.getAttribute("totalPrice");
-		roomS.insertOrderAll(room.getRoomId(), form.getShopId(), totalPrice, list);
+		roomS.insertOrderAll(room.getRoomId(), form.getShopId(), totalPrice, list, 1);//statusは1で決定
 
 		//insertした注文情報を、modelに入れて持っていく
 		OrderInfo order = roomS.getRecentOrder(room.getRoomId());
@@ -352,6 +352,17 @@ public class RoomController {
 
 			if(roomS.statusForHotel(4) !=null) {//statusが4だと配達員出発
 				return "leaveShop";
+			}
+			return "other";//nullこわかった
+		}
+
+		@RequestMapping("/room/orderNotifHotelThree")
+		@ResponseBody
+		public String roomNotifHotelThree() {
+			//ホテルは全レコード対象だからログインのセッション情報いらない
+
+			if(roomS.statusForHotel(3) !=null) {//statusが4だと配達員出発
+				return "noDelivery";
 			}
 			return "other";//nullこわかった
 		}
