@@ -35,10 +35,10 @@ public class HotelController {
 		sList = hotelService.shopFindAll();
 		oList = hotelService.orderInfoFind(form.getOrderShopId());
 
-		System.out.println(form.getOrderShopId());
+		//System.out.println(form.getOrderShopId());
 
-		model.addAttribute("orderListId",form.getOrderListId());
-		model.addAttribute("orderShopId",form.getOrderShopId());
+		//model.addAttribute("orderListId",form.getOrderListId());
+		//model.addAttribute("orderShopId",form.getOrderShopId());
 		model.addAttribute("sList",sList);
 		model.addAttribute("oList",oList);
 
@@ -83,14 +83,14 @@ public class HotelController {
 											Model model){
 		List<DeliveryMan> dList = null;
 
+		hotelService.UserInfoDelete(form.getDeliveryListDelete());
+		hotelService.DeliveryManDelete(form.getDeliveryListDelete());
+
 		dList = hotelService.DeliveryManFindAll();
 
-		//hotelService.UserInfoDelete(Integer deliveryManId);
-
 		//確認
-		System.out.println(form.getDeliveryListDelete());
+		//System.out.println(form.getDeliveryListDelete());
 
-		//model.addAttribute("ListDelete",form.getDeliveryListDelete());
 		model.addAttribute("dList",dList);
 
 		return "hotelDelivery";

@@ -44,6 +44,13 @@ public class HotelServiceImpl implements HotelService {
 	@Override
 	public void UserInfoDelete(Integer deliveryManId) {
 		// TODO 自動生成されたメソッド・スタブ
+		hotelDao.UserInfoDelete(deliveryManId);
+	}
+
+	@Override
+	public void DeliveryManDelete(Integer deliveryManId) {
+		// TODO 自動生成されたメソッド・スタブ
+		hotelDao.DeliveryManDelete(deliveryManId);
 	}
 
 }
