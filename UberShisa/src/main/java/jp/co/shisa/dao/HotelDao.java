@@ -19,7 +19,7 @@ public interface HotelDao {
 
 	public void DeliveryManDelete(Integer deliveryManId);
 
-	public Integer totalPrice(Integer shopId);
+	public Integer totalPrice(Integer shopId,String dateTime);
 
 	public Integer priceSum(Integer orderId);
 }

@@ -40,8 +40,8 @@ public class HotelController {
 
 		sList = hotelService.shopFindAll();
 		oList = hotelService.orderInfoFind(form.getOrderShopId(),form.getMonth());
-		if(form.getOrderShopId() != null) {
-			total = hotelService.totalPrice(form.getOrderShopId());
+		if(hotelService.totalPrice(form.getOrderShopId(),form.getMonth()) != null) {
+			total = hotelService.totalPrice(form.getOrderShopId(),form.getMonth());
 		}else {
 			total = 0;
 		}
@@ -170,7 +170,7 @@ public class HotelController {
 
 
 	//shopをリストに取得して店舗管理画面へ遷移
-	@RequestMapping("hotelAddStore")
+	@RequestMapping("/hotelAddStore")
 	public String hotelAddStore(Model model) {
 		List<Shop> list = hotelService.shopFindAll();
 		model.addAttribute("shop",list);

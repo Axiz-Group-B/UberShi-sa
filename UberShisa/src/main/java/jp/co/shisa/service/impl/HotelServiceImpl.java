@@ -54,9 +54,9 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public Integer totalPrice(Integer shopId) {
+	public Integer totalPrice(Integer shopId,String dateTime) {
 		// TODO 自動生成されたメソッド・スタブ
-		return hotelDao.totalPrice(shopId);
+		return hotelDao.totalPrice(shopId,dateTime);
 	}
 
 	@Override
