@@ -23,6 +23,7 @@ public class HotelDaoImpl implements HotelDao{
 	private static final String DELIVERY_MAN_DELETE = "DELETE FROM delivery_man WHERE delivery_man_id = :deliveryManId";
 	private static final String TOTAL_PRICE = "SELECT SUM(total_price) FROM order_info WHERE shop_id= :shopId";
 	private static final String PRICE_SUM = "SELECT SUM(total_price) FROM order_info JOIN order_item ON order_info.order_id = order_item.order_id JOIN product ON order_item.product_id = product.product_id WHERE order_info.order_id= :orderId";
+	private static final String SHOP_DELETE = "DELETE FROM shop WHERE shop_id = :shopId";
 
 	@Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
@@ -71,6 +72,8 @@ public class HotelDaoImpl implements HotelDao{
 		 return list;
 	 }
 
+
+
 	 public void UserInfoDelete(Integer deliveryManId) {
 		 String sql = USER_INFO_DELETE;
 
@@ -93,8 +96,19 @@ public class HotelDaoImpl implements HotelDao{
 
 
 	 //ホテルが店舗を削除-------------------------------------
-	 public void HotelShopDelete(Integer shopId) {
+
+	 public void hotelUserInfoDelete(Integer shopId) {
 		 String sql = USER_INFO_DELETE;
+
+		 MapSqlParameterSource param = new MapSqlParameterSource();
+		 param.addValue("shopId", shopId);
+
+		 jdbcTemplate.update(sql, param);
+	 }
+
+
+	 public void HotelShopDelete(Integer shopId) {
+		 String sql = SHOP_DELETE;
 
 		 MapSqlParameterSource param = new MapSqlParameterSource();
 		 param.addValue("shopId", shopId);

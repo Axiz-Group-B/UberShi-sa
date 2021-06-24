@@ -21,5 +21,11 @@ public interface HotelDao {
 
 	public Integer totalPrice(Integer shopId);
 
+
 	public Integer priceSum(Integer orderId);
+
+	public void hotelUserInfoDelete(Integer shopId);
+
+	public void HotelShopDelete(Integer shopId);
+
 }

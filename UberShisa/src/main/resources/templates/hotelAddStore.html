@@ -38,7 +38,9 @@
                     <td th:text = "${shopList.address}"></td>
                     <td th:text = "${shopList.shopTel}"></td>
                     <!--<td><form action="#"><button class="btn-mini del-btn-mini">削除</button></form></td>-->
-                    <td><form th:object="${hotelAddStore}" action="hotelAddStoreDelete" onclick=check() ><button class="btn-mini del-btn-mini" name="hotelShopDelete" th:value="${shopList.shopId}">削除</button></form></td>
+                    <!--<td><form th:object="${hotelDelivery}" action="/hotel/deliveryListDelete" onclick="return check();" method="post"><button class="btn-mini del-btn-mini" name="deliveryListDelete" th:value="${deliveryList.deliveryManId}">削除</button></form></td>-->
+                    <td><form th:object="${hotelAddStore}"     action="/hotelAddStoreDelete"       onclick="return check();" method="post"><button class="btn-mini del-btn-mini" name="hotelShopDelete"    th:value="${shopList.shopId}">削除</button></form></td>
+
                 </tr>
            </table>
         </div>
@@ -57,6 +59,7 @@
             </form>
         </div>
     </div>
-    <script src="js/js.js" type="text/javascript"></script>
+    <script src="../../js/js.js" type="text/javascript"></script>
+    <script src="../../js/hotelDelivery.js" type="text/javascript"></script>
 </body>
 </html>

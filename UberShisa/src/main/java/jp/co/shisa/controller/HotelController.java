@@ -128,12 +128,18 @@ public class HotelController {
 	}
 
 
-	//店舗を削除して店舗管理画面へ遷移
-	@RequestMapping("hotelAddStoreDelete")
+	//店舗を削除して店舗管理画面へ遷移-----------------------------------
+	@RequestMapping("/hotelAddStoreDelete")
 	public String hotelAddStoreDelete(@ModelAttribute("hotelAddStore") hotelAddStoreForm form, Model model) {
-		List<Shop> list = hotelService.shopFindAll();
-		//確認
-		//System.out.println(form.getHotelShopDelete());
+		List<Shop> list =  null;
+
+		//hotelService.hotelUserInfoDelete(form.getHotelShopDelete());
+		hotelService.HotelShopDelete(form.getHotelShopDelete());
+
+		list = hotelService.shopFindAll();
+
+		System.out.println(form.getHotelShopDelete());
+
 		model.addAttribute("shop",list);
 		return "hotelAddStore"; //hotelAddStoreに遷移
 	}
@@ -142,7 +148,7 @@ public class HotelController {
 
 
 	//shopをリストに取得して店舗管理画面へ遷移
-	@RequestMapping("hotelAddStore")
+	@RequestMapping("/hotelAddStore")
 	public String hotelAddStore(Model model) {
 		List<Shop> list = hotelService.shopFindAll();
 		model.addAttribute("shop",list);

@@ -16,5 +16,8 @@ public interface HotelService {
 	public void DeliveryManDelete(Integer deliveryManId);
 	public Integer totalPrice(Integer shopId);
 	public Integer priceSum(Integer orderId);
+	public void hotelUserInfoDelete(Integer shopId);
+	public void HotelShopDelete(Integer shopId);
+
 }
 
