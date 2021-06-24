@@ -21,3 +21,27 @@ setInterval(function(){
 		console.log('catch');
 	})
 }, 600000)
+
+//配達員が決まらなかった注文があることを知らせる
+setInterval(function(){
+	// ここに処理
+		fetch('/room/orderNotifHotelThree', {
+					method: 'get',
+					})
+	.then(response=>{
+		if(response.ok){
+			response.text().then(t => {
+				console.log(t)
+				if(t==='noDelivery'){
+					Push.create('Uber-Shisaからのお知らせ', {
+						body: '配達員が決まらなかった注文があります。',
+						timeout:8000
+					});
+				}
+			});
+		}
+	})
+	.catch(reason=>{
+		console.log('catch');
+	})
+}, 600000)
