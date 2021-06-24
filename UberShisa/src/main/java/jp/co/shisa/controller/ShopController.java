@@ -33,11 +33,23 @@ public class ShopController {
 	public String shopOrderList(@PathVariable Integer orderId,Model model) {
 		OrderInfo orderInfo = shopService.checkOrder(orderId);
 		List<OrderItem> list = shopService.checkOrderContents(orderId);
-		System.out.println(orderInfo.getDeliveryManName());
+		System.out.println("order Info: " + orderInfo + "order ID: " + orderId);
 		session.setAttribute("orderInfoForShop", orderInfo);
 		session.setAttribute("orderItemForShop", list);
-		return "shopOrderInfo";
+		return "storeOrderInfo";
 	}
+
+//	店舗オーダーリスト(pha) start-------------------------------------------------------------
+	@RequestMapping(value="/storeOrderList")
+	public String orderList(Model model) {
+		return "store";
+	}
+
+	@RequestMapping(value="/orderPassed", params="backStoreBtn")
+	public String orderPassed(Model model) {
+		return "store";
+	}
+//	店舗オーダーリスト(pha) end---------------------------------------------------------------
 
 //	店舗情報更新(pha) start---------------------------------------------------------
 	@RequestMapping(value="/storeManage")

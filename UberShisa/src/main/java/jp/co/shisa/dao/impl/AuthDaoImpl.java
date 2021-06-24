@@ -23,8 +23,22 @@ public class AuthDaoImpl implements AuthDao{
 	String SELECT_FROM_USERINFO_AND_ROOM = "SELECT ui.*, room_id,room_name FROM user_info ui JOIN room r ON ui.user_id = r.user_id WHERE ui.user_id = :userId";
 	String SELECT_FROM_USERINFO_AND_DELIVERY_MAN = "SELECT ui.*,delivery_man_id,delivery_man_name,delivery_man_tel FROM user_info ui JOIN delivery_man dm ON ui.user_id = dm.user_id WHERE ui.user_id = :userId ";
 	String SELECT_FROM_USERINFO_AND_SHOP = "SELECT ui.*,shop_id,shop_name,shop_tel,address FROM user_info ui JOIN shop s ON ui.user_id = s.user_id WHERE ui.user_id = :userId";
-	String SELECT_FROM_USERINFO_FINISHED_ORDER_BY_SHOP = "SELECT oi.*,delivery_man_name,delivery_man_tel FROM order_info oi JOIN delivery_man dm ON oi.delivery_man_id = dm.delivery_man_id WHERE shop_id = :shopId AND status BETWEEN 4 AND 7";
-	String SELECT_FROM_USERINFO_NOT_FINISHED_ORDER_BY_SHOP = "SELECT oi.*,delivery_man_name,delivery_man_tel FROM order_info oi JOIN delivery_man dm ON oi.delivery_man_id = dm.delivery_man_id WHERE shop_id = :shopId AND status BETWEEN 1 AND 3";
+
+	String SELECT_FROM_USERINFO_FINISHED_ORDER_BY_SHOP = "SELECT oi.*, delivery_man_name, delivery_man_tel"
+			+ " FROM order_info oi JOIN delivery_man dm ON oi.delivery_man_id = dm.delivery_man_id "
+			+ " WHERE shop_id = :shopId AND status >= 4 "
+			+ " UNION "
+			+ " SELECT *, NULL as deliveryman, NULL as deliverytel "
+			+ " FROM order_info "
+			+ "  WHERE delivery_man_id IS NULL AND shop_id = :shopId AND status >= 4";
+
+	String SELECT_FROM_USERINFO_NOT_FINISHED_ORDER_BY_SHOP = "SELECT oi.*, delivery_man_name, delivery_man_tel"
+			+ " FROM order_info oi JOIN delivery_man dm ON oi.delivery_man_id = dm.delivery_man_id "
+			+ " WHERE shop_id = :shopId AND status BETWEEN 1 AND 3 "
+			+ " UNION "
+			+ " SELECT *,NULL as deliveryman, NULL as deliverytel "
+			+ " FROM order_info "
+			+ "  WHERE delivery_man_id IS NULL AND shop_id = :shopId AND status BETWEEN 1 AND 3";
 
 	@Autowired
 	NamedParameterJdbcTemplate namedJT;
@@ -73,8 +87,8 @@ public class AuthDaoImpl implements AuthDao{
 	public List<OrderInfo> checkFinishedOrderByShop(Shop shop) {
 		String sql = SELECT_FROM_USERINFO_FINISHED_ORDER_BY_SHOP;
 		MapSqlParameterSource param = new MapSqlParameterSource();
-		param.addValue("shopId",shop.getShopId());
-		List<OrderInfo> list = namedJT.query(sql,param,new BeanPropertyRowMapper<OrderInfo>(OrderInfo.class));
+		param.addValue("shopId", shop.getShopId());
+		List<OrderInfo> list = namedJT.query(sql, param, new BeanPropertyRowMapper<OrderInfo>(OrderInfo.class));
 		return list.isEmpty() ? null : list;
 	}
 
@@ -82,7 +96,7 @@ public class AuthDaoImpl implements AuthDao{
 		String sql = SELECT_FROM_USERINFO_NOT_FINISHED_ORDER_BY_SHOP;
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("shopId",shop.getShopId());
-		List<OrderInfo> list = namedJT.query(sql,param,new BeanPropertyRowMapper<OrderInfo>(OrderInfo.class));
+		List<OrderInfo> list = namedJT.query(sql, param, new BeanPropertyRowMapper<OrderInfo>(OrderInfo.class));
 		return list.isEmpty() ? null : list;
 	}
 

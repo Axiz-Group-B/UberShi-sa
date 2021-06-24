@@ -1,9 +1,5 @@
 <!DOCTYPE html>
-<<<<<<< HEAD
-<html lang="ja" xmlns:th="http://www.​thymeleaf.org">
-=======
 <html lang="ja"  xmlns:th="http://www.​thymeleaf.org">
->>>>>>> branch 'main' of https://github.com/Axiz-Group-B/UberShi-sa.git
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,8 +18,8 @@
         <div id="menu-icon"><i class="fas fa-bars fa-2x"></i></div>
     </div>
     <div class="sidebar-menu">
-        <div class="menu-item"><form action="storeManage"><button class="menu-btn">店舗情報</button></form></div>
-        <div class="menu-item"><form action="#"><button class="menu-btn">注文一覧</button></form></div>
+        <div class="menu-item"><form th:action="@{/storeManage}"><button class="menu-btn">店舗情報</button></form></div>
+        <div class="menu-item"><form th:action="@{/storeOrderList}"><button class="menu-btn">注文一覧</button></form></div>
         <div class="menu-item"><form action="#"><button class="menu-btn">商品管理</button></form></div>
         <div class="menu-item"><form action="#"><button class="menu-btn">ログアウト</button></form></div>
     </div>
@@ -31,15 +27,15 @@
         <div>
             <h1>注文一覧</h1>
             <form action="#">
-                <select name="#" id="#">
-                    <option value="#" selected>進行中の注文</option>
-                    <option value="#">受け渡し済み注文</option>
+                <select name="#" id="storeOrderChange">
+                    <option value="1" selected>進行中の注文</option>
+                    <option value="2">受け渡し済み注文</option>
                 </select>
             </form>
         </div>
 
-        <!-- <div class="content-container"></div> -->
-        <table>
+        <table id="orderListTable">
+        	<caption>進行中</caption>
             <tr>
                 <th>注文ID</th>
                 <th>配達員ID</th>
@@ -48,29 +44,34 @@
                 <th>日時</th>
             </tr>
             <tr th:inline="text" th:each="order : ${session.notFinishedOrderList}">
-                <td><a th:href="@{/shop/shopOrderInfo/{orderId}(orderId=${order.orderId})}" class="bin-mini">[[${order.orderId}]]</a></td>
-                <td>[[${order.deliveryManId}]]</td>
-                <td>[[${order.deliveryManName}]]</td>
-                <td>[[${order.deliveryManTel}]]</td>
-                <td>[[${order.dateTime}]]</td>
-            </tr>
-            <tr>
-                <td><form action="#"><button class="btn-mini">12345</button></form></td>
-                <td>0987</td>
-                <td>Uber Shisa</td>
-                <td>090-xxx-xxx</td>
-                <td>10:30</td>
-            </tr>
-            <tr>
-                <td><form action="#"><button class="btn-mini">12345</button></form></td>
-                <td>0987</td>
-                <td>Uber Shisa</td>
-                <td>090-xxx-xxx</td>
-                <td>10:30</td>
+                <td><a th:href="@{/shop/shopOrderInfo/{orderId}(orderId=${order.orderId})}" class="btn-mini"
+                th:text="${order.orderId}"></a></td>
+				<td th:text="${order.deliveryManId}?:'なし'"></td>
+				<td th:text="${order.deliveryManName}?:'なし'"></td>
+				<td th:text="${order.deliveryManTel}?:'なし'"></td>
+				<td th:text="${order.dateTime}"></td>
             </tr>
         </table>
-        <!-- </div> -->
+<!-- 受け渡し済み注文テーブル -->
+        <table id="orderListTableFinish" style="display: none;">
+        <caption>受け渡し済み</caption>
+            <tr>
+                <th>注文ID</th>
+                <th>配達員ID</th>
+                <th>配達員名</th>
+                <th>電話番号</th>
+                <th>日時</th>
+            </tr>
+            <tr th:inline="text" th:each="order : ${session.finishedOrderList}">
+                <td><a th:href="@{/shop/shopOrderInfo/{orderId}(orderId=${order.orderId})}" class="btn-mini">[[${order.orderId}]]</a></td>
+                <td th:text="${order.deliveryManId}?:'なし'"></td>
+				<td th:text="${order.deliveryManName}?:'なし'"></td>
+				<td th:text="${order.deliveryManTel}?:'なし'"></td>
+                <td th:text="${order.dateTime}"></td>
+            </tr>
+        </table>
     </div>
     <script src="js/js.js" type="text/javascript"></script>
+    <script src="js/storeManage.js" type="text/javascript"></script>
 </body>
 </html>
