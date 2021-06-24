@@ -146,3 +146,7 @@ public class HotelController {
 		return "hotelAddStore"; //hotelAddStoreに遷移
 	}
 }
+
+
+
+
