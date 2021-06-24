@@ -24,9 +24,9 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public List<OrderInfo> orderInfoFind(Integer shopId) {
+	public List<OrderInfo> orderInfoFind(Integer shopId,String dateTime) {
 		// TODO 自動生成されたメソッド・スタブ
-		return hotelDao.orderInfoFind(shopId);
+		return hotelDao.orderInfoFind(shopId,dateTime);
 	}
 
 	@Override
@@ -57,6 +57,12 @@ public class HotelServiceImpl implements HotelService {
 	public Integer totalPrice(Integer shopId) {
 		// TODO 自動生成されたメソッド・スタブ
 		return hotelDao.totalPrice(shopId);
+	}
+
+	@Override
+	public Integer priceSum(Integer orderId) {
+		// TODO 自動生成されたメソッド・スタブ
+		return hotelDao.priceSum(orderId);
 	}
 
 }
