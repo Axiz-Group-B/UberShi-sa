@@ -16,7 +16,7 @@ import jp.co.shisa.entity.Shop;
 @Repository
 public class HotelDaoImpl implements HotelDao{
 	private static final String SHOP_FINDALL = "SELECT * FROM shop";
-	private static final String ORDER_INFO_FIND = "SELECT * FROM order_info WHERE shop_id= :shopId";
+	private static final String ORDER_INFO_FIND = "SELECT * FROM order_info WHERE shop_id= :shopId AND to_char(date_time, 'YYYY/MM/DD') like '2021/:dateTime%'";
 	private static final String DELIVERY_MAN_FINDALL = "SELECT * FROM delivery_man";
 	private static final String ORDER_INFO_FIND_ID = "SELECT order_info.order_id as order_id, product_name, amount, price FROM order_info JOIN order_item ON order_info.order_id = order_item.order_id JOIN product ON order_item.product_id = product.product_id WHERE order_info.order_id= :orderId";
 	private static final String USER_INFO_DELETE = "DELETE FROM user_info WHERE user_id = (SELECT u.user_id FROM user_info AS u LEFT JOIN delivery_man AS d ON u.user_id = d.user_id WHERE d.delivery_man_id = :deliveryManId)";
@@ -37,11 +37,13 @@ public class HotelDaoImpl implements HotelDao{
 	 }
 
 	//order検索
-	 public List<OrderInfo> orderInfoFind(Integer shopId) {
+	 public List<OrderInfo> orderInfoFind(Integer shopId,String dateTime) {
 		 String sql = ORDER_INFO_FIND;
 
 		 MapSqlParameterSource param = new MapSqlParameterSource();
 		 param.addValue("shopId", shopId);
+
+		 param.addValue("dateTime", dateTime);
 
 		 List<OrderInfo> list = jdbcTemplate.query(sql, param,new BeanPropertyRowMapper<OrderInfo>(OrderInfo.class));
 

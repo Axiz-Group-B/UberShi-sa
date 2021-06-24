@@ -9,7 +9,7 @@ import jp.co.shisa.entity.Shop;
 public interface HotelService {
 
 	public List<Shop> shopFindAll();
-	public List<OrderInfo> orderInfoFind(Integer shopId);
+	public List<OrderInfo> orderInfoFind(Integer shopId,String dateTime);
 	public List<DeliveryMan> DeliveryManFindAll();
 	public List<OrderInfo> OrderInfoFindId(Integer orderId);
 	public void UserInfoDelete(Integer deliveryManId);

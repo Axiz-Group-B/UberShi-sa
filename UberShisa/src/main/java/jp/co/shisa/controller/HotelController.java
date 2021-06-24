@@ -39,7 +39,7 @@ public class HotelController {
 		Integer total = 0;
 
 		sList = hotelService.shopFindAll();
-		oList = hotelService.orderInfoFind(form.getOrderShopId());
+		oList = hotelService.orderInfoFind(form.getOrderShopId(),form.getMonth());
 		if(form.getOrderShopId() != null) {
 			total = hotelService.totalPrice(form.getOrderShopId());
 		}else {
@@ -48,6 +48,7 @@ public class HotelController {
 
 		//確認
 		//System.out.println(form.getOrderShopId());
+		//System.out.println(oList.get(0));
 
 		if(form.getOrderListId() != null) {
 			model.addAttribute("orderListId",form.getOrderListId());
@@ -81,7 +82,7 @@ public class HotelController {
 		sTotal = hotelService.priceSum(form.getOrderListId());
 
 		//確認
-		//System.out.println(form.getOrderListId());
+		//System.out.println(form.getMonth());
 		//System.out.println(total);
 
 		model.addAttribute("orderListId",form.getOrderListId());

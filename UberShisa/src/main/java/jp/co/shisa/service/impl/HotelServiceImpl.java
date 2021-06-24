@@ -24,9 +24,9 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public List<OrderInfo> orderInfoFind(Integer shopId) {
+	public List<OrderInfo> orderInfoFind(Integer shopId,String dateTime) {
 		// TODO 自動生成されたメソッド・スタブ
-		return hotelDao.orderInfoFind(shopId);
+		return hotelDao.orderInfoFind(shopId,dateTime);
 	}
 
 	@Override
