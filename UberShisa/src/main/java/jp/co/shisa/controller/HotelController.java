@@ -41,8 +41,8 @@ public class HotelController {
 
 		sList = hotelService.shopFindAll();
 		oList = hotelService.orderInfoFind(form.getOrderShopId(),form.getMonth());
-		if(form.getOrderShopId() != null) {
-			total = hotelService.totalPrice(form.getOrderShopId());
+		if(hotelService.totalPrice(form.getOrderShopId(),form.getMonth()) != null) {
+			total = hotelService.totalPrice(form.getOrderShopId(),form.getMonth());
 		}else {
 			total = 0;
 		}
@@ -180,5 +180,3 @@ public class HotelController {
 		//hotelCancelOrderOfRoomに遷移
 	}
 }
-
-

@@ -42,9 +42,9 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public Integer totalPrice(Integer shopId) {
+	public Integer totalPrice(Integer shopId,String dateTime) {
 		// TODO 自動生成されたメソッド・スタブ
-		return hotelDao.totalPrice(shopId);
+		return hotelDao.totalPrice(shopId,dateTime);
 	}
 
 
@@ -64,6 +64,7 @@ public class HotelServiceImpl implements HotelService {
 
 
 	@Override
+
 	public void hotelUserInfoDelete(Integer shopId) {
 		// TODO 自動生成されたメソッド・スタブ
 		hotelDao.hotelUserInfoDelete(shopId);

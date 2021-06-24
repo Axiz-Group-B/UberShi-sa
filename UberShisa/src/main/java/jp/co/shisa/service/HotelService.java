@@ -14,7 +14,7 @@ public interface HotelService {
 	public List<OrderInfo> OrderInfoFindId(Integer orderId);
 	public void UserInfoDelete(Integer deliveryManId);
 	public void DeliveryManDelete(Integer deliveryManId);
-	public Integer totalPrice(Integer shopId);
+	public Integer totalPrice(Integer shopId,String dateTime);
 	public Integer priceSum(Integer orderId);
 	public void hotelUserInfoDelete(Integer shopId);
 	public void HotelShopDelete(Integer shopId);
