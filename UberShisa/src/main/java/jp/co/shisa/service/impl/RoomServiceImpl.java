@@ -85,4 +85,31 @@ public class RoomServiceImpl implements RoomService {
 		return roomDao.getOrderItem(orderId);
 	}
 
+	//orderIdからorderItemとる
+	public OrderInfo getOrderInfo(Integer orderId) {
+		return roomDao.getOrderInfo(orderId);
+	}
+
+	//statusが6,7以外(進行中注文)を取る
+	public List<OrderInfo> getUncompOrder(Integer roomId){
+		return roomDao.getUncompOrder(roomId);
+	}
+
+	////////////////////////////////////////////////////////////////
+	//ホテル届きました通知のために、roomIdと任意のstatusでレコード探す。１以上あれば通知するから、リストで返さない
+	public List<OrderInfo> searchStatus(Integer roomId, Integer status) {
+		return roomDao.searchStatus(roomId, status);
+	}
+
+	//shop
+	public OrderInfo statusForShop(Integer shopId, Integer status) {
+		return roomDao.statusForShop(shopId, status);
+	}
+
+	//hotel
+	public OrderInfo statusForHotel(Integer status) {
+		return roomDao.statusForHotel(status);
+	}
+
+
 }

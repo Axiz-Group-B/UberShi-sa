@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -40,7 +41,7 @@ public class AuthController {
 	}
 
 	@RequestMapping("/login")
-	public String login(@ModelAttribute("login") LoginForm form, BindingResult bindingResult, Model model,
+	public String login(@Validated @ModelAttribute("login") LoginForm form, BindingResult bindingResult, Model model,
 			RedirectAttributes attr) {
 		if (bindingResult.hasErrors()) {
 			return "index";
@@ -85,7 +86,7 @@ public class AuthController {
 			session.setAttribute("userInfo", userInfo);
 			List<OrderInfo> finishedOrderList = authService.checkFinishedOrderByShop(shop);
 			List<OrderInfo> notFinishedOrderList = authService.checkNotFinishedOrderByShop(shop);
-			session.setAttribute("finishedOrderListBy", finishedOrderList);
+			session.setAttribute("finishedOrderList", finishedOrderList);
 			session.setAttribute("notFinishedOrderList", notFinishedOrderList);
 			return "store";
 		case 4:

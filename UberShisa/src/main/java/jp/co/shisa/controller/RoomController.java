@@ -1,5 +1,7 @@
 package jp.co.shisa.controller;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -191,10 +193,12 @@ public class RoomController {
 		}
 		if(!list.isEmpty()) {
 			list.clear();
+			list= new ArrayList<OrderItem>();
 		}
 
 		session.setAttribute("roomCart", list);
 		session.setAttribute("totalPrice", "0");
+
 		if(form.getFrom().equals("order")) {//どのページから来たか判別
 			return "order";
 		}
@@ -240,6 +244,117 @@ public class RoomController {
 		return "orderHistoryDetail";
 
 	}
+
+	//ハンバーガーから、注文履歴確認
+	@RequestMapping("/room/orderHistory")
+	public String orderHistory(Model model) {
+		Room room = (Room)session.getAttribute("loginUser");
+		//status6の注文を表示(配達済み一覧)
+		//今あるメソッドで対応
+		List<OrderInfo> compList = new ArrayList<OrderInfo>();
+		if(roomS.searchStatus(room.getRoomId(), 6) != null) {//null回避
+			compList = roomS.searchStatus(room.getRoomId(), 6);
+			for(OrderInfo o : compList) {
+				Timestamp t = o.getDateTime();
+				String dateTimeStr = new SimpleDateFormat("yyyy/MM/dd HH:mm").format(t);
+				o.setDateTimeStr(dateTimeStr);
+			}
+		}
+		model.addAttribute("compOrder", compList);
+		//status6,7以外の注文を表示(7は前の宿泊者の注文だから表示しない)
+		//メソッド作ろう
+		List<OrderInfo> uncompList = new ArrayList<OrderInfo>();
+		if(roomS.getUncompOrder(room.getRoomId()) != null) {
+			uncompList = roomS.getUncompOrder(room.getRoomId());
+			for(OrderInfo o : uncompList) {
+				Timestamp t = o.getDateTime();
+				String dateTimeStr = new SimpleDateFormat("yyyy/MM/dd HH:mm").format(t);
+				o.setDateTimeStr(dateTimeStr);
+			}
+		}
+		model.addAttribute("uncompOrder", uncompList);
+
+		return "orderHistory";
+	}
+
+	//パラメータつき
+	@RequestMapping("/room/orderHistoryDetail/{orderId}")
+	public String orderHistoryDetailParam(@PathVariable("orderId") Integer orderId, Model model) {
+
+		OrderInfo order = roomS.getOrderInfo(orderId);
+		model.addAttribute("orderInfo", order);
+
+		//オーダーidからorderItem取ってくる。
+		List<OrderItem> itemList = roomS.getOrderItem(orderId);
+		model.addAttribute("itemList", itemList);
+		return "orderHistoryDetail";
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////
+	//通知用JS※異なるstatusの注文を持つ可能性があると思ったのでコントローラー分け
+	@RequestMapping("/room/orderNotif")
+	@ResponseBody
+	public String roomNotifTwo() {
+		//ログインユーザーの情報とる
+		Room room = (Room)session.getAttribute("loginUser");
+
+		if(roomS.searchStatus(room.getRoomId(), 2) !=null || roomS.searchStatus(room.getRoomId(), 3) !=null) {
+			return "delivery";
+		}
+
+		return "other";
+	}
+
+	@RequestMapping("/room/orderNotifFour")
+	@ResponseBody
+	public String roomNotifFour() {
+		//ログインユーザーの情報とる
+		Room room = (Room)session.getAttribute("loginUser");
+
+		if(roomS.searchStatus(room.getRoomId(), 4) !=null) {
+			return "leaveShop";
+		}
+
+		return "other";
+	}
+
+	@RequestMapping("/room/orderNotifFive")
+	@ResponseBody
+	public String roomNotifFive() {
+		//ログインユーザーの情報とる
+		Room room = (Room)session.getAttribute("loginUser");
+
+		if(roomS.searchStatus(room.getRoomId(), 5) != null) {//今回はホテル届いたか通知するので、引数のstatusは５
+			return "hotelArrived";
+		}
+		return "other";
+	}
+
+	//Shop用だけどコントローラーいじれないのでここに書いた
+	@RequestMapping("/room/orderNotifShop")
+	@ResponseBody
+	public String roomNotifShop() {
+
+		Shop shop = (Shop)session.getAttribute("loginUser");//これが呼ばれるときはログインユーザーはShop型のはず
+
+		if(roomS.statusForShop(shop.getShopId(), 1) !=null || roomS.statusForShop(shop.getShopId(), 2) !=null ||
+				roomS.statusForShop(shop.getShopId(), 3) !=null) {//statusが1,2,3の時は、完了していない注文がある
+			return "Yes";
+		}
+		return "other";//nullこわかった
+	}
+
+	//hotel用だけどコントローラーいじれないのでここに書いた
+		@RequestMapping("/room/orderNotifHotel")
+		@ResponseBody
+		public String roomNotifHotel() {
+			//ホテルは全レコード対象だからログインのセッション情報いらない
+
+			if(roomS.statusForHotel(4) !=null) {//statusが4だと配達員出発
+				return "leaveShop";
+			}
+			return "other";//nullこわかった
+		}
 
 	//カート削除ＪＳ用できなさそうだからやめた
 	/*@GetMapping("/room/deleteCart/{b}")
