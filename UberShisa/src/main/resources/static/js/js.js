@@ -12,11 +12,11 @@ $("#menu-icon").click(function(){
 //     }
 //   });
 
-function check(){
-	if(window.confirm('送信してよろしいですか？')){
-		return true;
-	}else{
-		window.alert('キャンセルされました');
-		return false;
-	}
-}
+//function check(){
+//	if(window.confirm('送信してよろしいですか？')){
+//		return true;
+//	}else{
+//		window.alert('キャンセルされました');
+//		return false;
+//	}
+//}

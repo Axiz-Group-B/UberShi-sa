@@ -13,5 +13,7 @@ public interface HotelService {
 	public List<DeliveryMan> DeliveryManFindAll();
 	public List<OrderInfo> OrderInfoFindId(Integer orderId);
 	public void UserInfoDelete(Integer deliveryManId);
+	public void DeliveryManDelete(Integer deliveryManId);
+	public Integer totalPrice(Integer shopId);
 }
 
