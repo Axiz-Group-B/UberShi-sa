@@ -11,6 +11,7 @@ import jp.co.shisa.dao.DeliveryManDao;
 import jp.co.shisa.dao.ShopDao;
 import jp.co.shisa.entity.OrderInfo;
 import jp.co.shisa.entity.OrderItem;
+import jp.co.shisa.entity.Product;
 import jp.co.shisa.entity.Shop;
 import jp.co.shisa.entity.UserInfo;
 import jp.co.shisa.service.ShopService;
@@ -37,6 +38,10 @@ public class ShopServiceImpl implements ShopService{
 	}
 	public List<OrderItem> checkOrderContents(Integer orderId) {
 		return shopDao.checkOrderContents(orderId);
+	}
+
+	public List<Product> selectAllProductByShopId(Integer shopId) {
+		return shopDao.selectAllProductByShopId(shopId);
 	}
 
 }

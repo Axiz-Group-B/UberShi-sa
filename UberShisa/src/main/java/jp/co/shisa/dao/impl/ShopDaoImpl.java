@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import jp.co.shisa.dao.ShopDao;
 import jp.co.shisa.entity.OrderInfo;
 import jp.co.shisa.entity.OrderItem;
+import jp.co.shisa.entity.Product;
 import jp.co.shisa.entity.Shop;
 import jp.co.shisa.entity.UserInfo;
 
@@ -62,6 +63,15 @@ public class ShopDaoImpl implements ShopDao{
 		param.addValue("userId", userInfo.getUserId());
 		jdbcTemplate.update(sql, param);
 		System.out.println("店舗情報更新された");
+	}
+
+	public List<Product> selectAllProductByShopId(Integer shopId) {
+		String sql = "SELECT * FROM product WHERE shop_id = :shopId";
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("shopId", shopId);
+		List<Product> list = namedJT.query(sql, param,new BeanPropertyRowMapper<Product>(Product.class));
+
+		return list.isEmpty() ? null : list;
 	}
 
 }
