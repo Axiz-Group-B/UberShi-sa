@@ -53,5 +53,11 @@ public class HotelServiceImpl implements HotelService {
 		hotelDao.DeliveryManDelete(deliveryManId);
 	}
 
+	@Override
+	public Integer totalPrice(Integer shopId) {
+		// TODO 自動生成されたメソッド・スタブ
+		return hotelDao.totalPrice(shopId);
+	}
+
 }
 

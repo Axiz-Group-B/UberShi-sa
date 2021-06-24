@@ -31,16 +31,20 @@ public class HotelController {
 									Model model){
 		List<Shop> sList = null;
 		List<OrderInfo> oList = null;
+		Integer total = 0;
 
 		sList = hotelService.shopFindAll();
 		oList = hotelService.orderInfoFind(form.getOrderShopId());
+		total = hotelService.totalPrice(form.getOrderShopId());
 
 		//System.out.println(form.getOrderShopId());
+		//System.out.println(form.getMonth());
 
 		//model.addAttribute("orderListId",form.getOrderListId());
 		//model.addAttribute("orderShopId",form.getOrderShopId());
 		model.addAttribute("sList",sList);
 		model.addAttribute("oList",oList);
+		model.addAttribute("mainTotal",total);
 
 		return "hotelOrderHistory";
 	}
@@ -51,17 +55,22 @@ public class HotelController {
 		List<Shop> sList = null;
 		List<OrderInfo> oList = null;
 		List<OrderInfo> oFindList = null;
+		Integer total = 0;
 
 		sList = hotelService.shopFindAll();
 		oList = hotelService.orderInfoFind(form.getOrderShopId());
 		oFindList = hotelService.OrderInfoFindId(form.getOrderListId());
+		total = hotelService.totalPrice(form.getOrderListId());
 
-		//System.out.println(form.getOrderListId());
+		//System.out.println(form.getOrderShopId());
+		System.out.println(form.getOrderListId());
+		System.out.println(total);
 
 		model.addAttribute("orderListId",form.getOrderListId());
 		model.addAttribute("sList",sList);
 		model.addAttribute("oList",oList);
 		model.addAttribute("oFindList",oFindList);
+		model.addAttribute("subTotal",total);
 
 		return "hotelOrderHistory";
 	}

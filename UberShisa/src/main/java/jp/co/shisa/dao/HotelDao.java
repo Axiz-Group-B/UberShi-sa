@@ -18,4 +18,6 @@ public interface HotelDao {
 	public void UserInfoDelete(Integer deliveryManId);
 
 	public void DeliveryManDelete(Integer deliveryManId);
+
+	public Integer totalPrice(Integer shopId);
 }
