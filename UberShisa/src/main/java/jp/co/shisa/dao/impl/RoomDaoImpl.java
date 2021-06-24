@@ -156,4 +156,55 @@ public class RoomDaoImpl implements RoomDao{
 		param.addValue("orderId", orderId);
 		return namedJT.query(sql, param, new BeanPropertyRowMapper<OrderItem>(OrderItem.class));
 	}
+
+	//orderIdからorderInfoとる
+	public OrderInfo getOrderInfo(Integer orderId) {
+		String sql = "select * from order_info where order_id=:orderId";
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("orderId", orderId);
+		List<OrderInfo> list= namedJT.query(sql, param, new BeanPropertyRowMapper<OrderInfo>(OrderInfo.class));
+		return list.isEmpty() ? null : list.get(0);
+	}
+
+	//statusが6,7以外(進行中注文)を取る
+	public List<OrderInfo> getUncompOrder(Integer roomId){
+		String sql = "select * from order_info where room_id=:roomId and status <> 6 and status <> 7";
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("roomId", roomId);
+		List<OrderInfo> list = namedJT.query(sql, param, new BeanPropertyRowMapper<OrderInfo>(OrderInfo.class));
+		return list.isEmpty() ? null : list;
+	}
+
+	////////////////////////////////////////////////////////////////////////
+	//ホテル届きました通知のために、roomIdと任意のstatusでレコード探す
+	@Override
+	public List<OrderInfo> searchStatus(Integer roomId, Integer status) {
+		String sql = "select * from order_info where room_id=:roomId and status=:status";
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("roomId", roomId);
+		param.addValue("status", status);
+		List<OrderInfo> list = namedJT.query(sql, param, new BeanPropertyRowMapper<OrderInfo>(OrderInfo.class));
+		return list.isEmpty() ? null : list;
+	}
+
+	//Shop用
+	@Override
+	public OrderInfo statusForShop(Integer shopId, Integer status) {
+		String sql = "select * from order_info where shop_id=:shopId and status=:status";
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("shopId", shopId);
+		param.addValue("status", status);
+		List<OrderInfo> list = namedJT.query(sql, param, new BeanPropertyRowMapper<OrderInfo>(OrderInfo.class));
+		return list.isEmpty() ? null : list.get(0);
+	}
+
+	//hotel用
+	@Override
+	public OrderInfo statusForHotel(Integer status) {
+		String sql = "select * from order_info where status=:status";
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("status", status);
+		List<OrderInfo> list = namedJT.query(sql, param, new BeanPropertyRowMapper<OrderInfo>(OrderInfo.class));
+		return list.isEmpty() ? null : list.get(0);
+	}
 }
