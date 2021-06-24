@@ -3,12 +3,14 @@ package jp.co.shisa.service;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import jp.co.shisa.controller.form.SignupForm;
 import jp.co.shisa.entity.DeliveryMan;
 import jp.co.shisa.entity.OrderInfo;
 import jp.co.shisa.entity.OrderItem;
 
-
+@Transactional
 public interface DeliveryManService {
 	public OrderInfo checkOrder(Integer orderId);
 	public List<OrderItem> checkOrderContents(Integer orderId);
@@ -18,4 +20,6 @@ public interface DeliveryManService {
 	public void insertDeliveryMan(SignupForm deliveryMan);
 
 	public void insertUserInfo(SignupForm userInfo);
+
+	public void addDeliveryManIdInOrderAndAddLog(Integer orderId,Integer deliveryManId);
 }
