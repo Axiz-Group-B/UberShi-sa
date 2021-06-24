@@ -86,7 +86,7 @@ public class AuthController {
 			session.setAttribute("userInfo", userInfo);
 			List<OrderInfo> finishedOrderList = authService.checkFinishedOrderByShop(shop);
 			List<OrderInfo> notFinishedOrderList = authService.checkNotFinishedOrderByShop(shop);
-			session.setAttribute("finishedOrderListBy", finishedOrderList);
+			session.setAttribute("finishedOrderList", finishedOrderList);
 			session.setAttribute("notFinishedOrderList", notFinishedOrderList);
 			return "store";
 		case 4:

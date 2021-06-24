@@ -10,6 +10,15 @@ public class OrderItem {
 	//カートに入れるときに便利なので入れました
 	private String productName;
 	private Integer ShopId;
+	private Integer price;
+	public Integer getPrice() {
+		return price;
+	}
+
+	public void setPrice(Integer price) {
+		this.price = price;
+	}
+
 	private Integer totalPrice;
 
 	private String text;
