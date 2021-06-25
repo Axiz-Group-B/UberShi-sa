@@ -84,6 +84,7 @@ public class HotelServiceImpl implements HotelService {
 	@Override
 	public void HotelShopDelete(Integer shopId) {
 		// TODO 自動生成されたメソッド・スタブ
+
 		hotelDao.HotelShopDelete(shopId);
 
 	}
