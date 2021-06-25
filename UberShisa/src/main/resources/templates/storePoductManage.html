@@ -17,10 +17,10 @@
         <div id="menu-icon"><i class="fas fa-bars fa-2x"></i></div>
     </div>
     <div class="sidebar-menu">
-        <div class="menu-item"><form action="#"><button class="menu-btn">店舗情報</button></form></div>
-        <div class="menu-item"><form action="#"><button class="menu-btn">注文一覧</button></form></div>
-        <div class="menu-item"><form action="#"><button class="menu-btn">商品管理</button></form></div>
-        <div class="menu-item"><form action="#"><button class="menu-btn">ログアウト</button></form></div>
+        <div class="menu-item"><form th:action="@{/storeManage}"><button class="menu-btn">店舗情報</button></form></div>
+        <div class="menu-item"><form th:action="@{/storeOrderList}"><button class="menu-btn">注文一覧</button></form></div>
+        <div class="menu-item"><form th:action="@{/shop/storeProductManage}"><button class="menu-btn">商品管理</button></form></div>
+        <div class="menu-item"><form action="/logout"><button class="menu-btn">ログアウト</button></form></div>
     </div>
     <div class="wrapper">
         <div class="left-side">

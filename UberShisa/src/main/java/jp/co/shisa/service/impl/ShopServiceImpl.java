@@ -51,4 +51,9 @@ public class ShopServiceImpl implements ShopService{
 	public Product selectUpdateProductByProductId(Integer productId) {
 		return shopDao.selectUpdateProductByProductId(productId);
 	}
+	@Override
+	public void passedOrder(OrderInfo orderInfo) {
+		// TODO 自動生成されたメソッド・スタブ
+		shopDao.passedOrder(orderInfo);
+	}
 }
