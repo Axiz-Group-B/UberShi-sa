@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import jp.co.shisa.dao.HotelDao;
 import jp.co.shisa.entity.DeliveryMan;
 import jp.co.shisa.entity.OrderInfo;
+import jp.co.shisa.entity.Room;
 import jp.co.shisa.entity.Shop;
 import jp.co.shisa.service.HotelService;
 
@@ -46,5 +47,8 @@ public class HotelServiceImpl implements HotelService {
 		// TODO 自動生成されたメソッド・スタブ
 	}
 
+	public Room roomNameSearch(String roomName) {
+		return hotelDao.roomNameSearch(roomName);
+	}
 }
 

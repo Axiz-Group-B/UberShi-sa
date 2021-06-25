@@ -4,6 +4,7 @@ import java.util.List;
 
 import jp.co.shisa.entity.DeliveryMan;
 import jp.co.shisa.entity.OrderInfo;
+import jp.co.shisa.entity.Room;
 import jp.co.shisa.entity.Shop;
 
 public interface HotelService {
@@ -13,5 +14,6 @@ public interface HotelService {
 	public List<DeliveryMan> DeliveryManFindAll();
 	public List<OrderInfo> OrderInfoFindId(Integer orderId);
 	public void UserInfoDelete(Integer deliveryManId);
+	public Room roomNameSearch(String roomName);
 }
 

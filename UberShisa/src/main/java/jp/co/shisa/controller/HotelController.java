@@ -7,13 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jp.co.shisa.controller.form.RoomOrderForm;
 import jp.co.shisa.controller.form.hotelDeliveryForm;
 import jp.co.shisa.controller.form.hotelOrderHistoryForm;
 import jp.co.shisa.entity.DeliveryMan;
 import jp.co.shisa.entity.OrderInfo;
+import jp.co.shisa.entity.Room;
 import jp.co.shisa.entity.Shop;
 import jp.co.shisa.service.HotelService;
 
@@ -144,5 +148,14 @@ public class HotelController {
 		List<Shop> list = hotelService.shopFindAll();
 		model.addAttribute("shop",list);
 		return "hotelAddStore"; //hotelAddStoreに遷移
+	}
+
+	@RequestMapping("/roomSearch")
+	public String roomNameSearch(@Validated @ModelAttribute("roomNameForm")RoomOrderForm form, BindingResult bindingResult,Model model) {
+	Room getRoomInfo = hotelService.roomNameSearch(form.getRoomName());
+	if(getRoomInfo == null) {
+		 model.addAttribute("nullMsg","検索した部屋番号はありません");
+		 return "hotel";
+	} return "hotelOrderOfRoom";
 	}
 }
