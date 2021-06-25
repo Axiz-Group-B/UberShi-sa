@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jp.co.shisa.controller.form.hotelAddStoreForm;
 import jp.co.shisa.dao.HotelDao;
 import jp.co.shisa.entity.DeliveryMan;
 import jp.co.shisa.entity.OrderInfo;
@@ -87,5 +88,39 @@ public class HotelServiceImpl implements HotelService {
 		hotelDao.HotelShopDelete(shopId);
 
 	}
+
+
+
+	 //神山-----------------------------------------------------------
+
+
+
+	public boolean checkLoginId(hotelAddStoreForm signupForm) {
+		String checkLoginId = hotelDao.checkLoginId(signupForm);
+
+		if (checkLoginId == null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+
+
+	public void insertUserInfo(hotelAddStoreForm userInfo) {
+		hotelDao.insertUserInfo(userInfo);
+	}
+
+
+	@Override
+	public void insertShop(hotelAddStoreForm hotelShop) {
+		Integer userId = hotelDao.UserId(hotelShop);
+
+		hotelDao.insertShop(hotelShop, userId);
+	}
+
+
+
+
 }
 

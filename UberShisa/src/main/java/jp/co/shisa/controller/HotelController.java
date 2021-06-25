@@ -186,16 +186,54 @@ public class HotelController implements Serializable {
 
 
 
-
-
 	@RequestMapping("/roomSearch")
 	public String roomNameSearch(@Validated @ModelAttribute("roomNameForm")RoomOrderForm form, BindingResult bindingResult,Model model) {
 	Room getRoomInfo = hotelService.roomNameSearch(form.getRoomName());
 	if(getRoomInfo == null) {
 		 model.addAttribute("nullMsg","検索した部屋番号はありません");
 		 return "hotel";
-	} return "hotelOrderOfRoom";
+	}
+
+	return "hotelOrderOfRoom";
+	}
+
+
+
+	//店舗追加----------------------------------------------------
+	@RequestMapping("/addStore")
+	public String insertHotelShop(@Validated @ModelAttribute("insert") hotelAddStoreForm form, BindingResult bindingResult,Model model) {
+
+		System.out.println(form.getShopLoginId());
+		List<Shop> list = hotelService.shopFindAll();
+		model.addAttribute("shop",list);
+
+
+		//もし空白があったらエラー吐いて同じ画面出す
+		/*if (bindingResult.hasErrors()) {
+			model.addAttribute("errorPassMsg", "入力されていない項目があります");
+			return "hotelAddStore";
+		}*/
+
+		//無ければ↓
+			if(hotelService.checkLoginId(form)) {//IDに重複がないか確認
+			    hotelService.insertUserInfo(form);//userInfoに追加
+			    hotelService.insertShop(form);//shopに追加
+			    list = hotelService.shopFindAll();
+				model.addAttribute("shop",list);
+
+				return "hotelAddStore";//hotelAddStoreに遷移(同じ画面)
+
+			//重複してれば重複してると通知
+			}else {
+				model.addAttribute("errorPassMsg", "ログインIDが重複しています");
+
+				return "hotelAddStore";
+			}
+
+			//return "hotelAddStore";
+
+	//-------------------------------------------------------------
+
+
 	}
 }
-
-

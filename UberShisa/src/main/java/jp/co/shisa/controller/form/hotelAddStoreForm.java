@@ -13,7 +13,7 @@ public class hotelAddStoreForm {
 	@NotBlank
 	private String shopAddress;
 	@NotBlank
-	private String shopTels;
+	private String shopTel;
 
 
 	//shopLoginIdゲッター
@@ -53,12 +53,12 @@ public class hotelAddStoreForm {
 	}
 
 	//shopTelsゲッター
-	public String getShopTels() {
-		return shopTels;
+	public String getShopTel() {
+		return shopTel;
 	}
 	//shopTelsセッター
-	public void setShopTels(String shopTels) {
-		this.shopTels = shopTels;
+	public void setShopTel(String shopTel) {
+		this.shopTel = shopTel;
 	}
 
 
