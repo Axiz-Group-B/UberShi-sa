@@ -23,10 +23,12 @@
             <div class="header">
                 <h1>ログイン</h1>
             </div>
-           	 	<span class="error-msg" th:if="!${#strings.isEmpty(errorMsg)}" th:text="${errorMsg}"></span>
+           	 	<p class="error-msg" th:if="!${#strings.isEmpty(errorMsg)}" th:text="${errorMsg}"></p>
                 <form method="post" action="/login" th:object="${login}">
-                    <input type="text" name="loginId" placeholder="ログインID">
-                    <input type="password" name="pass" placeholder="パスワード">
+                	<p th:if="${#fields.hasErrors('loginId')}" th:errors="*{loginId}" class="error-msg"></p>
+                    <input type="text" name="loginId"  th:field="*{loginId}" placeholder="ログインID">
+                    <p th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}" class="error-msg"></p>
+                    <input type="password" name="pass" th:field="*{pass}"  placeholder="パスワード">
                     <div class="job-dropdown">
                         <label>役割</label>
 
