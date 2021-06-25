@@ -25,6 +25,7 @@ import jp.co.shisa.entity.OrderItem;
 import jp.co.shisa.entity.Product;
 import jp.co.shisa.entity.Shop;
 import jp.co.shisa.entity.UserInfo;
+import jp.co.shisa.service.AuthService;
 import jp.co.shisa.service.ShopService;
 
 @Controller
@@ -32,6 +33,9 @@ import jp.co.shisa.service.ShopService;
 public class ShopController {
 	@Autowired
 	ShopService shopService;
+
+	@Autowired
+	AuthService authService;
 
 	@Autowired
 	HttpSession session;
@@ -53,7 +57,19 @@ public class ShopController {
 	}
 
 	@RequestMapping(value="/orderPassed", params="backStoreBtn")
+	public String backStore1(Model model) {
+		return "store";
+	}
+
+	@RequestMapping(value="/orderPassed", params="passedBtn")
 	public String orderPassed(Model model) {
+		Shop shop = (Shop) session.getAttribute("loginUser");
+		OrderInfo orderInfo = (OrderInfo) session.getAttribute("orderInfoForShop");
+		shopService.passedOrder(orderInfo);
+		List<OrderInfo> finishedOrderList = authService.checkFinishedOrderByShop(shop);
+		List<OrderInfo> notFinishedOrderList = authService.checkNotFinishedOrderByShop(shop);
+		session.setAttribute("finishedOrderList", finishedOrderList);
+		session.setAttribute("notFinishedOrderList", notFinishedOrderList);
 		return "store";
 	}
 //	店舗オーダーリスト(pha) end---------------------------------------------------------------

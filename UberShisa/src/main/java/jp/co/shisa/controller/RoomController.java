@@ -62,6 +62,7 @@ public class RoomController {
 			List<Product> list = roomS.searchFromAll(form.getProductName());
 			if(list.isEmpty()){
 				model.addAttribute("msg", "検索条件に当てはまるものはありませんでした");
+
 				return "order";
 			}
 			model.addAttribute("productList", list);
@@ -75,7 +76,6 @@ public class RoomController {
 			return "order";
 		}
 		model.addAttribute("productList", list);
-		form.setShopId(form.getShopId());
 		return "order";
 	}
 
@@ -131,12 +131,23 @@ public class RoomController {
 			return "orderDetail";
 		}
 
+		Product p = roomS.productById(form.getProductId());
+		if(p.getStock() < form.getAmount()) {
+			model.addAttribute("amount", "現在注文できる最大数は"+p.getStock()+"個です");
+			return "orderDetail";
+		}
+
 		//orderItem型のインスタンスをセッションに入れる…？
 		//先にセッションからリスト取得→そこにaddして、セッションにリストを入れなおす
 		OrderItem order = new OrderItem(form.getProductId(),form.getAmount(), form.getSubtotal(), form.getProductName(), form.getShopId());
 		List<OrderItem> cartList = new ArrayList<OrderItem>();
 		if(session.getAttribute("roomCart") != null) {
 			cartList = (List<OrderItem>)session.getAttribute("roomCart");//null回避
+			//入れようとしてる商品と、カートの商品のお店が同じかを見る
+			if(cartList.get(0).getShopId() != form.getShopId()) {
+				model.addAttribute("msg", "異なるお店の商品をカートに入れることはできません");
+				return "orderDetail";
+			}
 			for(OrderItem i : cartList) {
 				if(i.getProductId() == form.getProductId()) {//カートに入れる商品IDが、リストに入ってると、はじくように。
 					model.addAttribute("msg", "この商品は選択済みです。一度カートから削除して、追加してください。");

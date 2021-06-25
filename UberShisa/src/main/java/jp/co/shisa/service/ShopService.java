@@ -18,8 +18,8 @@ public interface ShopService {
 	public List<Product> selectAllProductByShopId(Integer shopId);
 	public void insertProduct(Product product);
 	public Product selectUpdateProductByProductId(Integer productId);
+	public void passedOrder(OrderInfo orderInfo);
 	public Product updateProductAndGetProductByProductId(Product product);
 	public void deleteProducts(List<Integer> deleteProductList);
 	public List<Product> searchMyProductsByProductName(Integer shopId,String productName);
-
 }

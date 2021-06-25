@@ -27,18 +27,22 @@ public class AuthDaoImpl implements AuthDao{
 	String SELECT_FROM_USERINFO_FINISHED_ORDER_BY_SHOP = "SELECT oi.*, delivery_man_name, delivery_man_tel"
 			+ " FROM order_info oi JOIN delivery_man dm ON oi.delivery_man_id = dm.delivery_man_id "
 			+ " WHERE shop_id = :shopId AND status >= 4 "
+//			+ " ORDER BY oi.date_time DESC "
 			+ " UNION "
 			+ " SELECT *, NULL as deliveryman, NULL as deliverytel "
 			+ " FROM order_info "
-			+ "  WHERE delivery_man_id IS NULL AND shop_id = :shopId AND status >= 4";
+			+ " WHERE delivery_man_id IS NULL AND shop_id = :shopId AND status >= 4"
+			+ " ORDER BY date_time DESC";
 
 	String SELECT_FROM_USERINFO_NOT_FINISHED_ORDER_BY_SHOP = "SELECT oi.*, delivery_man_name, delivery_man_tel"
 			+ " FROM order_info oi JOIN delivery_man dm ON oi.delivery_man_id = dm.delivery_man_id "
 			+ " WHERE shop_id = :shopId AND status BETWEEN 1 AND 3 "
+//			+ " ORDER BY oi.date_time "
 			+ " UNION "
 			+ " SELECT *,NULL as deliveryman, NULL as deliverytel "
 			+ " FROM order_info "
-			+ "  WHERE delivery_man_id IS NULL AND shop_id = :shopId AND status BETWEEN 1 AND 3";
+			+ " WHERE delivery_man_id IS NULL AND shop_id = :shopId AND status BETWEEN 1 AND 3"
+			+ " ORDER BY date_time ";
 
 	@Autowired
 	NamedParameterJdbcTemplate namedJT;

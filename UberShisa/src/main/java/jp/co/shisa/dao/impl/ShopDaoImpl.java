@@ -37,6 +37,9 @@ public class ShopDaoImpl implements ShopDao{
 			+ " update shop set shop_name = :shopName, shop_tel = :shopTel, address = :address "
 			+ " where user_id = :userId; "
 			+ " COMMIT;";
+//	店舗側でオーダーの商品を渡すSQL(pha)
+	private static final String UPDATE_STATUS_ORDER = "update order_info set status = 4 "
+			+ " where order_id = :orderId";
 
 	@Autowired
 	NamedParameterJdbcTemplate namedJT;
@@ -110,6 +113,17 @@ public class ShopDaoImpl implements ShopDao{
 		return list.isEmpty() ?  null : list.get(0);
 	}
 
+//	オーダーの商品を渡す機能(pha) start-------------------------------------------------------------------
+	@Override
+	public void passedOrder(OrderInfo orderInfo) {
+		// TODO 自動生成されたメソッド・スタブ
+		String sql = UPDATE_STATUS_ORDER;
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("orderId", orderInfo.getOrderId());
+		jdbcTemplate.update(sql, param);
+		System.out.println("商品が渡された");
+	}
+//	オーダーの商品を渡す機能(pha) end----------------------------------------------------------------------
 	public void updateProduct(Product product) {
 		String sql = "UPDATE product SET image = :image,text = :text,product_name = :productName, price = :price,stock = :stock WHERE product_id = :productId";
 		MapSqlParameterSource param = new MapSqlParameterSource();
