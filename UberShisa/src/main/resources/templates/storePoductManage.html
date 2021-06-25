@@ -31,17 +31,17 @@
                     <button class="btn primary-btn">検索</button>
                 </form>
             </div>
-		<form action="productDelete" id="check-form">
+		<form th:action="@{/shop/productDelete}" id="check-form" method="post" th:object="${delete}" onSubmit="return deleteProductCheck()">
             <div class="boxes-grid">
                 <div class="box" th:inline="text" th:each="product : ${session.shopProductList}">
-                    <div><img src="${product.image}" alt="product"></div>
+                    <div><a th:href="@{/shop/productUpdate/{productId}(productId=${product.productId})}"><img th:src="'/images/' + ${product.image}" alt="product"></a></div>
                     <div class="product-detail">
-                        <div><label class="label-format">商品ID：</label><a th:href="@{/shop/productUpdate/{productId}(productId=${product.productId})}"><label>[[${product.productId}]]</label></a></div>
+                        <div><label class="label-format">商品ID：</label><label>[[${product.productId}]]</label></div>
                         <div><label class="label-format">商品名：</label><label>[[${product.productName}]]</label></div>
                         <div><label class="label-format">単価(円)：</label><label>[[${product.price}]]</label></div>
                         <div><label class="label-format">在庫：</label><label></label>[[${product.stock}]]</div>
                         <div><label class="label-format">説明：</label><textarea>[[${product.text}]]</textarea></div>
-                        <div><label class="label-format">チェック：</label><input type="checkbox" value="${product.productId}"></div>
+                        <div><label class="label-format">チェック：</label><input type="checkbox" th:value="${product.productId}" name="checkProductList"></div>
                     </div>
                 </div>
                <!--  <div class="box">
@@ -140,7 +140,8 @@
                 <div class="btn-container">
                     <button type="button" class="btn add-btn" th:onclick="location.href='storeProductAdd'">追加</button>
                     <!-- <button class="btn update-btn">更新</button> -->
-                    <button class="btn del-btn" form="check-form">削除</button>
+                    <button class="btn del-btn" form="check-form" >削除</button>
+
                 </div>
                 <section>
                     <p>※チェックした項目が削除されます。</p>
@@ -150,7 +151,7 @@
             <!-- </form> -->
         </div>
     </div>
-    <script src="../../js/store.js" type="text/javascript"></script>
+    <script src="../../js/storeProduct.js" type="text/javascript"></script>
         <script src="../../js/js.js" type="text/javascript"></script>
 </body>
 </html>

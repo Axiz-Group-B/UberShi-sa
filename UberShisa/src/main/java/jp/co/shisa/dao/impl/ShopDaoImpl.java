@@ -1,6 +1,8 @@
 package jp.co.shisa.dao.impl;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -79,7 +81,7 @@ public class ShopDaoImpl implements ShopDao{
 //	店舗情報更新（pha）end---------------------------------------------------------------------------------
 
 	public List<Product> selectAllProductByShopId(Integer shopId) {
-		String sql = "SELECT * FROM product WHERE shop_id = :shopId";
+		String sql = "SELECT * FROM product WHERE shop_id = :shopId ORDER BY product_id";
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("shopId", shopId);
 		List<Product> list = namedJT.query(sql, param,new BeanPropertyRowMapper<Product>(Product.class));
@@ -101,11 +103,35 @@ public class ShopDaoImpl implements ShopDao{
 	}
 
 	public Product selectUpdateProductByProductId(Integer productId) {
-		String sql = "SELECT * FROM product WHERE product_id = :productId";
+		String sql = "SELECT * FROM product WHERE product_id = :productId ORDER BY product_id";
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("productId", productId);
 		List<Product> list = namedJT.query(sql,param, new BeanPropertyRowMapper<Product>(Product.class));
 		return list.isEmpty() ?  null : list.get(0);
+	}
+
+	public void updateProduct(Product product) {
+		String sql = "UPDATE product SET image = :image,text = :text,product_name = :productName, price = :price,stock = :stock WHERE product_id = :productId";
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("image",product.getImage());
+		param.addValue("text",product.getText());
+		param.addValue("productName",product.getProductName());
+		param.addValue("price",product.getPrice());
+		param.addValue("stock",product.getStock());
+		param.addValue("productId", product.getProductId());
+		namedJT.update(sql, param);
+
+	}
+
+	public void deleteProducts(List<Integer> deleteProductList) {
+		String sql = "DELETE FROM product WHERE product_id IN (:productId)";
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		Set<Integer> productId = new HashSet<>();
+		for(Integer id : deleteProductList) {
+			productId.add(id);
+		}
+		param.addValue("productId", productId);
+		namedJT.update(sql, param);
 	}
 
 }
