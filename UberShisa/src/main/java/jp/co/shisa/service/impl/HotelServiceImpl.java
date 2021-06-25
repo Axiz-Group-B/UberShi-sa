@@ -87,5 +87,16 @@ public class HotelServiceImpl implements HotelService {
 		hotelDao.HotelShopDelete(shopId);
 
 	}
+
+	public Room roomLoginIdAndPassSearch(Room getUserInfo) {
+		Room getLoginIdPass = hotelDao.roomLoginIdAndPassSearch(getUserInfo.getUserId());
+		getUserInfo.setLoginId(getLoginIdPass.getLoginId());
+		getUserInfo.setPass(getLoginIdPass.getPass());
+		return getUserInfo;
+	}
+
+	public List<OrderInfo> orderAndDeliveryManSearch(Integer roomId){
+		return hotelDao.orderAndDeliveryManSearch(roomId);
+	}
 }
 

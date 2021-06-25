@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.​thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,19 +25,11 @@
     </div>
     <div class="wrapper">
         <div class="left-side">
-          <h1>〇〇号室の注文情報</h1>
+        <h1 ><span th:text="${getRoomInfo.roomName}"></span><span>号室の注文情報</span></h1>
           <div>
-                <div>
-                  <form action="#"><label class="label-format">注文番号：</label>
-                  <button class="btn-mini">12354</button></form>
-                </div>
-                <div>
-                    <form action="#"><label class="label-format">注文番号：</label>
-                    <button class="btn-mini">12354</button></form>
-                </div>
-                <div>
-                    <form action="#"><label class="label-format">注文番号：</label>
-                    <button class="btn-mini">12354</button></form>
+                <div th:each="orderInfo,index :${getOrderInfo}" >
+                  <form action="orderChange" method= "post"><label class="label-format">注文番号：</label>
+                  <button class="btn-mini" name="index" th:value="${index.index}" th:text=${orderInfo.orderId}></button></form>
                 </div>
           </div>
         </div>
@@ -45,27 +37,27 @@
             <form action="#">
                 <div>
                     <label class="label-format">ログインID：</label>
-                    <input type="text" value="123466" readonly>
+                    <input type="text" th:value="${getRoomInfo.loginId}" readonly>
                 </div>
                 <div>
                     <label class="label-format">パスワード：</label>
-                    <input type="text" value="123466" readonly>
+                    <input type="text"  th:value="${getRoomInfo.pass}" readonly>
                 </div>
                 <div>
                     <label class="label-format">注文番号：</label>
-                    <input type="text" value="123466" readonly>
+                    <input type="text" th:value="${listNomber.orderId}" readonly>
                 </div>
                 <div>
                     <label class="label-format">配達員ID：</label>
-                    <input type="text" value="123466" readonly>
+                    <input type="text" th:value="${listNomber.deliveryManId}" readonly>
                 </div>
                 <div>
                     <label class="label-format">配達員名：</label>
-                    <input type="text" value="123466" readonly>
+                    <input type="text" th:value="${listNomber.deliveryManName}" readonly>
                 </div>
                 <div>
                     <label class="label-format">電話番号：</label>
-                    <input type="text" value="123466" readonly>
+                    <input type="text" th:value="${listNomber.deliveryManTel}" readonly>
                 </div>
                 <div class="btn-container">
                     <button class="btn back-btn">戻る</button>

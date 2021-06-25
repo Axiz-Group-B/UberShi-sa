@@ -16,12 +16,12 @@ public interface HotelService {
 	public void UserInfoDelete(Integer deliveryManId);
 
 	public Room roomNameSearch(String roomName);
-
+	public Room roomLoginIdAndPassSearch(Room userId);
 	public void DeliveryManDelete(Integer deliveryManId);
 	public Integer totalPrice(Integer shopId,String dateTime);
 	public Integer priceSum(Integer orderId);
 	public void hotelUserInfoDelete(Integer shopId);
 	public void HotelShopDelete(Integer shopId);
-
+	public List<OrderInfo> orderAndDeliveryManSearch(Integer roomId);
 }
 
