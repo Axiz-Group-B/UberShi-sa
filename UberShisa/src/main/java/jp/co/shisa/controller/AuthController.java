@@ -48,13 +48,13 @@ public class AuthController {
 			@Override
 			public void run() {
 				//orderInfoから、statusが1のレコードをとる。orderDateTime取得して、現在時刻と比較。30分以上経ってたらstatusを3にする
-				if(roomService.statusForHotel(1) != null) {//null回避。nullなら何も処理しない
+				if (roomService.statusForHotel(1) != null) {//null回避。nullなら何も処理しない
 					//現在時刻取得
 					LocalDateTime nowTime = LocalDateTime.now();//計算にはこのクラスの方がよさそう
-					List<OrderInfo>list = roomService.statusForHotel(1);
-					for(OrderInfo o : list) {
+					List<OrderInfo> list = roomService.statusForHotel(1);
+					for (OrderInfo o : list) {
 						LocalDateTime orderTime = o.getDateTime().toLocalDateTime();
-						if(orderTime.plusMinutes(30).isBefore(nowTime)) {//orderTime＋３０分して現在の時刻より前になったら、status３にする
+						if (orderTime.plusMinutes(30).isBefore(nowTime)) {//orderTime＋３０分して現在の時刻より前になったら、status３にする
 							//DBアクセスして、このorderIdのstatusを3にする
 							Timestamp dateTime = new Timestamp(System.currentTimeMillis());//引数のためにtimestamp型
 							roomService.cansel(o.getOrderId(), 3, dateTime);
@@ -90,20 +90,19 @@ public class AuthController {
 
 		Integer roleId = userInfo.getRoleId();
 
+		switch (roleId) {
+		case 1:
 
-			switch(roleId) {
-			case 1:
+			Room room = authService.loginByRoom(userInfo);
+			session.setAttribute("loginUser", room);
 
-				Room room = authService.loginByRoom(userInfo);
-				session.setAttribute("loginUser", room);
-
-				List<Shop> list = roomService.findAll();
-				//全検索用に、listにadd
-				Shop shopPullDown = new Shop(0,"全店舗から検索");
-				list.add(0,shopPullDown);
-				String str = "0";
-				session.setAttribute("totalPrice", str);
-				session.setAttribute("shopList", list);
+			List<Shop> list = roomService.findAll();
+			//全検索用に、listにadd
+			Shop shopPullDown = new Shop(0, "全店舗から検索");
+			list.add(0, shopPullDown);
+			String str = "0";
+			session.setAttribute("totalPrice", str);
+			session.setAttribute("shopList", list);
 			return "order";
 		case 2:
 			DeliveryMan deliveryMan = authService.loginByDeliveryMan(userInfo);
@@ -130,7 +129,7 @@ public class AuthController {
 			String errorMsg = "IDまたはPASSが間違っています";
 			attr.addFlashAttribute("errorMsg", errorMsg);
 			return "redirect:index";
-			}
+		}
 
 	}
 
