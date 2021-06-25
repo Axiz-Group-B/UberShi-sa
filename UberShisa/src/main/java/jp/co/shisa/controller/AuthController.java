@@ -111,7 +111,7 @@ public class AuthController {
 			session.setAttribute("userInfo", userInfo);
 			List<OrderInfo> noDeliveryManOrderList = authService.checkNoDeliveryManOrder();
 			session.setAttribute("noDeliveryManOrderList", noDeliveryManOrderList);
-			return "delivery";
+			return "/delivery";
 		case 3:
 			Shop shop = authService.loginByShop(userInfo);
 			session.setAttribute("loginUser", shop);
@@ -120,16 +120,16 @@ public class AuthController {
 			List<OrderInfo> notFinishedOrderList = authService.checkNotFinishedOrderByShop(shop);
 			session.setAttribute("finishedOrderList", finishedOrderList);
 			session.setAttribute("notFinishedOrderList", notFinishedOrderList);
-			return "store";
+			return "/store";
 		case 4:
 			session.setAttribute("loginUser", userInfo);
 			List<Room> AllRoomList = authService.checkAllRoomAndHasOrder();
 			session.setAttribute("AllRoomList", AllRoomList);
-			return "hotel";
+			return "/hotel";
 		default:
 			String errorMsg = "IDまたはPASSが間違っています";
 			attr.addFlashAttribute("errorMsg", errorMsg);
-			return "redirect:index";
+			return "redirect:/index";
 			}
 
 	}

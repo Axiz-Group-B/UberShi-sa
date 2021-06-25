@@ -34,12 +34,12 @@
         </div>
         <div class="right-side"  style="display: flex; flex-direction: row; justify-content: center;">
             <!-- <div class="hotel-room"> -->
-                <form id="room-form" action="@{/hotel/hotelOrder}">
-                	 <button form="room-form" class="room-btn "th:inline="text" th:each="room : ${session.AllRoomList}" th:class="${room.orderFlag == true} ?'room-btn order-room': room-btn" th:value="${room.orderFlag}" th:name="${room.roomId}" >[[${room.roomName}]]</button>
+                <form id="room-form" th:action="@{/hotel/roomInfo}" >
+                	 <button form="room-form" class="room-btn "th:inline="text" th:each="room : ${session.AllRoomList}" th:class="${room.orderFlag == true} ?'room-btn order-room': room-btn" th:value="${room.roomId}" th:name="roomBtn" >[[${room.roomName}]]</button>
                 </form>
             <!-- </div> -->
         </div>
     </div>
-    <script src="js/js.js" type="text/javascript"></script>
+    <script src="../../js/js.js" type="text/javascript"></script>
 </body>
 </html>

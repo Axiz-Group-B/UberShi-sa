@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import jp.co.shisa.dao.HotelDao;
 import jp.co.shisa.entity.DeliveryMan;
 import jp.co.shisa.entity.OrderInfo;
+import jp.co.shisa.entity.Room;
 import jp.co.shisa.entity.Shop;
 import jp.co.shisa.service.HotelService;
 
@@ -81,5 +82,21 @@ public class HotelServiceImpl implements HotelService {
 		// TODO 自動生成されたメソッド・スタブ
 		hotelDao.HotelShopDelete(shopId);
 	}
-}
+
+	public Room getRoomInfo(Integer roomId) {
+		return hotelDao.getRoomInfo(roomId);
+	}
+
+	public List<OrderInfo> getOrderListByRoomId(Integer roomId) {
+		return hotelDao.getOrderListByRoomId(roomId);
+	}
+
+	public Room getRoomInfoByUserId(Integer userId) {
+		return hotelDao.getRoomInfoByUserId(userId);
+	}
+
+	/*public void changeLoginIdAndPass(Integer userId,String loginId,String pass) {
+		return hotelDao.changeLoginIdAndPass(userId,loginId,pass);
+	}
+	*/}
 

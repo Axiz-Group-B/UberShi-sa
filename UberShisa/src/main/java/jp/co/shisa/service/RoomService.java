@@ -54,4 +54,6 @@ public interface RoomService {
 	//キャンセル注文
 	public void cansel(Integer orderId, Integer status, Timestamp dateTime);
 
+
+
 }

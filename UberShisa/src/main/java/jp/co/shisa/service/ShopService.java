@@ -20,4 +20,6 @@ public interface ShopService {
 	public Product selectUpdateProductByProductId(Integer productId);
 	public Product updateProductAndGetProductByProductId(Product product);
 	public void deleteProducts(List<Integer> deleteProductList);
+	public List<Product> searchMyProductsByProductName(Integer shopId,String productName);
+
 }

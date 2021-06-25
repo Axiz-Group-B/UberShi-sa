@@ -134,4 +134,13 @@ public class ShopDaoImpl implements ShopDao{
 		namedJT.update(sql, param);
 	}
 
+	public List<Product> searchMyProductsByProductName(Integer shopId,String productName) {
+		String sql = "SELECT * FROM product  WHERE shop_id = :shopId AND product_name LIKE '%' ||:productName|| '%' ORDER BY product_id";
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("productName",productName);
+		param.addValue("shopId", shopId);
+		List<Product> list = namedJT.query(sql, param,new BeanPropertyRowMapper<Product>(Product.class));
+		return list.isEmpty() ? null : list;
+	}
+
 }

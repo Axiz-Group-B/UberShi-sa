@@ -4,6 +4,7 @@ import java.util.List;
 
 import jp.co.shisa.entity.DeliveryMan;
 import jp.co.shisa.entity.OrderInfo;
+import jp.co.shisa.entity.Room;
 import jp.co.shisa.entity.Shop;
 
 public interface HotelService {
@@ -18,6 +19,10 @@ public interface HotelService {
 	public Integer priceSum(Integer orderId);
 	public void hotelUserInfoDelete(Integer shopId);
 	public void HotelShopDelete(Integer shopId);
+	public Room getRoomInfo(Integer roomId);
+	public List<OrderInfo> getOrderListByRoomId(Integer roomId);
+	public Room getRoomInfoByUserId(Integer userId);
+	public void changeLoginIdAndPass(Integer userId,String loginId,String password);
 
 }
 
