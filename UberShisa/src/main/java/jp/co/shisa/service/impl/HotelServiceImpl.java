@@ -84,9 +84,22 @@ public class HotelServiceImpl implements HotelService {
 	@Override
 	public void HotelShopDelete(Integer shopId) {
 		// TODO 自動生成されたメソッド・スタブ
+
 		hotelDao.HotelShopDelete(shopId);
 
 	}
+
+	public Room roomLoginIdAndPassSearch(Room getUserInfo) {
+		Room getLoginIdPass = hotelDao.roomLoginIdAndPassSearch(getUserInfo.getUserId());
+		getUserInfo.setLoginId(getLoginIdPass.getLoginId());
+		getUserInfo.setPass(getLoginIdPass.getPass());
+		return getUserInfo;
+	}
+
+	public List<OrderInfo> orderAndDeliveryManSearch(Integer roomId){
+		return hotelDao.orderAndDeliveryManSearch(roomId);
+	}
+
 
 	public Room getRoomInfo(Integer roomId) {
 		return hotelDao.getRoomInfo(roomId);
@@ -104,4 +117,5 @@ public class HotelServiceImpl implements HotelService {
 		return hotelDao.changeLoginIdAndPass(userId,loginId,pass);
 	}
 	*/}
+
 
