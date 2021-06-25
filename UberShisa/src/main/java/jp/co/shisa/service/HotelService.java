@@ -2,6 +2,7 @@ package jp.co.shisa.service;
 
 import java.util.List;
 
+import jp.co.shisa.controller.form.hotelAddStoreForm;
 import jp.co.shisa.entity.DeliveryMan;
 import jp.co.shisa.entity.OrderInfo;
 import jp.co.shisa.entity.Room;
@@ -23,6 +24,7 @@ public interface HotelService {
 	public void hotelUserInfoDelete(Integer shopId);
 	public void HotelShopDelete(Integer shopId);
 
+
 	public List<OrderInfo> orderAndDeliveryManSearch(Integer roomId);
 
 	public Room getRoomInfo(Integer roomId);
@@ -33,5 +35,13 @@ public interface HotelService {
 	public void updateLoginId(Integer userId,String loginId);
 	public boolean checkPass(String pass);
 	public void updatePass(Integer userId,String pass);
+
+
+
+	public boolean checkLoginId(hotelAddStoreForm signupForm);
+	public void insertUserInfo(hotelAddStoreForm userInfo);
+	public void insertShop(hotelAddStoreForm hotelShop);
+
+
 }
 

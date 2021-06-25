@@ -2,6 +2,7 @@ package jp.co.shisa.dao;
 
 import java.util.List;
 
+import jp.co.shisa.controller.form.hotelAddStoreForm;
 import jp.co.shisa.entity.DeliveryMan;
 import jp.co.shisa.entity.OrderInfo;
 import jp.co.shisa.entity.Room;
@@ -33,6 +34,7 @@ public interface HotelDao {
 	public void HotelShopDelete(Integer shopId);
 
 
+
 	public Room roomLoginIdAndPassSearch(Integer userId);
 
 	public List<OrderInfo> orderAndDeliveryManSearch(Integer roomId);
@@ -48,5 +50,14 @@ public interface HotelDao {
 	public void updateLoginId(Integer userId,String loginId);
 	public boolean checkPass(String pass);
 	public void updatePass(Integer userId,String pass);
+
+	//---------------------------------------------
+	public String checkLoginId(hotelAddStoreForm signupForm);
+	public void insertUserInfo(hotelAddStoreForm userInfo);
+	public void insertShop(hotelAddStoreForm hotelShop, Integer userId);
+	public Integer UserId(hotelAddStoreForm signupForm);
+
+	//---------------------------------------------
+
 }
 

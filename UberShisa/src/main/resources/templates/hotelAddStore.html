@@ -37,8 +37,6 @@
                     <td th:text = "${shopList.shopName}"></td>
                     <td th:text = "${shopList.address}"></td>
                     <td th:text = "${shopList.shopTel}"></td>
-                    <!--<td><form action="#"><button class="btn-mini del-btn-mini">削除</button></form></td>-->
-                    <!--<td><form th:object="${hotelDelivery}" action="/hotel/deliveryListDelete" onclick="return check();" method="post"><button class="btn-mini del-btn-mini" name="deliveryListDelete" th:value="${deliveryList.deliveryManId}">削除</button></form></td>-->
                     <td><form th:object="${hotelAddStore}"     action="/hotelAddStoreDelete"       onclick="return check();" method="post"><button class="btn-mini del-btn-mini" name="hotelShopDelete"    th:value="${shopList.shopId}">削除</button></form></td>
 
                 </tr>
@@ -46,7 +44,7 @@
         </div>
         <div class="right-side" style="width: 40%;">
             <h1>店舗を追加</h1>
-            <form method="post" action="addStore" th:object="${insert}">
+            <form method="post" action="/addStore" th:object="${insert}">
                 <div>
                 	<label class="label-format">ログインID：</label>
                 	<input type="text" name="shopLoginId" placeholder="ログインID">

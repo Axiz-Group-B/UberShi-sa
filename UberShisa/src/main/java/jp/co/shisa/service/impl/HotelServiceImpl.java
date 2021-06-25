@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import jp.co.shisa.controller.form.hotelAddStoreForm;
 import jp.co.shisa.dao.HotelDao;
 import jp.co.shisa.entity.DeliveryMan;
 import jp.co.shisa.entity.OrderInfo;
@@ -91,6 +92,7 @@ public class HotelServiceImpl implements HotelService {
 
 	}
 
+
 	public Room roomLoginIdAndPassSearch(Room getUserInfo) {
 		Room getLoginIdPass = hotelDao.roomLoginIdAndPassSearch(getUserInfo.getUserId());
 		getUserInfo.setLoginId(getLoginIdPass.getLoginId());
@@ -131,6 +133,35 @@ public class HotelServiceImpl implements HotelService {
 		hotelDao.updatePass(userId,pass);
 	}
 
+
+
+	 //神山-----------------------------------------------------------
+
+
+
+	public boolean checkLoginId(hotelAddStoreForm signupForm) {
+		String checkLoginId = hotelDao.checkLoginId(signupForm);
+
+		if (checkLoginId == null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+
+
+	public void insertUserInfo(hotelAddStoreForm userInfo) {
+		hotelDao.insertUserInfo(userInfo);
+	}
+
+
+	@Override
+	public void insertShop(hotelAddStoreForm hotelShop) {
+		Integer userId = hotelDao.UserId(hotelShop);
+
+		hotelDao.insertShop(hotelShop, userId);
+	}
 
 }
 

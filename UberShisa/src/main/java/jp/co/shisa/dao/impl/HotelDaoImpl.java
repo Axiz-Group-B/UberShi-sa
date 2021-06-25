@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import jp.co.shisa.controller.form.hotelAddStoreForm;
 import jp.co.shisa.dao.HotelDao;
 import jp.co.shisa.entity.DeliveryMan;
 import jp.co.shisa.entity.OrderInfo;
@@ -26,9 +27,77 @@ public class HotelDaoImpl implements HotelDao {
 	private static final String TOTAL_PRICE = "SELECT SUM(total_price) FROM order_info WHERE shop_id= :shopId AND to_char(date_time, 'YYYY/MM/DD') like :year || '/' || :month || '/%'";
 	private static final String PRICE_SUM = "SELECT SUM(total_price) FROM order_info JOIN order_item ON order_info.order_id = order_item.order_id JOIN product ON order_item.product_id = product.product_id WHERE order_info.order_id= :orderId";
 	private static final String SHOP_DELETE = "DELETE FROM shop WHERE shop_id = :shopId";
+	private static final String CHECK_LOGINID = "SELECT login_id from user_info where login_id = :login_id";
+	private static final String INSERT_USER_INFO = "INSERT INTO user_info (login_id, pass, role_id) VALUES (:login_id, :pass, :role_id)";
+	private static final String INSERT_SHOP = "INSERT INTO shop (user_id,shop_name, address, shop_tel) VALUES (:userId,:shop_name, :address, :shop_tel)";
+	private static final String SELECT_USER_ID = "SELECT user_id from user_info"+ " where login_id = :login_id and pass = :pass";
 
 	@Autowired
 	private NamedParameterJdbcTemplate jdbcTemplate;
+
+
+
+	//店舗追加　神山　はじめ--------------------------------------------
+
+	//ID重複チェック
+	public String checkLoginId(hotelAddStoreForm signupForm) {
+
+		try{
+			String sql = CHECK_LOGINID;
+			MapSqlParameterSource param = new MapSqlParameterSource();
+
+			param.addValue("login_id", signupForm.getShopLoginId());
+			return jdbcTemplate.queryForObject(sql, param, String.class);
+			} catch(Exception e){
+
+				return null;
+			}
+	}
+
+
+	//user_infoに追加
+	public void insertUserInfo(hotelAddStoreForm userInfo) {
+		String sql = INSERT_USER_INFO;
+
+		MapSqlParameterSource param = new MapSqlParameterSource();
+
+		param.addValue("login_id", userInfo.getShopLoginId());
+		param.addValue("pass", userInfo.getShopPass());
+		param.addValue("role_id", 3);
+
+		jdbcTemplate.update(sql, param);
+	}
+
+
+	//shopに追加
+	public void insertShop(hotelAddStoreForm hotelShop, Integer userId) {
+		String sql = INSERT_SHOP;
+
+		 MapSqlParameterSource param = new MapSqlParameterSource();
+		 param.addValue("userId", userId);
+		 param.addValue("shop_name", hotelShop.getShopName());
+		 param.addValue("address", hotelShop.getShopAddress());
+		 param.addValue("shop_tel", hotelShop.getShopTel());
+
+		 jdbcTemplate.update(sql, param);
+	}
+
+	//user_idを取るメソッド
+	public Integer UserId(hotelAddStoreForm signupForm) {
+		String sql = SELECT_USER_ID;
+
+		MapSqlParameterSource param = new MapSqlParameterSource();
+
+		param.addValue("login_id", signupForm.getShopLoginId());
+		param.addValue("pass", signupForm.getShopPass());
+
+		return jdbcTemplate.queryForObject(sql, param, Integer.class);
+	}
+
+
+	//店舗追加　神山　終わり---------------------------------------------
+
+
 
 	//shop全検索
 	public List<Shop> shopFindAll() {
@@ -40,6 +109,7 @@ public class HotelDaoImpl implements HotelDao {
 	}
 
 	//order検索
+
 	 public List<OrderInfo> orderInfoFind(Integer shopId,String year,String month) {
 		String sql = ORDER_INFO_FIND;
 
@@ -51,8 +121,10 @@ public class HotelDaoImpl implements HotelDao {
 
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("shopId", shopId);
+
 		param.addValue("year", year);
 		param.addValue("month", month);
+
 
 		List<OrderInfo> list = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<OrderInfo>(OrderInfo.class));
 

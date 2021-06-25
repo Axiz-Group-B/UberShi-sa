@@ -82,6 +82,9 @@ public class DeliveryManDaoImpl implements DeliveryManDao {
 	@Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
 
+
+	//店舗追加　神山　はじめ------------------------------------------
+
 	public void insertDeliveryMan(SignupForm deliveryMan, Integer userId) {
 		//テーブルuser_info、delivery_manそれぞれにinsertするメソッド
 		String sql = INSERT_DELIVERY_MAN;
@@ -133,6 +136,10 @@ public class DeliveryManDaoImpl implements DeliveryManDao {
 			}
 
 	}
+	//店舗追加　神山　終わり----------------------------
+
+
+
 
 	//orderに配達員情報を追加
 	public void addDeliveryManIdInOrder(Integer orderId,Integer deliveryManId) {
