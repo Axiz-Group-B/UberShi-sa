@@ -125,6 +125,11 @@ public class RoomController {
 		list.add(0,shop);
 		session.setAttribute("shopList", list);
 
+		if(form.getAmount()==null) {
+			model.addAttribute("amount","個数は1つ以上としてください");
+			return "orderDetail";
+		}
+
 		//orderItem型のインスタンスをセッションに入れる…？
 		//先にセッションからリスト取得→そこにaddして、セッションにリストを入れなおす
 		OrderItem order = new OrderItem(form.getProductId(),form.getAmount(), form.getSubtotal(), form.getProductName(), form.getShopId());
