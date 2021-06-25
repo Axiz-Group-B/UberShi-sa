@@ -61,4 +61,8 @@ public class ShopServiceImpl implements ShopService{
 	public void deleteProducts(List<Integer> deleteProductList) {
 		shopDao.deleteProducts(deleteProductList);
 	}
+
+	public List<Product> searchMyProductsByProductName(Integer shopId,String productName) {
+		return shopDao.searchMyProductsByProductName(shopId,productName);
+	}
 }

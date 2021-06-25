@@ -4,6 +4,7 @@ package jp.co.shisa.controller;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -184,9 +185,6 @@ public class HotelController implements Serializable {
 	}
 
 
-
-
-
 	@RequestMapping("/roomSearch")
 	public String roomNameSearch(@Validated @ModelAttribute("roomNameForm")RoomOrderForm form, BindingResult bindingResult,Model model) {
 	Room getRoomInfo = hotelService.roomNameSearch(form.getRoomName());
@@ -194,6 +192,41 @@ public class HotelController implements Serializable {
 		 model.addAttribute("nullMsg","検索した部屋番号はありません");
 		 return "hotel";
 	} return "hotelOrderOfRoom";
+
+	}
+	@RequestMapping(value="/hotel/roomInfo", params="roomBtn")
+	public String roomInfo(HttpServletRequest request,Model model) {
+		Integer selectRoomId = Integer.parseInt(request.getParameter("roomBtn"));
+		Room selectRoom = hotelService.getRoomInfo(selectRoomId);
+		List<OrderInfo> MyOrderList = hotelService.getOrderListByRoomId(selectRoom.getRoomId());
+
+		if(MyOrderList.isEmpty()) {
+			session.setAttribute("selectingRoom",selectRoom);
+			return "hotelRoomUpdate";
+		}
+
+
+			return "hotelOrderOfRoom";
+
+	}
+
+	@RequestMapping("/hotel/updateIdAndPass")
+	public String updateIdAndPass(Model model) {
+
+
+		return "/hotel";
+
+	}
+
+	public void updateIdAndPassSuport(Model model) {
+		Room room = (Room) session.getAttribute("selectingRoom");
+		String word = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		char[] randomId = {word.charAt((int)(Math.random() * word.length())) , word.charAt((int)(Math.random() * word.length())), word.charAt((int)(Math.random() * word.length())) ,word.charAt((int)(Math.random() * word.length()))};
+		char[] randomPass = {word.charAt((int)(Math.random() * word.length())) , word.charAt((int)(Math.random() * word.length())), word.charAt((int)(Math.random() * word.length())) ,word.charAt((int)(Math.random() * word.length()))};
+		String newLoginId = new String(randomId);
+		String newPassword = new String(randomPass);
+
+
 	}
 }
 

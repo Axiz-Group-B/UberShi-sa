@@ -26,8 +26,8 @@
         <div class="left-side">
             <h1>商品管理</h1>
             <div class="search">
-                <form action="#">
-                    <input type="text" placeholder="検索">
+                <form th:action="@{/shop/searchMyProducts}" method="post" th:object="${search}" >
+                    <input type="text" placeholder="検索" name="searchWord">
                     <button class="btn primary-btn">検索</button>
                 </form>
             </div>

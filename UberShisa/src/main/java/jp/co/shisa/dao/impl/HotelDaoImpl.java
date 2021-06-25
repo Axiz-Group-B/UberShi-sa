@@ -156,6 +156,7 @@ public class HotelDaoImpl implements HotelDao {
 
 	}
 
+
 	private static final String ROOM_NAME_SEARCH = "select * from room where room_name = :roomName";
 	private static final String USER_ID_SEARCH = "select login_id , pass from user_info where user_id = :user_id";
 	private static final String ROOM_ID_SEARCH = "select * from order_info where room_id = :room_id";
@@ -169,5 +170,36 @@ public class HotelDaoImpl implements HotelDao {
 			List<Room> list =  jdbcTemplate.query(sql, param,new BeanPropertyRowMapper<Room>(Room.class));
 			return list.isEmpty() ? null : list.get(0);
 	 }
+
+	 public Room getRoomInfo(Integer roomId) {
+		 String sql = "SELECT * FROM room WHERE room_id = :roomId";
+		 MapSqlParameterSource param = new MapSqlParameterSource();
+		 param.addValue("roomId", roomId);
+
+		 List<Room> list = jdbcTemplate.query(sql, param,new BeanPropertyRowMapper<Room>(Room.class));
+		 return list.isEmpty() ? null : list.get(0);
+
+	 }
+
+	 public List<OrderInfo> getOrderListByRoomId(Integer roomId) {
+		 String sql = "SELECT * FROM order_info WHERE status BETWEEN 1 AND 5  AND room_id = :roomId GROUP BY order_id,room_id";
+		 MapSqlParameterSource param = new MapSqlParameterSource();
+		 param.addValue("roomId", roomId);
+		 List<OrderInfo> list = jdbcTemplate.query(sql,param,new BeanPropertyRowMapper<OrderInfo>(OrderInfo.class));
+		 return list;
+
+	 }
+
+	 public Room getRoomInfoByUserId(Integer userId) {
+		 String sql = "SELECT ui*,r* FROM user_info ui JOIN room r ON ui.user_id = r.user_id  WHERE user_id = :userId";
+		 MapSqlParameterSource param = new MapSqlParameterSource();
+		 param.addValue("userId", userId);
+		 List<Room> list = jdbcTemplate.query(sql, param,new BeanPropertyRowMapper<Room>(Room.class));
+		 return list.isEmpty() ? null : list.get(0);
+	 }
+
+		/* public void changeLoginIdAndPass(Integer userId,String loginId) {
+			 String sql = "SELECT * FROM user_info WHERE "
+		 }*/
 
 }
