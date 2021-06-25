@@ -13,6 +13,7 @@ import jp.co.shisa.entity.DeliveryMan;
 import jp.co.shisa.entity.OrderInfo;
 import jp.co.shisa.entity.Room;
 import jp.co.shisa.entity.Shop;
+import jp.co.shisa.entity.UserInfo;
 
 @Repository
 public class HotelDaoImpl implements HotelDao {
@@ -172,7 +173,7 @@ public class HotelDaoImpl implements HotelDao {
 	 }
 
 	 public Room getRoomInfo(Integer roomId) {
-		 String sql = "SELECT * FROM room WHERE room_id = :roomId";
+		 String sql = "SELECT ui.*,r.* FROM user_info ui JOIN room r ON ui.user_id = r.user_id WHERE room_id = :roomId";
 		 MapSqlParameterSource param = new MapSqlParameterSource();
 		 param.addValue("roomId", roomId);
 
@@ -198,8 +199,38 @@ public class HotelDaoImpl implements HotelDao {
 		 return list.isEmpty() ? null : list.get(0);
 	 }
 
-		/* public void changeLoginIdAndPass(Integer userId,String loginId) {
-			 String sql = "SELECT * FROM user_info WHERE "
-		 }*/
 
+	 public boolean checkLoginId(String loginId) {
+		 String sql = "SELECT * FROM user_info where login_id = :loginId";
+		 MapSqlParameterSource param = new MapSqlParameterSource();
+		 param.addValue("loginId", loginId);
+		 List<UserInfo> list = jdbcTemplate.query(sql, param,new BeanPropertyRowMapper<UserInfo>(UserInfo.class));
+		 return list.isEmpty() ? false : true;
+
+	 }
+
+	 public void updateLoginId(Integer userId,String loginId) {
+		 String sql = "UPDATE  user_info SET login_id = :loginId WHERE user_id = :userId";
+		 MapSqlParameterSource param = new MapSqlParameterSource();
+		 param.addValue("loginId", loginId);
+		 param.addValue("userId", userId);
+		 jdbcTemplate.update(sql,param);
+	 }
+
+	 public boolean checkPass(String pass) {
+		 String sql = "SELECT * FROM user_info where pass = :pass";
+		 MapSqlParameterSource param = new MapSqlParameterSource();
+		 param.addValue("pass", pass);
+		 List<UserInfo> list = jdbcTemplate.query(sql, param,new BeanPropertyRowMapper<UserInfo>(UserInfo.class));
+		 return list.isEmpty() ? false : true;
+
+	 }
+
+	 public void updatePass(Integer userId,String pass) {
+		 String sql = "UPDATE user_info SET pass = :pass WHERE user_id = :userId";
+		 MapSqlParameterSource param = new MapSqlParameterSource();
+		 param.addValue("pass", pass);
+		 param.addValue("userId", userId);
+		 jdbcTemplate.update(sql,param);
+	 }
 }

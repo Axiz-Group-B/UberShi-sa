@@ -212,21 +212,42 @@ public class HotelController implements Serializable {
 
 	@RequestMapping("/hotel/updateIdAndPass")
 	public String updateIdAndPass(Model model) {
+		Room room = (Room) session.getAttribute("selectingRoom");
 
+		String newLoginId = createWord();
+		String newLoginPass = createWord();
 
-		return "/hotel";
+		while(hotelService.checkLoginId(newLoginId)) {
+			newLoginId = createWord();
+			System.out.println(newLoginId);
+		}
+		System.out.println(newLoginId);
+		hotelService.updateLoginId(room.getUserId(),newLoginId);
+
+		while(hotelService.checkPass(newLoginPass)) {
+			newLoginPass = createWord();
+			System.out.println(newLoginPass);
+		}
+		System.out.println(newLoginPass);
+		hotelService.updatePass(room.getUserId(),newLoginPass);
+
+		Room newRoom = hotelService.getRoomInfo(room.getRoomId());
+		session.setAttribute("selectingRoom",newRoom);
+
+		return "hotelRoomUpdate";
 
 	}
 
-	public void updateIdAndPassSuport(Model model) {
-		Room room = (Room) session.getAttribute("selectingRoom");
+	@RequestMapping("/hotel/hotelRoomUpdate")
+	public String  updateRoomView(Model model) {
+		return "hotelRoomUpdate";
+	}
+
+	public String createWord() {
 		String word = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-		char[] randomId = {word.charAt((int)(Math.random() * word.length())) , word.charAt((int)(Math.random() * word.length())), word.charAt((int)(Math.random() * word.length())) ,word.charAt((int)(Math.random() * word.length()))};
-		char[] randomPass = {word.charAt((int)(Math.random() * word.length())) , word.charAt((int)(Math.random() * word.length())), word.charAt((int)(Math.random() * word.length())) ,word.charAt((int)(Math.random() * word.length()))};
-		String newLoginId = new String(randomId);
-		String newPassword = new String(randomPass);
-
-
+		char[] randomWord = {word.charAt((int)(Math.random() * word.length())) , word.charAt((int)(Math.random() * word.length())), word.charAt((int)(Math.random() * word.length())) ,word.charAt((int)(Math.random() * word.length()))};
+		String newRandomWord = new String(randomWord);
+		return newRandomWord;
 	}
 }
 

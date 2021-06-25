@@ -38,5 +38,8 @@ public interface HotelDao {
 
 	public Room getRoomInfoByUserId(Integer userId);
 
-	public void changeLoginIdAndPass(Integer userId,String loginId,String password);
+	public boolean checkLoginId(String logiId);
+	public void updateLoginId(Integer userId,String loginId);
+	public boolean checkPass(String pass);
+	public void updatePass(Integer userId,String pass);
 }

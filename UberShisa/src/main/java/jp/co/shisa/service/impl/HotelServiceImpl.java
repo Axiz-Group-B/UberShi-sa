@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.shisa.dao.HotelDao;
 import jp.co.shisa.entity.DeliveryMan;
@@ -14,6 +15,7 @@ import jp.co.shisa.entity.Shop;
 import jp.co.shisa.service.HotelService;
 
 @Service
+@Transactional
 public class HotelServiceImpl implements HotelService {
 	@Autowired
 	private HotelDao hotelDao;
@@ -100,8 +102,22 @@ public class HotelServiceImpl implements HotelService {
 		return hotelDao.getRoomInfoByUserId(userId);
 	}
 
-	/*public void changeLoginIdAndPass(Integer userId,String loginId,String pass) {
-		return hotelDao.changeLoginIdAndPass(userId,loginId,pass);
+	public boolean checkLoginId(String loginId) {
+		return hotelDao.checkLoginId(loginId);
 	}
-	*/}
+
+	public void updateLoginId(Integer userId,String loginId) {
+		hotelDao.updateLoginId(userId,loginId);
+	}
+
+	public boolean checkPass(String pass) {
+		return hotelDao.checkPass(pass);
+	}
+
+	public void updatePass(Integer userId,String pass) {
+		hotelDao.updatePass(userId,pass);
+	}
+
+
+}
 
