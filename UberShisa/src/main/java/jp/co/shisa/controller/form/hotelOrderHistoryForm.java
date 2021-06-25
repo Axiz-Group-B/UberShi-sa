@@ -3,7 +3,7 @@ package jp.co.shisa.controller.form;
 public class hotelOrderHistoryForm {
 	private Integer orderListId;
 	private Integer orderShopId;
-	private Integer Month;
+	private String Month;
 
 	public Integer getOrderListId() {
 		return orderListId;
@@ -21,11 +21,11 @@ public class hotelOrderHistoryForm {
 		this.orderShopId = orderShopId;
 	}
 
-	public Integer getMonth() {
+	public String getMonth() {
 		return Month;
 	}
 
-	public void setMonth(Integer month) {
+	public void setMonth(String month) {
 		Month = month;
 	}
 

@@ -1,10 +1,12 @@
 package jp.co.shisa.controller;
 
 
+import java.io.Serializable;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,13 +22,16 @@ import jp.co.shisa.service.HotelService;
 
 
 @Controller
-@EnableAutoConfiguration
-public class HotelController {
+//@EnableAutoConfiguration
+public class HotelController implements Serializable {
 
 	@Autowired
 	private HotelService hotelService;
 
+	@Autowired
+	HttpSession session;
 
+	//注文履歴の初期画面遷移
 	@RequestMapping("/hotel/orderHistory")
 	public String hotelOrderHistory(@ModelAttribute("orderHistory") hotelOrderHistoryForm form,
 									Model model){
@@ -35,47 +40,63 @@ public class HotelController {
 		Integer total = 0;
 
 		sList = hotelService.shopFindAll();
-		oList = hotelService.orderInfoFind(form.getOrderShopId());
-		total = hotelService.totalPrice(form.getOrderShopId());
+		oList = hotelService.orderInfoFind(form.getOrderShopId(),form.getMonth());
+		if(hotelService.totalPrice(form.getOrderShopId(),form.getMonth()) != null) {
+			total = hotelService.totalPrice(form.getOrderShopId(),form.getMonth());
+		}else {
+			total = 0;
+		}
 
+		//確認
 		//System.out.println(form.getOrderShopId());
-		//System.out.println(form.getMonth());
+		//System.out.println(oList.get(0));
 
-		//model.addAttribute("orderListId",form.getOrderListId());
-		//model.addAttribute("orderShopId",form.getOrderShopId());
+		if(form.getOrderListId() != null) {
+			model.addAttribute("orderListId",form.getOrderListId());
+		}else {
+			model.addAttribute("orderListId",0);
+			model.addAttribute("subTotal",0);
+		}
+
 		model.addAttribute("sList",sList);
+		session.setAttribute("sList",sList);
 		model.addAttribute("oList",oList);
+		session.setAttribute("oList",oList);
 		model.addAttribute("mainTotal",total);
+		session.setAttribute("mainTotal",total);
 
 		return "hotelOrderHistory";
 	}
 
+	//注文ID押した時の画面遷移
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/hotel/orderHistoryFind")
 	public String hotelOrderHistoryFindId(@ModelAttribute("orderHistory") hotelOrderHistoryForm form,
 									Model model){
-		List<Shop> sList = null;
-		List<OrderInfo> oList = null;
+		List<Shop> sList = (List<Shop>) session.getAttribute("sList");
+		List<OrderInfo> oList = (List<OrderInfo>) session.getAttribute("oList");
 		List<OrderInfo> oFindList = null;
-		Integer total = 0;
+		Integer mTotal = (Integer) session.getAttribute("mainTotal");
+		Integer sTotal = 0;
 
-		sList = hotelService.shopFindAll();
-		oList = hotelService.orderInfoFind(form.getOrderShopId());
 		oFindList = hotelService.OrderInfoFindId(form.getOrderListId());
-		total = hotelService.totalPrice(form.getOrderListId());
+		sTotal = hotelService.priceSum(form.getOrderListId());
 
-		//System.out.println(form.getOrderShopId());
-		System.out.println(form.getOrderListId());
-		System.out.println(total);
+		//確認
+		//System.out.println(form.getMonth());
+		//System.out.println(total);
 
 		model.addAttribute("orderListId",form.getOrderListId());
 		model.addAttribute("sList",sList);
 		model.addAttribute("oList",oList);
 		model.addAttribute("oFindList",oFindList);
-		model.addAttribute("subTotal",total);
+		model.addAttribute("mainTotal",mTotal);
+		model.addAttribute("subTotal",sTotal);
 
 		return "hotelOrderHistory";
 	}
 
+	//配達員一覧の初期画面遷移
 	@RequestMapping("/hotel/delivery")
 	public String hotelDelivery(@ModelAttribute("hotelDelivery") hotelDeliveryForm form,
 								Model model){
@@ -88,6 +109,7 @@ public class HotelController {
 		return "hotelDelivery";
 	}
 
+	//削除ボタン押した後の配達員一覧の画面遷移
 	@RequestMapping("/hotel/deliveryListDelete")
 	public String hotelDeliveryListDelete(@ModelAttribute("hotelDelivery") hotelDeliveryForm form,Model model){
 		List<DeliveryMan> dList = null;
@@ -106,12 +128,18 @@ public class HotelController {
 	}
 
 
-	//店舗を削除して店舗管理画面へ遷移
-	@RequestMapping("hotelAddStoreDelete")
+	//店舗を削除して店舗管理画面へ遷移-----------------------------------
+	@RequestMapping("/hotelAddStoreDelete")
 	public String hotelAddStoreDelete(@ModelAttribute("hotelAddStore") hotelAddStoreForm form, Model model) {
-		List<Shop> list = hotelService.shopFindAll();
-		//確認
-		//System.out.println(form.getHotelShopDelete());
+		List<Shop> list =  null;
+
+		//hotelService.hotelUserInfoDelete(form.getHotelShopDelete());
+		hotelService.HotelShopDelete(form.getHotelShopDelete());
+
+		list = hotelService.shopFindAll();
+
+		System.out.println(form.getHotelShopDelete());
+
 		model.addAttribute("shop",list);
 		return "hotelAddStore"; //hotelAddStoreに遷移
 	}
@@ -120,7 +148,7 @@ public class HotelController {
 
 
 	//shopをリストに取得して店舗管理画面へ遷移
-	@RequestMapping("hotelAddStore")
+	@RequestMapping("/hotelAddStore")
 	public String hotelAddStore(Model model) {
 		List<Shop> list = hotelService.shopFindAll();
 		model.addAttribute("shop",list);
@@ -152,5 +180,3 @@ public class HotelController {
 		//hotelCancelOrderOfRoomに遷移
 	}
 }
-
-

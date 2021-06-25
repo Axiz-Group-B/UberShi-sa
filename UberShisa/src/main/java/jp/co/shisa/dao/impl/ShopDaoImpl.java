@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import jp.co.shisa.dao.ShopDao;
 import jp.co.shisa.entity.OrderInfo;
 import jp.co.shisa.entity.OrderItem;
+import jp.co.shisa.entity.Product;
 import jp.co.shisa.entity.Shop;
 import jp.co.shisa.entity.UserInfo;
 
@@ -76,5 +77,35 @@ public class ShopDaoImpl implements ShopDao{
 		System.out.println("店舗情報更新された");
 	}
 //	店舗情報更新（pha）end---------------------------------------------------------------------------------
+
+	public List<Product> selectAllProductByShopId(Integer shopId) {
+		String sql = "SELECT * FROM product WHERE shop_id = :shopId";
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("shopId", shopId);
+		List<Product> list = namedJT.query(sql, param,new BeanPropertyRowMapper<Product>(Product.class));
+
+		return list.isEmpty() ? null : list;
+	}
+
+	public void insertProduct(Product product) {
+		String sql = "INSERT INTO product (shop_id,image,text,product_name,price,stock) VALUES (:shopId,:image,:text,:productName,:price,:stock)";
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("shopId", product.getShopId());
+		param.addValue("image",product.getImage());
+		param.addValue("text", product.getText());
+		param.addValue("productName",product.getProductName());
+		param.addValue("price", product.getPrice());
+		param.addValue("stock",product.getStock());
+		jdbcTemplate.update(sql, param);
+		System.out.println("商品情報追加");
+	}
+
+	public Product selectUpdateProductByProductId(Integer productId) {
+		String sql = "SELECT * FROM product WHERE product_id = :productId";
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("productId", productId);
+		List<Product> list = namedJT.query(sql,param, new BeanPropertyRowMapper<Product>(Product.class));
+		return list.isEmpty() ?  null : list.get(0);
+	}
 
 }

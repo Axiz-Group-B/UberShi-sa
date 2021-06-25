@@ -9,7 +9,7 @@ import jp.co.shisa.entity.Shop;
 public interface HotelDao {
 	public List<Shop> shopFindAll();
 
-	public List<OrderInfo> orderInfoFind(Integer shopId);
+	public List<OrderInfo> orderInfoFind(Integer shopId,String dateTime);
 
 	public List<DeliveryMan> DeliveryManFindAll();
 
@@ -19,5 +19,13 @@ public interface HotelDao {
 
 	public void DeliveryManDelete(Integer deliveryManId);
 
-	public Integer totalPrice(Integer shopId);
+	public Integer totalPrice(Integer shopId,String dateTime);
+
+
+	public Integer priceSum(Integer orderId);
+
+	public void hotelUserInfoDelete(Integer shopId);
+
+	public void HotelShopDelete(Integer shopId);
+
 }

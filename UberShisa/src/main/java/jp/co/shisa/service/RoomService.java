@@ -25,7 +25,7 @@ public interface RoomService {
 	public Product productById(Integer productId);
 
 	//注文、insert order_info
-	public void insertOrderAll(Integer roomId, Integer shopId, Integer totalPrice, List<OrderItem> list);
+	public void insertOrderAll(Integer roomId, Integer shopId, Integer totalPrice, List<OrderItem> list, Integer status);
 
 	//
 	public OrderInfo getByRoomIdTime(Integer roomId, Timestamp dateTime);
@@ -49,6 +49,9 @@ public interface RoomService {
 	public OrderInfo statusForShop(Integer shopId, Integer status);
 
 	//hotel
-	public OrderInfo statusForHotel(Integer status) ;
+	public List<OrderInfo> statusForHotel(Integer status) ;
+
+	//キャンセル注文
+	public void cansel(Integer orderId, Integer status, Timestamp dateTime);
 
 }

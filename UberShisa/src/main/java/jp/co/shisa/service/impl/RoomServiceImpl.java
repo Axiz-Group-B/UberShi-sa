@@ -51,12 +51,7 @@ public class RoomServiceImpl implements RoomService {
 
 	//注文。トランザクションのために１つのメソッドで全部のinsert実行する
 	@Override
-	public void insertOrderAll(Integer roomId, Integer shopId, Integer totalPrice, List<OrderItem> list) {
-		/*
-		String now =
-		String dateTime = sdf.format();*/
-
-		//SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD hh:mm:ss");
+	public void insertOrderAll(Integer roomId, Integer shopId, Integer totalPrice, List<OrderItem> list, Integer status) {
 
 		Timestamp dateTime = new Timestamp(System.currentTimeMillis());
 
@@ -67,7 +62,7 @@ public class RoomServiceImpl implements RoomService {
 			roomDao.insertItem(order.getOrderId(), i.getProductId(), i.getAmount(), i.getSubtotal());
 		}
 
-		roomDao.insertLog(order.getOrderId(), dateTime);
+		roomDao.insertLog(order.getOrderId(), dateTime, status);
 	}
 
 	//
@@ -107,9 +102,15 @@ public class RoomServiceImpl implements RoomService {
 	}
 
 	//hotel
-	public OrderInfo statusForHotel(Integer status) {
+	public List<OrderInfo> statusForHotel(Integer status) {
 		return roomDao.statusForHotel(status);
 	}
 
+	//キャンセル処理
+	@Override
+	public void cansel(Integer orderId, Integer status, Timestamp dateTime) {
+		roomDao.statusUpdate(orderId, status);
+		roomDao.insertLog(orderId, dateTime, status);
+	}
 
 }

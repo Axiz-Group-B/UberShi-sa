@@ -1,6 +1,10 @@
 package jp.co.shisa.controller;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.servlet.http.HttpSession;
 
@@ -37,6 +41,34 @@ public class AuthController {
 
 	@RequestMapping({ "/", "/index" })
 	public String index(Model model) {
+		//30分配達員決まらなかったらそのorderのstatus更新
+
+		//定期的に実行する処理
+		TimerTask task = new TimerTask() {
+			@Override
+			public void run() {
+				//orderInfoから、statusが1のレコードをとる。orderDateTime取得して、現在時刻と比較。30分以上経ってたらstatusを3にする
+				if(roomService.statusForHotel(1) != null) {//null回避。nullなら何も処理しない
+					//現在時刻取得
+					LocalDateTime nowTime = LocalDateTime.now();//計算にはこのクラスの方がよさそう
+					List<OrderInfo>list = roomService.statusForHotel(1);
+					for(OrderInfo o : list) {
+						LocalDateTime orderTime = o.getDateTime().toLocalDateTime();
+						if(orderTime.plusMinutes(30).isBefore(nowTime)) {//orderTime＋３０分して現在の時刻より前になったら、status３にする
+							//DBアクセスして、このorderIdのstatusを3にする
+							Timestamp dateTime = new Timestamp(System.currentTimeMillis());//引数のためにtimestamp型
+							roomService.cansel(o.getOrderId(), 3, dateTime);
+						}
+					}
+				}
+			}
+		};
+
+		//実行する頻度とかの設定
+		Timer timer = new Timer();
+		timer.scheduleAtFixedRate(task, 1000, 600000);
+		//scheduleAtFixedRate(定期的に実行したいタスク,初回のタスク実行までの時間(ms),実行するタスクの間隔(ms))
+
 		return "index";
 	}
 
