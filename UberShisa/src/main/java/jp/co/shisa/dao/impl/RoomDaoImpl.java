@@ -34,7 +34,7 @@ public class RoomDaoImpl implements RoomDao{
 	@Override
 	public List<Product> allProduct(Integer shopId){
 		String sql = "select p.*, s.* from product p inner join shop s on p.shop_id=s.shop_id "
-				+ " where p.shop_id=:id";
+				+ " where p.shop_id=:id and stock>=1";
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("id", shopId);
 
@@ -46,7 +46,7 @@ public class RoomDaoImpl implements RoomDao{
 	@Override
 	public List<Product> searchFromAll(String productName){
 		String sql = "select p.*, s.* from product p inner join shop s on p.shop_id=s.shop_id "
-				+ " where p.product_name like '%' ||:productName|| '%'";
+				+ " where p.product_name like '%' ||:productName|| '%' and  stock>=1";
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("productName", productName);
 
@@ -58,7 +58,7 @@ public class RoomDaoImpl implements RoomDao{
 	@Override
 	public List<Product> searchFromOne(String productName, Integer shopId){
 		String sql = "select p.*, s.* from product p inner join shop s on p.shop_id=s.shop_id "
-				+ " where p.product_name like '%' || :productName || '%'"
+				+ " where p.product_name like '%' || :productName || '%' and  stock>=1 "
 				+ " and p.shop_id=:id ";
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("productName", productName);
@@ -120,6 +120,17 @@ public class RoomDaoImpl implements RoomDao{
 		param.addValue("orderId", orderId);
 		param.addValue("dateTime", dateTime);
 		param.addValue("status", status);
+
+		namedJT.update(sql, param);
+	}
+
+	//注文時に、productのstockをupdateする
+	@Override
+	public void updateStock(Integer productId, Integer amount) {
+		String sql = "update product set stock=(stock-:amount) where product_id=:productId";
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("amount", amount);
+		param.addValue("productId", productId);
 
 		namedJT.update(sql, param);
 	}

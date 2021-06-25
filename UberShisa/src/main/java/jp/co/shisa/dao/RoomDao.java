@@ -34,6 +34,8 @@ public interface RoomDao {
 		public void insertItem(Integer orderId, Integer productId, Integer amount, Integer subtotal);
 		//insert log
 		public void insertLog(Integer orderId, Timestamp dateTime, Integer status);
+		//update stock
+		public void updateStock(Integer productId, Integer amount);
 
 	//
 		public OrderInfo getRecentOrder(Integer roomId);
