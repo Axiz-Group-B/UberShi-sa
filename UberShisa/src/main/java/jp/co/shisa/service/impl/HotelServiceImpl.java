@@ -25,9 +25,9 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public List<OrderInfo> orderInfoFind(Integer shopId) {
+	public List<OrderInfo> orderInfoFind(Integer shopId,String dateTime) {
 		// TODO 自動生成されたメソッド・スタブ
-		return hotelDao.orderInfoFind(shopId);
+		return hotelDao.orderInfoFind(shopId,dateTime);
 	}
 
 	@Override
@@ -43,12 +43,49 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public void UserInfoDelete(Integer deliveryManId) {
+	public Integer totalPrice(Integer shopId,String dateTime) {
 		// TODO 自動生成されたメソッド・スタブ
+		return hotelDao.totalPrice(shopId,dateTime);
 	}
+
 
 	public Room roomNameSearch(String roomName) {
 		return hotelDao.roomNameSearch(roomName);
+	}
+
+
+	@Override
+	public void UserInfoDelete(Integer deliveryManId) {
+		// TODO 自動生成されたメソッド・スタブ
+		hotelDao.UserInfoDelete(deliveryManId);
+	}
+
+	@Override
+	public void DeliveryManDelete(Integer deliveryManId) {
+		// TODO 自動生成されたメソッド・スタブ
+		hotelDao.DeliveryManDelete(deliveryManId);
+	}
+
+
+
+	@Override
+
+	public void hotelUserInfoDelete(Integer shopId) {
+		// TODO 自動生成されたメソッド・スタブ
+		hotelDao.hotelUserInfoDelete(shopId);
+	}
+
+	@Override
+	public Integer priceSum(Integer orderId) {
+		// TODO 自動生成されたメソッド・スタブ
+		return hotelDao.priceSum(orderId);
+	}
+
+	@Override
+	public void HotelShopDelete(Integer shopId) {
+		// TODO 自動生成されたメソッド・スタブ
+		hotelDao.HotelShopDelete(shopId);
+
 	}
 }
 

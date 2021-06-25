@@ -33,12 +33,32 @@ public interface RoomDao {
 		//insert order_item
 		public void insertItem(Integer orderId, Integer productId, Integer amount, Integer subtotal);
 		//insert log
-		public void insertLog(Integer orderId, Timestamp dateTime);
+		public void insertLog(Integer orderId, Timestamp dateTime, Integer status);
 
 	//
 		public OrderInfo getRecentOrder(Integer roomId);
 
 	//orderIdからorderItemとる。ほしいのはproductName,amount,subtotal,なので、productNameのためにJOINする
 		public List<OrderItem> getOrderItem(Integer orderId);
+
+	//orderIdからorderInfoとる
+		public OrderInfo getOrderInfo(Integer orderId);
+
+	//statusが6,7以外(進行中注文)を取る
+		public List<OrderInfo> getUncompOrder(Integer roomId);
+
+	//orderIdのstatusを更新する
+		public void statusUpdate(Integer orderId, Integer status);
+
+/////////////////////////////////////////////////////////////////
+	//ホテルに届きました通知のために、roomIdと任意のstatusでレコード探す。１以上あれば通知するから、リストで返さない
+		//予定だったけど、そうもいかない
+	public List<OrderInfo> searchStatus(Integer roomId, Integer status);
+
+	//Shop用
+	public OrderInfo statusForShop(Integer shopId, Integer status);
+
+	//hotel用
+	public List<OrderInfo> statusForHotel(Integer status);
 
 }

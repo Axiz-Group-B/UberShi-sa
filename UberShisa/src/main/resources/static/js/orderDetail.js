@@ -14,7 +14,7 @@ const changeStotal =()=>{
 	amount.addEventListener('input',changeStotal);
 //////////////////////////////////////////////////////////////////////////////////
 //削除ボタンポップアップ
-function check(){
+function checkOrder(){
 
 	if(window.confirm('操作を確定してよろしいですか？')){ // 確認ダイアログを表示
 
@@ -32,5 +32,5 @@ function check(){
 //ここで、ボタン押したときの動きを定義
 /*	var btns = document.getElementsByClassName('deleteItem');
 	for(let i =0; i< btns.length ; i++){
-		btns[i].addEventListener('click', check);
+		btns[i].addEventListener('click', checkOrder);
 	}*/

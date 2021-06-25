@@ -21,7 +21,7 @@ public class DeliveryManDaoImpl implements DeliveryManDao {
 
 	private String SELECT_FROM_ORDERINFO_BY_ORDERID = "SELECT oi.*,shop_name,shop_tel,address FROM order_info oi JOIN shop s ON oi.shop_id = s.shop_id WHERE order_id = :orderId";
 	private String SELECT_FROM_ORDERITEM_BY_ORDERID = "SELECT oi.*,product_name,text FROM order_item oi JOIN product p ON oi.product_id = p.product_id  WHERE order_id = :orderId";
-
+	private String ADD_DELIVERYMAN_ID_IN_ORDER = "UPDATE order_info SET delivery_man_id = :deliveryManId, status = 2 WHERE order_id = :orderId";
 //	配達員情報を更新のSQL
 	private static final String UPDATE_DELIVERY_MAN_INFO = "BEGIN; "
 			+ " update user_info set login_id = :loginId, pass = :pass "
@@ -34,7 +34,7 @@ public class DeliveryManDaoImpl implements DeliveryManDao {
 
 	@Autowired
 	NamedParameterJdbcTemplate namedJT;
-
+	//--注文詳細
 	public OrderInfo checkOrder(Integer orderId) {
 		String sql = SELECT_FROM_ORDERINFO_BY_ORDERID;
 		MapSqlParameterSource param = new MapSqlParameterSource();
@@ -42,7 +42,7 @@ public class DeliveryManDaoImpl implements DeliveryManDao {
 		List<OrderInfo> list = namedJT.query(sql,param,new BeanPropertyRowMapper<OrderInfo>(OrderInfo.class));
 		return list.isEmpty() ? null : list.get(0);
 	}
-
+	//--注文詳細(内容)
 	public List<OrderItem> checkOrderContents(Integer orderId) {
 		String sql = SELECT_FROM_ORDERITEM_BY_ORDERID;
 		MapSqlParameterSource param = new MapSqlParameterSource();
@@ -119,16 +119,40 @@ public class DeliveryManDaoImpl implements DeliveryManDao {
 		return jdbcTemplate.queryForObject(sql, param, Integer.class);
 	}
 
+
 	public String checkLoginId(SignupForm signupForm) {
+
 		try{
 			String sql = CHECK_LOGINID;
+			MapSqlParameterSource param = new MapSqlParameterSource();
+			param.addValue("login_id", signupForm.getLoginId());
+			return jdbcTemplate.queryForObject(sql, param, String.class);
+			} catch(Exception e){
 
+				return null;
+			}
+
+	}
+
+	//orderに配達員情報を追加
+	public void addDeliveryManIdInOrder(Integer orderId,Integer deliveryManId) {
+		String sql = ADD_DELIVERYMAN_ID_IN_ORDER;
 		MapSqlParameterSource param = new MapSqlParameterSource();
-		param.addValue("login_id", signupForm.getLoginId());
-		return jdbcTemplate.queryForObject(sql, param, String.class);
-		} catch(Exception e){
 
-			return null;
-		}
+
+		param.addValue("deliveryManId", deliveryManId);
+		param.addValue("orderId", orderId);
+
+		namedJT.update(sql,param);
+	}
+
+	public void insertLogStatusIsTwo (Integer orderId) {
+		String sql = "INSERT INTO log (order_id,status,date_time) VALUES (:orderId,:status,current_timestamp)";
+		MapSqlParameterSource param = new MapSqlParameterSource();
+
+		param.addValue("orderId", orderId);
+		param.addValue("status", 2);
+
+		namedJT.update(sql,param);
 	}
 }

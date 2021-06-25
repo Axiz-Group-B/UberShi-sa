@@ -25,7 +25,7 @@ public interface RoomService {
 	public Product productById(Integer productId);
 
 	//注文、insert order_info
-	public void insertOrderAll(Integer roomId, Integer shopId, Integer totalPrice, List<OrderItem> list);
+	public void insertOrderAll(Integer roomId, Integer shopId, Integer totalPrice, List<OrderItem> list, Integer status);
 
 	//
 	public OrderInfo getByRoomIdTime(Integer roomId, Timestamp dateTime);
@@ -35,5 +35,23 @@ public interface RoomService {
 
 	//orderIdからorderItemとる。ほしいのはproductName,amount,subtotal,なので、productNameのためにJOINする
 	public List<OrderItem> getOrderItem(Integer orderId);
+
+	//orderIdからorderInfoとる
+	public OrderInfo getOrderInfo(Integer orderId);
+
+	//statusが6,7以外(進行中注文)を取る
+	public List<OrderInfo> getUncompOrder(Integer roomId);
+
+	//ホテル届きました通知のために、roomIdと任意のstatusでレコード探す
+	public List<OrderInfo> searchStatus(Integer roomId, Integer status);
+
+	//Shop通知用
+	public OrderInfo statusForShop(Integer shopId, Integer status);
+
+	//hotel
+	public List<OrderInfo> statusForHotel(Integer status) ;
+
+	//キャンセル注文
+	public void cansel(Integer orderId, Integer status, Timestamp dateTime);
 
 }

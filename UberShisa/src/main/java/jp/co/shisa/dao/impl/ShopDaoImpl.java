@@ -11,22 +11,41 @@ import org.springframework.stereotype.Repository;
 import jp.co.shisa.dao.ShopDao;
 import jp.co.shisa.entity.OrderInfo;
 import jp.co.shisa.entity.OrderItem;
+import jp.co.shisa.entity.Product;
 import jp.co.shisa.entity.Shop;
 import jp.co.shisa.entity.UserInfo;
 
 @Repository
 public class ShopDaoImpl implements ShopDao{
-	private String SELECT_FROM_ORDERINFO_BY_ORDER_ID = "SELECT oi.*,delivery_man_name,delivery_man_tel FROM order_info oi JOIN delivery_man dm ON oi.delivery_man_id = dm.delivery_man_id WHERE order_id = :orderId";
-	private String SELECT_FROM_ORDERITEM_BY_ORDERID = "SELECT oi.*,product_name,price FROM order_item oi JOIN product p ON oi.product_id = p.product_id  WHERE order_id = :orderId";
+	private String SELECT_FROM_ORDERINFO_BY_ORDER_ID = "SELECT oi.*, delivery_man_name, delivery_man_tel "
+			+ " FROM order_info oi JOIN delivery_man dm ON oi.delivery_man_id = dm.delivery_man_id "
+			+ " WHERE order_id = :orderId "
+			+ " UNION "
+			+ " SELECT *, NULL, NULL "
+			+ " FROM order_info "
+			+ " WHERE delivery_man_id IS NULL AND order_id = :orderId";
+
+	private String SELECT_FROM_ORDERITEM_BY_ORDERID = "SELECT oi.*, p.product_name, p.price "
+			+ " FROM order_item oi JOIN product p ON oi.product_id = p.product_id "
+			+ " WHERE order_id = :orderId";
+//	店舗情報更新　SQL(pha)
+	private static final String UPDATE_SHOP_INFO = "BEGIN; "
+			+ " update user_info set login_id = :loginId, pass = :pass "
+			+ " where user_id = :userId; "
+			+ " update shop set shop_name = :shopName, shop_tel = :shopTel, address = :address "
+			+ " where user_id = :userId; "
+			+ " COMMIT;";
 
 	@Autowired
 	NamedParameterJdbcTemplate namedJT;
+	@Autowired
+	NamedParameterJdbcTemplate jdbcTemplate;
 
 	public OrderInfo checkOrder(Integer orderId) {
 		String sql = SELECT_FROM_ORDERINFO_BY_ORDER_ID;
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("orderId", orderId);
-		List<OrderInfo> list = namedJT.query(sql,param,new BeanPropertyRowMapper<OrderInfo>(OrderInfo.class));
+		List<OrderInfo> list = namedJT.query(sql, param, new BeanPropertyRowMapper<OrderInfo>(OrderInfo.class));
 		return list.isEmpty() ? null : list.get(0);
 	}
 
@@ -35,20 +54,14 @@ public class ShopDaoImpl implements ShopDao{
 		String sql = SELECT_FROM_ORDERITEM_BY_ORDERID;
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("orderId", orderId);
-		List<OrderItem> list = namedJT.query(sql,param,new BeanPropertyRowMapper<OrderItem>(OrderItem.class));
+		List<OrderItem> list = namedJT.query(sql, param, new BeanPropertyRowMapper<OrderItem>(OrderItem.class));
 		return list.isEmpty() ? null : list;
 
 	}
 
-	private static final String UPDATE_SHOP_INFO = "BEGIN; "
-			+ " update user_info set login_id = :loginId, pass = :pass "
-			+ " where user_id = :userId; "
-			+ " update shop set shop_name = :shopName, shop_tel = :shopTel, address = :address "
-			+ " where user_id = :userId; "
-			+ " COMMIT;";
-	@Autowired
-	NamedParameterJdbcTemplate jdbcTemplate;
 
+
+//	店舗情報更新（pha）start-------------------------------------------------------------------------------
 	@Override
 	public void updateShopInfo(UserInfo userInfo, Shop shop) {
 		// TODO 自動生成されたメソッド・スタブ
@@ -62,6 +75,37 @@ public class ShopDaoImpl implements ShopDao{
 		param.addValue("userId", userInfo.getUserId());
 		jdbcTemplate.update(sql, param);
 		System.out.println("店舗情報更新された");
+	}
+//	店舗情報更新（pha）end---------------------------------------------------------------------------------
+
+	public List<Product> selectAllProductByShopId(Integer shopId) {
+		String sql = "SELECT * FROM product WHERE shop_id = :shopId";
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("shopId", shopId);
+		List<Product> list = namedJT.query(sql, param,new BeanPropertyRowMapper<Product>(Product.class));
+
+		return list.isEmpty() ? null : list;
+	}
+
+	public void insertProduct(Product product) {
+		String sql = "INSERT INTO product (shop_id,image,text,product_name,price,stock) VALUES (:shopId,:image,:text,:productName,:price,:stock)";
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("shopId", product.getShopId());
+		param.addValue("image",product.getImage());
+		param.addValue("text", product.getText());
+		param.addValue("productName",product.getProductName());
+		param.addValue("price", product.getPrice());
+		param.addValue("stock",product.getStock());
+		jdbcTemplate.update(sql, param);
+		System.out.println("商品情報追加");
+	}
+
+	public Product selectUpdateProductByProductId(Integer productId) {
+		String sql = "SELECT * FROM product WHERE product_id = :productId";
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("productId", productId);
+		List<Product> list = namedJT.query(sql,param, new BeanPropertyRowMapper<Product>(Product.class));
+		return list.isEmpty() ?  null : list.get(0);
 	}
 
 }

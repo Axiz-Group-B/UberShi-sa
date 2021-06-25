@@ -51,12 +51,7 @@ public class RoomServiceImpl implements RoomService {
 
 	//注文。トランザクションのために１つのメソッドで全部のinsert実行する
 	@Override
-	public void insertOrderAll(Integer roomId, Integer shopId, Integer totalPrice, List<OrderItem> list) {
-		/*
-		String now =
-		String dateTime = sdf.format();*/
-
-		//SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD hh:mm:ss");
+	public void insertOrderAll(Integer roomId, Integer shopId, Integer totalPrice, List<OrderItem> list, Integer status) {
 
 		Timestamp dateTime = new Timestamp(System.currentTimeMillis());
 
@@ -67,7 +62,7 @@ public class RoomServiceImpl implements RoomService {
 			roomDao.insertItem(order.getOrderId(), i.getProductId(), i.getAmount(), i.getSubtotal());
 		}
 
-		roomDao.insertLog(order.getOrderId(), dateTime);
+		roomDao.insertLog(order.getOrderId(), dateTime, status);
 	}
 
 	//
@@ -83,6 +78,39 @@ public class RoomServiceImpl implements RoomService {
 	//orderIdからorderItemとる。ほしいのはproductName,amount,subtotal,なので、productNameのためにJOINする
 	public List<OrderItem> getOrderItem(Integer orderId){
 		return roomDao.getOrderItem(orderId);
+	}
+
+	//orderIdからorderItemとる
+	public OrderInfo getOrderInfo(Integer orderId) {
+		return roomDao.getOrderInfo(orderId);
+	}
+
+	//statusが6,7以外(進行中注文)を取る
+	public List<OrderInfo> getUncompOrder(Integer roomId){
+		return roomDao.getUncompOrder(roomId);
+	}
+
+	////////////////////////////////////////////////////////////////
+	//ホテル届きました通知のために、roomIdと任意のstatusでレコード探す。１以上あれば通知するから、リストで返さない
+	public List<OrderInfo> searchStatus(Integer roomId, Integer status) {
+		return roomDao.searchStatus(roomId, status);
+	}
+
+	//shop
+	public OrderInfo statusForShop(Integer shopId, Integer status) {
+		return roomDao.statusForShop(shopId, status);
+	}
+
+	//hotel
+	public List<OrderInfo> statusForHotel(Integer status) {
+		return roomDao.statusForHotel(status);
+	}
+
+	//キャンセル処理
+	@Override
+	public void cansel(Integer orderId, Integer status, Timestamp dateTime) {
+		roomDao.statusUpdate(orderId, status);
+		roomDao.insertLog(orderId, dateTime, status);
 	}
 
 }

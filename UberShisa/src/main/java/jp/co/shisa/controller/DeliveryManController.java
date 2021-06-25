@@ -21,6 +21,7 @@ import jp.co.shisa.entity.DeliveryMan;
 import jp.co.shisa.entity.OrderInfo;
 import jp.co.shisa.entity.OrderItem;
 import jp.co.shisa.entity.UserInfo;
+import jp.co.shisa.service.AuthService;
 import jp.co.shisa.service.DeliveryManService;
 
 @Controller
@@ -29,6 +30,12 @@ import jp.co.shisa.service.DeliveryManService;
 public class DeliveryManController {
 	@Autowired
 	private DeliveryManService deliveryManService;
+
+	@Autowired
+	AuthService authService;
+
+	@Autowired
+	HttpSession session;
 
 	//signup.htmlでアカウントを持っている方を押した時と新規ユーザー登録したときにindex画面に遷移
 	@RequestMapping("/newInsert")
@@ -65,19 +72,18 @@ public class DeliveryManController {
 		//ポップアップで戻る選択した時
 	}
 
-	@Autowired
-	HttpSession session;
 
 	@RequestMapping("/deliveryMan/delivery")
 	public String deliveryView(Model model) {
 		return "delivery";
 	}
 
-	@RequestMapping("/deliveryMan/deliveryOrderSelected")
-	public String deliveryOrderSelected(Model model) {
-		return "deliveryOrderSelected";
-	}
 
+	/*	@RequestMapping("/deliveryMan/deliveryOrderSelected")
+		public String deliveryOrderSelected(Model model) {
+			return "deliveryOrderSelected";
+		}
+	*/
 	@RequestMapping("/deliveryMan/deliveryOrderSelect/{orderId}")
 	public String deliveryOrderSelect(@PathVariable Integer orderId, Model model) {
 		OrderInfo orderInfo = deliveryManService.checkOrder(orderId);
@@ -86,7 +92,28 @@ public class DeliveryManController {
 		session.setAttribute("orderItemForDeliveryMan", orderItem);
 		return "deliveryOrderSelect";
 	}
+
 	//	配達員情報　更新するため(pha)start-----------------------------------------------------------------
+
+
+	//
+	@RequestMapping("/deliveryMan/deliveryOrderSelected")
+	public String deliveryOrderSelected(Model model) {
+		OrderInfo orderInfo = (OrderInfo) session.getAttribute("orderInfoForDeliveryMan");
+		DeliveryMan deliveryMan = (DeliveryMan) session.getAttribute("loginUser");
+			deliveryManService.addDeliveryManIdInOrderAndAddLog(orderInfo.getOrderId(),deliveryMan.getDeliveryManId());
+		return "deliveryOrderSelected";
+	}
+
+	//配達完了後、初期画面に戻る前にリストを最新の情報に更新
+	@RequestMapping("/deliveryMan/deliveryCompleted")
+	public String deliveryOrderSelect(Model model) {
+		List<OrderInfo> noDeliveryManOrderList = authService.checkNoDeliveryManOrder();
+		session.setAttribute("noDeliveryManOrderList", noDeliveryManOrderList);
+		return "redirect:delivery";
+	}
+//	配達員情報　更新するため(pha)start-----------------------------------------------------------------
+
 
 	@RequestMapping(value = "/deliveryInfo")
 	public String deliveryInfo(Model model) {

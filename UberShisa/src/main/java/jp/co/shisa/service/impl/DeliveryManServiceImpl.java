@@ -1,6 +1,5 @@
 package jp.co.shisa.service.impl;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,24 +14,20 @@ import jp.co.shisa.entity.OrderItem;
 import jp.co.shisa.service.DeliveryManService;
 
 @Service
-public class DeliveryManServiceImpl implements DeliveryManService{
+public class DeliveryManServiceImpl implements DeliveryManService {
 	@Autowired
 	DeliveryManDaoImpl deliveryManDaoImpl;
 
-
-
 	public void insertDeliveryMan(SignupForm deliveryMan) {
-		 Integer userId = deliveryManDaoImpl.UserId(deliveryMan);
+		Integer userId = deliveryManDaoImpl.UserId(deliveryMan);
 
-		 deliveryManDaoImpl.insertDeliveryMan(deliveryMan, userId);
-		 //return無ければ実行されるだけ
+		deliveryManDaoImpl.insertDeliveryMan(deliveryMan, userId);
+		//return無ければ実行されるだけ
 	}
 
 	public void insertUserInfo(SignupForm userInfo) {
 		deliveryManDaoImpl.insertUserInfo(userInfo);
 	}
-
-
 
 	@Autowired
 	DeliveryManDao deliveryManDao;
@@ -45,7 +40,7 @@ public class DeliveryManServiceImpl implements DeliveryManService{
 		return deliveryManDao.checkOrderContents(orderId);
 	}
 
-//	配達員情報の更新
+	//	配達員情報の更新
 	@Override
 	public void updateDeliveryManInfo(DeliveryMan deliveryMan) {
 		// TODO 自動生成されたメソッド・スタブ
@@ -57,10 +52,15 @@ public class DeliveryManServiceImpl implements DeliveryManService{
 
 		String checkLoginId = deliveryManDao.checkLoginId(signupForm);
 
-		if(checkLoginId == null) {
+		if (checkLoginId == null) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
+	}
+
+	public void addDeliveryManIdInOrderAndAddLog(Integer orderId, Integer deliveryManId) {
+		deliveryManDao.addDeliveryManIdInOrder(orderId, deliveryManId);
+		deliveryManDao.insertLogStatusIsTwo(orderId);
 	}
 }
