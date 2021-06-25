@@ -46,12 +46,28 @@
         </div>
         <div class="right-side" style="width: 40%;">
             <h1>店舗を追加</h1>
-            <form action="#">
-                <div><label class="label-format">ログインID：</label><input type="text" value="12345"></div>
-                <div><label class="label-format">パスワード：</label><input type="text" value="12345"></div>
-                <div><label class="label-format">店舗名：</label><input type="text" value="12345"></div>
-                <div><label class="label-format">住所：</label><input type="text" value="12345"></div>
-                <div><label class="label-format">電話番号：</label><input type="text" value="12345"></div>
+            <form method="post" action="addStore" th:object="${insert}">
+                <div>
+                	<label class="label-format">ログインID：</label>
+                	<input type="text" name="shopLoginId" placeholder="ログインID">
+            	</div>
+                <div>
+                	<label class="label-format">パスワード：</label>
+                	<input type="text" name="shopPass" placeholder="パスワード">
+                </div>
+                <div>
+                	<label class="label-format">店舗名：</label>
+                	<input type="text" name="shopName" placeholder="店舗名">
+                </div>
+                <div>
+                	<label class="label-format">住所：</label>
+                	<input type="text" name="shopAddress" placeholder="店舗住所">
+                </div>
+                <div>
+                	<label class="label-format">電話番号：</label>
+                	<input type="text" name="shopTel" placeholder="電話番号">
+                </div>
+                <span th:if="!${#strings.isEmpty(errorPassMsg)}" th:text="${errorPassMsg}"></span>
                 <div class="btn-container">
                     <button class="btn add-btn">追加</button>
                     <button class="btn back-btn" formaction="hotel">戻る</button>
