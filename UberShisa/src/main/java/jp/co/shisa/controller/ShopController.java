@@ -46,7 +46,13 @@ public class ShopController {
 	}
 
 	@RequestMapping(value="/orderPassed", params="backStoreBtn")
+	public String backStore1(Model model) {
+		return "store";
+	}
+
+	@RequestMapping(value="/orderPassed", params="passedBtn")
 	public String orderPassed(Model model) {
+		
 		return "store";
 	}
 //	店舗オーダーリスト(pha) end---------------------------------------------------------------
