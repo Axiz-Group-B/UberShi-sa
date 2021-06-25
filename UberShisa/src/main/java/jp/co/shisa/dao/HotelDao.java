@@ -59,5 +59,7 @@ public interface HotelDao {
 
 	//---------------------------------------------
 
+	public void deleteOrder(Integer orderId);
+
 }
 

@@ -42,6 +42,6 @@ public interface HotelService {
 	public void insertUserInfo(hotelAddStoreForm userInfo);
 	public void insertShop(hotelAddStoreForm hotelShop);
 
-
+	public void deleteOrder(Integer orderId);
 }
 

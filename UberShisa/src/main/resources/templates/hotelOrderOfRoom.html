@@ -26,7 +26,7 @@
     <div class="wrapper">
         <div class="left-side">
         <h1 ><span th:text="${getRoomInfo.roomName}"></span><span>号室の注文情報</span></h1>
-          <div>
+          <div  ><!-- th:if = "${getOrderInfo}" -->
                 <div th:each="orderInfo,index :${getOrderInfo}" >
                   <form action="orderChange" method= "post"><label class="label-format">注文番号：</label>
                   <button class="btn-mini" name="index" th:value="${index.index}" th:text=${orderInfo.orderId}></button></form>
@@ -34,7 +34,7 @@
           </div>
         </div>
         <div class="right-side">
-            <form action="#">
+            <form action="deleteOrder" method = "post">
                 <div>
                     <label class="label-format">ログインID：</label>
                     <input type="text" th:value="${getRoomInfo.loginId}" readonly>
@@ -45,7 +45,7 @@
                 </div>
                 <div>
                     <label class="label-format">注文番号：</label>
-                    <input type="text" th:value="${listNomber.orderId}" readonly>
+                    <input type="text" name="orderId" th:value="${listNomber.orderId}" readonly>
                 </div>
                 <div>
                     <label class="label-format">配達員ID：</label>
@@ -60,8 +60,8 @@
                     <input type="text" th:value="${listNomber.deliveryManTel}" readonly>
                 </div>
                 <div class="btn-container">
-                    <button class="btn back-btn">戻る</button>
-                    <button class="btn add-btn">受取りました</button>
+                    <button class="btn back-btn" name="back">戻る</button>
+                    <button class="btn add-btn" name="get" th:object="${orderGet}">受取りました</button>
                 </div>
             </form>
         </div>

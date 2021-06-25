@@ -121,6 +121,7 @@ public class HotelServiceImpl implements HotelService {
 		return hotelDao.checkLoginId(loginId);
 	}
 
+
 	public void updateLoginId(Integer userId,String loginId) {
 		hotelDao.updateLoginId(userId,loginId);
 	}
@@ -161,6 +162,11 @@ public class HotelServiceImpl implements HotelService {
 		Integer userId = hotelDao.UserId(hotelShop);
 
 		hotelDao.insertShop(hotelShop, userId);
+	}
+
+
+	public void deleteOrder(Integer orderId) {
+		hotelDao.deleteOrder(orderId);
 	}
 
 }

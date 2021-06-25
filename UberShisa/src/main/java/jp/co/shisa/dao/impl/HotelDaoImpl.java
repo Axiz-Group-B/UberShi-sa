@@ -232,8 +232,8 @@ public class HotelDaoImpl implements HotelDao {
 
 	private static final String ROOM_NAME_SEARCH = "select * from room where room_name = :roomName";
 	private static final String LOGIN_ID_PASS_SEARCH = "select login_id , pass from user_info where user_id = :userId";
-	private static final String ORDER_AND_DELIVERY_MAN_SEARCH = "select * from order_info o "
-			+ "inner join delivery_man d on o.delivery_man_id = d.delivery_man_id where room_id = :roomId order by order_id";
+	private static final String ORDER_AND_DELIVERY_MAN_SEARCH = "select * from order_info o inner join delivery_man d on o.delivery_man_id = d.delivery_man_id "
+			+"where room_id = :roomId  and status >= 1 and status <= 5";
 
 	public Room roomNameSearch(String roomName) {
 
@@ -287,6 +287,7 @@ public class HotelDaoImpl implements HotelDao {
 	 }
 
 
+
 	 public boolean checkLoginId(String loginId) {
 		 String sql = "SELECT * FROM user_info where login_id = :loginId";
 		 MapSqlParameterSource param = new MapSqlParameterSource();
@@ -322,4 +323,20 @@ public class HotelDaoImpl implements HotelDao {
 	 }
 
 
+
+
+
+
+
+
+
+
+
+	 public void deleteOrder(Integer orderId) {
+		 String sql ="uptate  order_info  set ststus = 7 where order_id = :orderId";
+		 MapSqlParameterSource param = new MapSqlParameterSource();
+		 param.addValue("orderId", orderId);
+
+		 jdbcTemplate.update(sql, param);
+	 }
 }

@@ -25,4 +25,6 @@ public interface DeliveryManService {
 	public boolean checkLoginId(SignupForm signupForm);
 
 	public void addDeliveryManIdInOrderAndAddLog(Integer orderId,Integer deliveryManId);
+
+
 }
