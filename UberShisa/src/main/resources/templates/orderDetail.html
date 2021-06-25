@@ -38,6 +38,7 @@
             <div><label class="label-format" aria-readonly="true">単価(円)：</label>
                 <input type="text" name="price" th:value="${session.product.price}" readonly id="price">
             </div>
+            <p th:text="${amount}"></p>
                 <div><label class="label-format">個数：</label>
                     <input type="number" min="1" max="10" name="amount" id="amount">
                 </div>

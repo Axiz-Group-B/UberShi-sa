@@ -45,7 +45,7 @@
                     <div>
                     <!-- <form action="signup"> -->
                     <span th:if="!${#strings.isEmpty(errorPassMsg)}" th:text="${errorPassMsg}"></span>
-                        <button class="btn primary-btn">
+                        <button class="btn primary-btn" onclick = "check()">
                             登録
                         </button>
                         <p><a href="index">アカウントを持っている方<br>ログイン</a></p>
@@ -57,5 +57,6 @@
         </div>
     </div>
     <script src="js/js.js" type="text/javascript"></script>
+    <script src="js/insert.js" type="text/javascript"></script>
 </body>
 </html>

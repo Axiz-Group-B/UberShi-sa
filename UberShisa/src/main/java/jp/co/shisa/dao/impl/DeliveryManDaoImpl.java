@@ -30,6 +30,7 @@ public class DeliveryManDaoImpl implements DeliveryManDao {
 			+ " where user_id = :userId;"
 			+ " COMMIT;";
 
+	private static final String CHECK_LOGINID = "SELECT login_id from user_info where login_id = :login_id";
 
 	@Autowired
 	NamedParameterJdbcTemplate namedJT;
@@ -118,10 +119,26 @@ public class DeliveryManDaoImpl implements DeliveryManDao {
 		return jdbcTemplate.queryForObject(sql, param, Integer.class);
 	}
 
+
+	public String checkLoginId(SignupForm signupForm) {
+
+		try{
+			String sql = CHECK_LOGINID;
+			MapSqlParameterSource param = new MapSqlParameterSource();
+			param.addValue("login_id", signupForm.getLoginId());
+			return jdbcTemplate.queryForObject(sql, param, String.class);
+			} catch(Exception e){
+
+				return null;
+			}
+
+	}
+
 	//orderに配達員情報を追加
 	public void addDeliveryManIdInOrder(Integer orderId,Integer deliveryManId) {
 		String sql = ADD_DELIVERYMAN_ID_IN_ORDER;
 		MapSqlParameterSource param = new MapSqlParameterSource();
+
 
 		param.addValue("deliveryManId", deliveryManId);
 		param.addValue("orderId", orderId);

@@ -9,14 +9,18 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jp.co.shisa.controller.form.RoomOrderForm;
 import jp.co.shisa.controller.form.hotelAddStoreForm;
 import jp.co.shisa.controller.form.hotelDeliveryForm;
 import jp.co.shisa.controller.form.hotelOrderHistoryForm;
 import jp.co.shisa.entity.DeliveryMan;
 import jp.co.shisa.entity.OrderInfo;
+import jp.co.shisa.entity.Room;
 import jp.co.shisa.entity.Shop;
 import jp.co.shisa.service.HotelService;
 
@@ -40,15 +44,14 @@ public class HotelController implements Serializable {
 		Integer total = 0;
 
 		sList = hotelService.shopFindAll();
-		oList = hotelService.orderInfoFind(form.getOrderShopId(),form.getMonth());
-		if(hotelService.totalPrice(form.getOrderShopId(),form.getMonth()) != null) {
-			total = hotelService.totalPrice(form.getOrderShopId(),form.getMonth());
+		oList = hotelService.orderInfoFind(form.getOrderShopId(),form.getYear(),form.getMonth());
+		if(hotelService.totalPrice(form.getOrderShopId(),form.getYear(),form.getMonth()) != null) {
+			total = hotelService.totalPrice(form.getOrderShopId(),form.getYear(),form.getMonth());
 		}else {
 			total = 0;
 		}
 
 		//確認
-		//System.out.println(form.getOrderShopId());
 		//System.out.println(oList.get(0));
 
 		if(form.getOrderListId() != null) {
@@ -179,4 +182,19 @@ public class HotelController implements Serializable {
 		return "hotelCancelOrderOfRoom";
 		//hotelCancelOrderOfRoomに遷移
 	}
+
+
+
+
+
+	@RequestMapping("/roomSearch")
+	public String roomNameSearch(@Validated @ModelAttribute("roomNameForm")RoomOrderForm form, BindingResult bindingResult,Model model) {
+	Room getRoomInfo = hotelService.roomNameSearch(form.getRoomName());
+	if(getRoomInfo == null) {
+		 model.addAttribute("nullMsg","検索した部屋番号はありません");
+		 return "hotel";
+	} return "hotelOrderOfRoom";
+	}
 }
+
+

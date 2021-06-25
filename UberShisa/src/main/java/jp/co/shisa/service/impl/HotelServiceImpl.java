@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import jp.co.shisa.dao.HotelDao;
 import jp.co.shisa.entity.DeliveryMan;
 import jp.co.shisa.entity.OrderInfo;
+import jp.co.shisa.entity.Room;
 import jp.co.shisa.entity.Shop;
 import jp.co.shisa.service.HotelService;
 
@@ -24,9 +25,9 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public List<OrderInfo> orderInfoFind(Integer shopId,String dateTime) {
+	public List<OrderInfo> orderInfoFind(Integer shopId,String year,String month) {
 		// TODO 自動生成されたメソッド・スタブ
-		return hotelDao.orderInfoFind(shopId,dateTime);
+		return hotelDao.orderInfoFind(shopId,year,month);
 	}
 
 	@Override
@@ -42,11 +43,15 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public Integer totalPrice(Integer shopId,String dateTime) {
+	public Integer totalPrice(Integer shopId,String year,String month) {
 		// TODO 自動生成されたメソッド・スタブ
-		return hotelDao.totalPrice(shopId,dateTime);
+		return hotelDao.totalPrice(shopId,year,month);
 	}
 
+
+	public Room roomNameSearch(String roomName) {
+		return hotelDao.roomNameSearch(roomName);
+	}
 
 
 	@Override
@@ -80,6 +85,7 @@ public class HotelServiceImpl implements HotelService {
 	public void HotelShopDelete(Integer shopId) {
 		// TODO 自動生成されたメソッド・スタブ
 		hotelDao.HotelShopDelete(shopId);
+
 	}
 }
 

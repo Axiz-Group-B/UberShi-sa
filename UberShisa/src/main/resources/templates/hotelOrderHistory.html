@@ -33,8 +33,13 @@
             <div class="left-side">
             	<form th:action="@{/hotel/orderHistory}" th:object="${orderHistory}" method="post">
 	                <div>
+	                	<label class="label-format">年</label>
+						<input name="Year" type="number" min="1980" max="2400"></input>
+	                </div>
+	                <div>
 	                	<label class="label-format">月</label>
 	                    <select name="Month" id="MonthNum">
+	                    	<option value="%">--</option>
 	                        <option value="01">01</option>
 	                        <option value="02">02</option>
 	                        <option value="03">03</option>

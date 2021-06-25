@@ -1,6 +1,5 @@
 package jp.co.shisa.controller;
 
-
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -28,10 +27,6 @@ import jp.co.shisa.service.DeliveryManService;
 @Controller
 @EnableAutoConfiguration
 
-
-
-
-
 public class DeliveryManController {
 	@Autowired
 	private DeliveryManService deliveryManService;
@@ -44,18 +39,29 @@ public class DeliveryManController {
 
 	//signup.htmlでアカウントを持っている方を押した時と新規ユーザー登録したときにindex画面に遷移
 	@RequestMapping("/newInsert")
-	public String index(@ModelAttribute("insert") LoginForm form) {
+	public String index( @ModelAttribute("insert") LoginForm form) {
 		return "signup";
 	}
 	//バリデーションどこだっけ
 
 	//signup.htmlでパスワードと確認パスワードが間違ってた時とポップアップで戻る押した時にsignup.htmlに戻る
 	@RequestMapping("/signup")
-	public String insertDeliveryMan(@ModelAttribute("insert") SignupForm form, Model model) {
+	public String insertDeliveryMan(@Validated @ModelAttribute("insert") SignupForm form, BindingResult bindingResult,Model model) {
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("errorPassMsg", "値が入力されていない場所があります");
+			return "signup";
+		}
 		if (form.getPass().equals(form.getRePass())) {
-			deliveryManService.insertUserInfo(form);
-			deliveryManService.insertDeliveryMan(form);
-			return "index";
+			deliveryManService.checkLoginId(form);
+			if(deliveryManService.checkLoginId(form)) {
+				deliveryManService.insertUserInfo(form);
+				deliveryManService.insertDeliveryMan(form);
+
+				return "index";
+			}else {
+				model.addAttribute("errorPassMsg", "ログインIDが重複しています");
+				return "signup";
+			}
 
 		} else {
 			//passとrepassが同じじゃなかったらエラーメッセージ
@@ -73,14 +79,22 @@ public class DeliveryManController {
 	}
 
 
+	/*	@RequestMapping("/deliveryMan/deliveryOrderSelected")
+		public String deliveryOrderSelected(Model model) {
+			return "deliveryOrderSelected";
+		}
+	*/
 	@RequestMapping("/deliveryMan/deliveryOrderSelect/{orderId}")
-	public String deliveryOrderSelect(@PathVariable Integer orderId,Model model) {
+	public String deliveryOrderSelect(@PathVariable Integer orderId, Model model) {
 		OrderInfo orderInfo = deliveryManService.checkOrder(orderId);
 		List<OrderItem> orderItem = deliveryManService.checkOrderContents(orderId);
-		session.setAttribute("orderInfoForDeliveryMan",orderInfo);
+		session.setAttribute("orderInfoForDeliveryMan", orderInfo);
 		session.setAttribute("orderItemForDeliveryMan", orderItem);
 		return "deliveryOrderSelect";
 	}
+
+	//	配達員情報　更新するため(pha)start-----------------------------------------------------------------
+
 
 	//
 	@RequestMapping("/deliveryMan/deliveryOrderSelected")
@@ -100,7 +114,8 @@ public class DeliveryManController {
 	}
 //	配達員情報　更新するため(pha)start-----------------------------------------------------------------
 
-	@RequestMapping(value="/deliveryInfo")
+
+	@RequestMapping(value = "/deliveryInfo")
 	public String deliveryInfo(Model model) {
 		UpdateDeliveryInfoForm updateDeliveryInfoForm = new UpdateDeliveryInfoForm();
 		DeliveryMan deliveryMan = (DeliveryMan) session.getAttribute("loginUser");
@@ -112,26 +127,26 @@ public class DeliveryManController {
 
 		return "deliveryInfo";
 	}
-	@RequestMapping(value="/updateDeliveryInfo", params="backDelivery")
+
+	@RequestMapping(value = "/updateDeliveryInfo", params = "backDelivery")
 	public String backDelivery(Model model) {
 		return "delivery";
 	}
-	@RequestMapping(value="/updateDeliveryInfo", params="updateDelivery")
+
+	@RequestMapping(value = "/updateDeliveryInfo", params = "updateDelivery")
 	public String updateDelivery(@Validated @ModelAttribute() UpdateDeliveryInfoForm updateDeliveryInfoForm,
 			BindingResult bindingResult, Model model) {
-		if(bindingResult.hasErrors()) {
+		if (bindingResult.hasErrors()) {
 			System.out.println("入力ミス");
 			return "deliveryInfo";
-		}
-		else {
+		} else {
 
 			String pass = updateDeliveryInfoForm.getPass();
 			String rePass = updateDeliveryInfoForm.getRePass();
-			if(!pass.equals(rePass)) {
+			if (!pass.equals(rePass)) {
 				model.addAttribute("passErrMsg", "パスワードは一致していません");
 				return "deliveryInfo";
-			}
-			else {
+			} else {
 				UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
 				DeliveryMan deliveryMan = new DeliveryMan(userInfo.getUserId(),
 						updateDeliveryInfoForm.getLoginId(), updateDeliveryInfoForm.getPass(),
@@ -146,5 +161,5 @@ public class DeliveryManController {
 
 	}
 
-//	配達員情報　更新するため(pha)end-----------------------------------------------------------------
+	//	配達員情報　更新するため(pha)end-----------------------------------------------------------------
 }
