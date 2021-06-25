@@ -170,12 +170,13 @@ public class RoomController {
 
 	//カートから商品を削除
 	@RequestMapping(value="/room/deleteCart", params="deleteOne", method=RequestMethod.POST)//1つだけ削除
-	public String deleteCart(@ModelAttribute("roomCart") RoomCartForm form,Model model) {
+	public String deleteCart(@RequestParam("deleteOne") Integer productId,@ModelAttribute("roomCart") RoomCartForm form,Model model) {
 		List<OrderItem> list = (List<OrderItem>)session.getAttribute("roomCart");//ここに来る＝リストnullではない
 		int index=0;
+
 		if(list != null) {//null回避
 			for(OrderItem i : list) {
-				if(i.getProductId() == form.getProductId()) {//削除ボタンと同じpIdなら、nullとする
+				if(i.getProductId() == productId) {//削除ボタンと同じpIdなら、nullとする
 					list.remove(index);
 						break;//removeしたらfor文を抜けたい
 				}
