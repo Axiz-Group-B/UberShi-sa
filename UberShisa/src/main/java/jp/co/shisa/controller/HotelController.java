@@ -303,7 +303,7 @@ public class HotelController implements Serializable {
 		Room newRoom = hotelService.getRoomInfo(room.getRoomId());
 		session.setAttribute("selectingRoom",newRoom);
 
-		return "hotelRoomUpdate";
+		return "redirect:/hotel/hotelRoomUpdate";
 
 	}
 
@@ -354,9 +354,6 @@ public class HotelController implements Serializable {
 
 
 	}
-
-
-
 
 
 }
