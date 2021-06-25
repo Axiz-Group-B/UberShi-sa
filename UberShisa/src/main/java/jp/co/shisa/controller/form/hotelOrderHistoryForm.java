@@ -4,6 +4,7 @@ public class hotelOrderHistoryForm {
 	private Integer orderListId;
 	private Integer orderShopId;
 	private String Month;
+	private String Year;
 
 	public Integer getOrderListId() {
 		return orderListId;
@@ -27,6 +28,14 @@ public class hotelOrderHistoryForm {
 
 	public void setMonth(String month) {
 		Month = month;
+	}
+
+	public String getYear() {
+		return Year;
+	}
+
+	public void setYear(String year) {
+		Year = year;
 	}
 
 }

@@ -10,9 +10,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import jp.co.shisa.controller.form.ProductAddForm;
+import jp.co.shisa.controller.form.ProductUpdateForm;
+import jp.co.shisa.controller.form.SearchMyProductsForm;
+import jp.co.shisa.controller.form.SelectProductDeleteForm;
 import jp.co.shisa.controller.form.UpdateStoreForm;
 import jp.co.shisa.entity.OrderInfo;
 import jp.co.shisa.entity.OrderItem;
@@ -100,11 +106,491 @@ public class ShopController {
 	}
 
 	@RequestMapping("/shop/storeProductAdd")
-	public String storeProductAdd(Model model) {
+	public String storeProductAdd(@ModelAttribute("productAdd")ProductAddForm form,BindingResult bindingResult,Model model){
 		return "storePoductAdd";
 	}
 
+	@RequestMapping(value="/shop/productAddComplete" ,params="add")
+	public String shopProductAddComplete(@Validated @ModelAttribute("productAdd")ProductAddForm form,BindingResult bindingResult,Model model) {
+		if(bindingResult.hasErrors()) {
+
+			return "storePoductAdd";
+		}
+
+				Shop loginShop = (Shop) session.getAttribute("loginUser");
+				Product addProduct = new Product(loginShop.getShopId(),form.getImage(),form.getText(),form.getProductName(),form.getPrice(),form.getStock());
+				shopService.insertProduct(addProduct);
+				Shop shop = (Shop) session.getAttribute("loginUser");
+				List<Product> list = shopService.selectAllProductByShopId(shop.getShopId());
+				session.setAttribute("shopProductList",list);
+
+		return "redirect:/shop/storeProductManage";
+	}
+
+
+	@RequestMapping("/shop/productUpdate/{productId}")
+	public String productUpdate(@PathVariable Integer productId,@ModelAttribute("update")ProductUpdateForm form,Model model) {
+		Product updatingProduct = shopService.selectUpdateProductByProductId(productId);
+		session.setAttribute("updatingProduct", updatingProduct);
+
+		return "storePoductUpdate";
+	}
+
+	@RequestMapping("/shop/updatedProduct")
+	public String updatedProduct(@ModelAttribute("update")ProductUpdateForm form,Model model) {
+		Product updatingProduct = new Product(form.getProductId(),form.getProductName(),form.getPrice(),form.getStock(),form.getText(),form.getImage()) ;
+		Product updatedProduct = shopService.updateProductAndGetProductByProductId(updatingProduct);
+
+		session.setAttribute("updateingProduct", updatedProduct);
+		return "redirect:/shop/productUpdate/" + updatedProduct.getProductId();
+	}
+
+	@RequestMapping("/shop/productDelete")
+	public String deleteProduct(@ModelAttribute("delete")SelectProductDeleteForm form,Model model,RedirectAttributes attr) {
+
+		if(form.getCheckProductList().isEmpty()) {
+			attr.addFlashAttribute("errorMsg","削除する対象をチェックしてください");
+		}
+		List<Integer> checkProductList = form.getCheckProductList();
+		shopService.deleteProducts(checkProductList);
+		return "redirect:/shop/storeProductManage";
+	}
+
+	@RequestMapping("/shop/searchMyProducts")
+	public String searchMyProducts(@ModelAttribute("search")SearchMyProductsForm form,Model model) {
+		Shop shop = (Shop) session.getAttribute("loginUser");
+		List<Product> searchedProductList = shopService.searchMyProductsByProductName(shop.getShopId(),form.getSearchWord());
+		session.setAttribute("shopProductList",searchedProductList);
+		return "storePoductManage";
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
-
-
-

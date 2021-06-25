@@ -1,29 +1,34 @@
 package jp.co.shisa.controller;
 
 
+import java.io.Serializable;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jp.co.shisa.controller.form.RoomOrderForm;
 import jp.co.shisa.controller.form.hotelAddStoreForm;
 import jp.co.shisa.controller.form.hotelDeliveryForm;
 import jp.co.shisa.controller.form.hotelOrderHistoryForm;
 import jp.co.shisa.entity.DeliveryMan;
 import jp.co.shisa.entity.OrderInfo;
+import jp.co.shisa.entity.Room;
 import jp.co.shisa.entity.Shop;
 import jp.co.shisa.service.HotelService;
 
 
 @Controller
-@EnableAutoConfiguration
-public class HotelController {
+//@EnableAutoConfiguration
+public class HotelController implements Serializable {
 
 	@Autowired
 	private HotelService hotelService;
@@ -40,15 +45,14 @@ public class HotelController {
 		Integer total = 0;
 
 		sList = hotelService.shopFindAll();
-		oList = hotelService.orderInfoFind(form.getOrderShopId(),form.getMonth());
-		if(form.getOrderShopId() != null) {
-			total = hotelService.totalPrice(form.getOrderShopId());
+		oList = hotelService.orderInfoFind(form.getOrderShopId(),form.getYear(),form.getMonth());
+		if(hotelService.totalPrice(form.getOrderShopId(),form.getYear(),form.getMonth()) != null) {
+			total = hotelService.totalPrice(form.getOrderShopId(),form.getYear(),form.getMonth());
 		}else {
 			total = 0;
 		}
 
 		//確認
-		//System.out.println(form.getOrderShopId());
 		//System.out.println(oList.get(0));
 
 		if(form.getOrderListId() != null) {
@@ -128,12 +132,18 @@ public class HotelController {
 	}
 
 
-	//店舗を削除して店舗管理画面へ遷移
-	@RequestMapping("hotelAddStoreDelete")
+	//店舗を削除して店舗管理画面へ遷移-----------------------------------
+	@RequestMapping("/hotelAddStoreDelete")
 	public String hotelAddStoreDelete(@ModelAttribute("hotelAddStore") hotelAddStoreForm form, Model model) {
-		List<Shop> list = hotelService.shopFindAll();
-		//確認
-		//System.out.println(form.getHotelShopDelete());
+		List<Shop> list =  null;
+
+		//hotelService.hotelUserInfoDelete(form.getHotelShopDelete());
+		hotelService.HotelShopDelete(form.getHotelShopDelete());
+
+		list = hotelService.shopFindAll();
+
+		System.out.println(form.getHotelShopDelete());
+
 		model.addAttribute("shop",list);
 		return "hotelAddStore"; //hotelAddStoreに遷移
 	}
@@ -142,7 +152,7 @@ public class HotelController {
 
 
 	//shopをリストに取得して店舗管理画面へ遷移
-	@RequestMapping("hotelAddStore")
+	@RequestMapping("/hotelAddStore")
 	public String hotelAddStore(Model model) {
 		List<Shop> list = hotelService.shopFindAll();
 		model.addAttribute("shop",list);
@@ -172,6 +182,51 @@ public class HotelController {
 	public String cancel(Model model) {
 		return "hotelCancelOrderOfRoom";
 		//hotelCancelOrderOfRoomに遷移
+	}
+
+
+	@RequestMapping("/roomSearch")
+	public String roomNameSearch(@Validated @ModelAttribute("roomNameForm")RoomOrderForm form, BindingResult bindingResult,Model model) {
+	Room getRoomInfo = hotelService.roomNameSearch(form.getRoomName());
+	if(getRoomInfo == null) {
+		 model.addAttribute("nullMsg","検索した部屋番号はありません");
+		 return "hotel";
+	} return "hotelOrderOfRoom";
+
+	}
+	@RequestMapping(value="/hotel/roomInfo", params="roomBtn")
+	public String roomInfo(HttpServletRequest request,Model model) {
+		Integer selectRoomId = Integer.parseInt(request.getParameter("roomBtn"));
+		Room selectRoom = hotelService.getRoomInfo(selectRoomId);
+		List<OrderInfo> MyOrderList = hotelService.getOrderListByRoomId(selectRoom.getRoomId());
+
+		if(MyOrderList.isEmpty()) {
+			session.setAttribute("selectingRoom",selectRoom);
+			return "hotelRoomUpdate";
+		}
+
+
+			return "hotelOrderOfRoom";
+
+	}
+
+	@RequestMapping("/hotel/updateIdAndPass")
+	public String updateIdAndPass(Model model) {
+
+
+		return "/hotel";
+
+	}
+
+	public void updateIdAndPassSuport(Model model) {
+		Room room = (Room) session.getAttribute("selectingRoom");
+		String word = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		char[] randomId = {word.charAt((int)(Math.random() * word.length())) , word.charAt((int)(Math.random() * word.length())), word.charAt((int)(Math.random() * word.length())) ,word.charAt((int)(Math.random() * word.length()))};
+		char[] randomPass = {word.charAt((int)(Math.random() * word.length())) , word.charAt((int)(Math.random() * word.length())), word.charAt((int)(Math.random() * word.length())) ,word.charAt((int)(Math.random() * word.length()))};
+		String newLoginId = new String(randomId);
+		String newPassword = new String(randomPass);
+
+
 	}
 }
 

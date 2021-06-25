@@ -98,6 +98,32 @@
 	<script type="text/javascript" src="../../js/notifRoom.js"></script>
 	<script type="text/javascript" src="../../js/room.js"></script>
 	<script src="../../js/js.js" type="text/javascript"></script>
+	<script type="text/javascript" th:inline="javascript">
+	function notify(){
+
+		fetch('/room/orderNotif', {
+						method: 'get',
+						})
+		.then(response=>{
+			if(response.ok){
+				response.text().then(t => {
+					console.log(t)
+					if(t==='delivery'){
+						Push.create('Uber-Shisaからのお知らせ', {
+							body: 'ご注文ありがとうございます。配達員が決まりました。',
+							timeout: 100000
+						});
+					}
+				});
+			}
+		})
+		.catch(reason=>{
+			console.log('catch');
+		})
+	}
+
+	notify();
+	</script>
 
 </body>
 </html>

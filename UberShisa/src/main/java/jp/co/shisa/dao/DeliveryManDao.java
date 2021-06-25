@@ -17,7 +17,7 @@ public interface DeliveryManDao {
 
 	public Integer UserId(SignupForm signupForm);
 
-
+	public String checkLoginId(SignupForm signupForm);
 
 
 

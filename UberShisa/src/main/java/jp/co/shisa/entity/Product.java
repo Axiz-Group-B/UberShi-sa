@@ -28,6 +28,30 @@ public class Product {
 		this.stock = stock;
 	}
 
+
+	//
+	public Product(Integer shopId, String image,String text,String productName, Integer price,Integer stock) {
+		super();
+		this.shopId = shopId;
+		this.image = image;
+		this.text = text;
+		this.productName = productName;
+		this.price = price;
+		this.stock = stock;
+	}
+
+
+	public Product(Integer productId,String productName,Integer price,Integer stock,String text,String image) {
+		super();
+		this.productId = productId;
+		this.productName = productName;
+		this.price = price;
+		this.stock = stock;
+		this.text = text;
+		this.image = image;
+	}
+
+
 	public Integer getProductId() {
 		return productId;
 	}

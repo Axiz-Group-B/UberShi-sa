@@ -14,4 +14,10 @@ public interface ShopDao {
 	public OrderInfo checkOrder(Integer orderId);
 	public List<OrderItem> checkOrderContents(Integer orderId);
 	public List<Product> selectAllProductByShopId(Integer shopId);
+	public void insertProduct(Product product);
+	public Product selectUpdateProductByProductId(Integer productId);
+	public void updateProduct(Product product);
+	public void deleteProducts(List<Integer> deleteProductList);
+	public List<Product> searchMyProductsByProductName(Integer shopid,String productName);
+
 }
