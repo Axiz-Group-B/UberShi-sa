@@ -32,4 +32,7 @@ public interface HotelDao {
 
 	public void HotelShopDelete(Integer shopId);
 
+	public Room roomLoginIdAndPassSearch(Integer userId);
+
+	public List<OrderInfo> orderAndDeliveryManSearch(Integer roomId);
 }
