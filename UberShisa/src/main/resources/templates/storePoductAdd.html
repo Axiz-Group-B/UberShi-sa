@@ -27,7 +27,7 @@
             <img src="/images/product1.jpg" alt="product" id="imageView">
         </div>
         <div class="right-side">
-            <h1>商品更新</h1>
+            <h1>商品追加</h1>
             <form th:action="@{/shop/productAddComplete}"  th:object="${productAdd}" method="post" >
             	<p th:if="${#fields.hasErrors('productName')}" th:errors="*{productName}" class="error-msg"></p>
                 <div><label class="label-format">商品名：</label><input type="text" value="12345" name="productName"></div>
