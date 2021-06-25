@@ -63,4 +63,7 @@ public class DeliveryManServiceImpl implements DeliveryManService {
 		deliveryManDao.addDeliveryManIdInOrder(orderId, deliveryManId);
 		deliveryManDao.insertLogStatusIsTwo(orderId);
 	}
+
+
+
 }

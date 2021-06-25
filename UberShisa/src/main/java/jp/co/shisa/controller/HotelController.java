@@ -192,6 +192,10 @@ public class HotelController implements Serializable {
 		List<OrderInfo> getOrderInfo = hotelService.orderAndDeliveryManSearch(getRoomInfo.getRoomId());
 		if(getOrderInfo.isEmpty()) {
 
+			/*Room selectRoom = hotelService.getRoomInfo(getRoomInfo.getRoomId());
+			List<OrderInfo> MyOrderList = hotelService.getOrderListByRoomId(selectRoom.getRoomId());*/
+			session.setAttribute("selectingRoom",getRoomInfo);
+			return "hotelRoomUpdate";
 		}
 		getRoomInfo = hotelService.roomLoginIdAndPassSearch(getRoomInfo);
 		session.setAttribute("getOrderInfo", getOrderInfo);
@@ -249,5 +253,45 @@ public class HotelController implements Serializable {
 
 
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+	@RequestMapping(value = "/deleteOrder",params = "get",method=RequestMethod.POST)
+	public String deleteOrder(Model model, @RequestParam(name = "orderId")int orderId) {
+
+		hotelService.deleteOrder(orderId);
+		Room getRoomInfo = (Room)session.getAttribute("getRoomInfo");
+
+		List<OrderInfo> roomId = hotelService.orderAndDeliveryManSearch(getRoomInfo.getRoomId()) ;
+		session.setAttribute("getOrderInfo", roomId);
+		model.addAttribute("listNomber", roomId.get(0));
+		model.addAttribute("getRoomInfo", getRoomInfo);
+		model.addAttribute("getOrderInfo",roomId);
+		return "hotelOrderOfRoom";
+
+	}
+
+
+	@RequestMapping(value = "/deleteOrder",params = "back",method=RequestMethod.POST)
+	public String roomMonitorBack(@ModelAttribute("roomNameForm")RoomOrderForm form,
+			BindingResult bindingResult, Model model) {
+
+	return "hotel";
+
+
+	}
+
+
+
+
 
 }

@@ -30,7 +30,7 @@
                 <form action="roomSearch" th:object="${roomNameForm}" method = "post">
                     <input type="text" name="roomName" placeholder="検索">
                     <button class="btn primary-btn">検索</button>
-                <span th:if="!${#strings.isEmpty(nullMsg)}" th:text="${nullMsg}"></span>
+                <div th:if="!${#strings.isEmpty(nullMsg)}" th:text="${nullMsg}"></div>
                 </form>
             </div>
         </div>

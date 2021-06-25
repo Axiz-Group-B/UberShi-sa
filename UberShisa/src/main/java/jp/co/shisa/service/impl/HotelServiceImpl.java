@@ -116,6 +116,10 @@ public class HotelServiceImpl implements HotelService {
 	/*public void changeLoginIdAndPass(Integer userId,String loginId,String pass) {
 		return hotelDao.changeLoginIdAndPass(userId,loginId,pass);
 	}
-	*/}
+	*/
+	public void deleteOrder(Integer orderId) {
+		hotelDao.deleteOrder(orderId);
+	}
+}
 
 

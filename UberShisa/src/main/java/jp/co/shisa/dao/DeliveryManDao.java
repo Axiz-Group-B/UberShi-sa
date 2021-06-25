@@ -21,6 +21,7 @@ public interface DeliveryManDao {
 
 
 
+
 	public OrderInfo checkOrder(Integer orderId);
 	public List<OrderItem> checkOrderContents(Integer orderId);
 //	配達員情報を更新(pha)----------------------------------------------------------------------

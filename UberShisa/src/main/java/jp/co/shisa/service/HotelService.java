@@ -30,6 +30,6 @@ public interface HotelService {
 	public Room getRoomInfoByUserId(Integer userId);
 	public void changeLoginIdAndPass(Integer userId,String loginId,String password);
 
-
+	public void deleteOrder(Integer orderId);
 }
 
