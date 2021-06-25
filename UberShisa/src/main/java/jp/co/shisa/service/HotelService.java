@@ -22,6 +22,14 @@ public interface HotelService {
 	public Integer priceSum(Integer orderId);
 	public void hotelUserInfoDelete(Integer shopId);
 	public void HotelShopDelete(Integer shopId);
+
 	public List<OrderInfo> orderAndDeliveryManSearch(Integer roomId);
+
+	public Room getRoomInfo(Integer roomId);
+	public List<OrderInfo> getOrderListByRoomId(Integer roomId);
+	public Room getRoomInfoByUserId(Integer userId);
+	public void changeLoginIdAndPass(Integer userId,String loginId,String password);
+
+
 }
 

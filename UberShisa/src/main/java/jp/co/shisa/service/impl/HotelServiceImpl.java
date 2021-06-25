@@ -98,5 +98,23 @@ public class HotelServiceImpl implements HotelService {
 	public List<OrderInfo> orderAndDeliveryManSearch(Integer roomId){
 		return hotelDao.orderAndDeliveryManSearch(roomId);
 	}
-}
+
+
+	public Room getRoomInfo(Integer roomId) {
+		return hotelDao.getRoomInfo(roomId);
+	}
+
+	public List<OrderInfo> getOrderListByRoomId(Integer roomId) {
+		return hotelDao.getOrderListByRoomId(roomId);
+	}
+
+	public Room getRoomInfoByUserId(Integer userId) {
+		return hotelDao.getRoomInfoByUserId(userId);
+	}
+
+	/*public void changeLoginIdAndPass(Integer userId,String loginId,String pass) {
+		return hotelDao.changeLoginIdAndPass(userId,loginId,pass);
+	}
+	*/}
+
 
