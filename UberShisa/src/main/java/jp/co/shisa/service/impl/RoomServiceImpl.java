@@ -60,6 +60,7 @@ public class RoomServiceImpl implements RoomService {
 
 		for(OrderItem i : list) {
 			roomDao.insertItem(order.getOrderId(), i.getProductId(), i.getAmount(), i.getSubtotal());
+			roomDao.updateStock(i.getProductId(), i.getAmount());
 		}
 
 		roomDao.insertLog(order.getOrderId(), dateTime, status);
