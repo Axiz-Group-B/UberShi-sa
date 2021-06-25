@@ -76,9 +76,9 @@
 				</tr>
 				<tr th:inline="text" th:each="item : ${session.roomCart}">
 				<td>[[${item.productName}]]</td>
-				<td>[[${item.amount}]]<input type="hidden" name="productId" th:value="${item.productId}">
+				<td>[[${item.amount}]]
 				<input type="hidden" name="shopId" th:value="${item.shopId}"></td>
-				<td><button class="btn-mini del-btn-mini deleteItem" name="deleteOne">削除</button></td>
+				<td><button class="btn-mini del-btn-mini deleteItem" name="deleteOne"  id="deleteOne" th:value="${item.productId}">削除</button></td>
 				</tr>
 			</table>
 
