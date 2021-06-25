@@ -1,12 +1,12 @@
 package jp.co.shisa.controller;
 
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,8 +22,8 @@ import jp.co.shisa.service.HotelService;
 
 
 @Controller
-@EnableAutoConfiguration
-public class HotelController {
+//@EnableAutoConfiguration
+public class HotelController implements Serializable {
 
 	@Autowired
 	private HotelService hotelService;
