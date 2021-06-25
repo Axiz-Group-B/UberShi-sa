@@ -44,15 +44,14 @@ public class HotelController implements Serializable {
 		Integer total = 0;
 
 		sList = hotelService.shopFindAll();
-		oList = hotelService.orderInfoFind(form.getOrderShopId(),form.getMonth());
-		if(hotelService.totalPrice(form.getOrderShopId(),form.getMonth()) != null) {
-			total = hotelService.totalPrice(form.getOrderShopId(),form.getMonth());
+		oList = hotelService.orderInfoFind(form.getOrderShopId(),form.getYear(),form.getMonth());
+		if(hotelService.totalPrice(form.getOrderShopId(),form.getYear(),form.getMonth()) != null) {
+			total = hotelService.totalPrice(form.getOrderShopId(),form.getYear(),form.getMonth());
 		}else {
 			total = 0;
 		}
 
 		//確認
-		//System.out.println(form.getOrderShopId());
 		//System.out.println(oList.get(0));
 
 		if(form.getOrderListId() != null) {
