@@ -139,6 +139,17 @@ public class HotelServiceImpl implements HotelService {
 	 //神山-----------------------------------------------------------
 
 
+	public void checkOrderAndchangeOrderStatus(Room room) {
+		List<OrderInfo> list = hotelDao.selectOrderByRoomId(room.getRoomId());
+		if(list.isEmpty()) {
+			return;
+		}
+		hotelDao.changeOrderStatusByRoomId(room.getRoomId());
+		for(OrderInfo orderInfo : list) {
+			hotelDao.orderStatusChageSixAddLog(orderInfo.getOrderId());
+		}
+	}
+
 
 	public boolean checkLoginId(hotelAddStoreForm signupForm) {
 		String checkLoginId = hotelDao.checkLoginId(signupForm);
@@ -167,6 +178,28 @@ public class HotelServiceImpl implements HotelService {
 
 	public void deleteOrder(Integer orderId) {
 		hotelDao.deleteOrder(orderId);
+	}
+
+	public List<OrderInfo> selectCancelOrderInfo() {
+		return hotelDao.selectCancelOrderInfo();
+	}
+
+	public List<Room> selectCancelOrderRoomList() {
+		return hotelDao.selectCancelOrderRoomList();
+	}
+
+	public OrderInfo selectCancelOrderInfo(Integer orderId) {
+		return hotelDao.selectCancelOrderInfo(orderId);
+	}
+
+
+	public Room selectCancelOrderRoom(Integer roomId) {
+		return hotelDao.selectCancelOrderRoom(roomId);
+	}
+
+	public void cancelOrderComplete(Integer orderId) {
+		hotelDao.cancelOrderComplete(orderId);
+		hotelDao.cancelOrderCompleteLog(orderId);
 	}
 
 }

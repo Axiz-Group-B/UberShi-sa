@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jp.co.shisa.controller.form.CancelOrderForm;
 import jp.co.shisa.controller.form.RoomOrderForm;
 import jp.co.shisa.controller.form.hotelAddStoreForm;
 import jp.co.shisa.controller.form.hotelDeliveryForm;
@@ -24,11 +25,16 @@ import jp.co.shisa.entity.DeliveryMan;
 import jp.co.shisa.entity.OrderInfo;
 import jp.co.shisa.entity.Room;
 import jp.co.shisa.entity.Shop;
+import jp.co.shisa.service.AuthService;
 import jp.co.shisa.service.HotelService;
 
 @Controller
 //@EnableAutoConfiguration
 public class HotelController implements Serializable {
+
+	//トップ画面に飛ぶ際、使用
+	@Autowired
+	private AuthService authService;
 
 	@Autowired
 	private HotelService hotelService;
@@ -161,6 +167,8 @@ public class HotelController implements Serializable {
 	@RequestMapping("/hotel")
 	public String hotel(Model model) {
 		//session.invalidate();
+		List<Room> AllRoomList = authService.checkAllRoomAndHasOrder();
+		session.setAttribute("AllRoomList", AllRoomList);
 		return "hotel";
 		//hotelに遷移
 	}
@@ -234,8 +242,14 @@ public class HotelController implements Serializable {
 			return "hotelRoomUpdate";
 		}
 
-
-			return "hotelOrderOfRoom";
+		List<OrderInfo> getOrderInfo = hotelService.orderAndDeliveryManSearch(selectRoomId);
+		selectRoom = hotelService.roomLoginIdAndPassSearch(selectRoom);
+		session.setAttribute("getOrderInfo", getOrderInfo);
+		session.setAttribute("getRoomInfo", selectRoom);
+		model.addAttribute("listNomber", getOrderInfo.get(0));
+		model.addAttribute("getRoomInfo", selectRoom);
+		model.addAttribute("getOrderInfo", getOrderInfo);
+		return "hotelOrderOfRoom";
 	}
 
 
@@ -282,6 +296,8 @@ public class HotelController implements Serializable {
 	@RequestMapping("/hotel/updateIdAndPass")
 	public String updateIdAndPass(Model model) {
 		Room room = (Room) session.getAttribute("selectingRoom");
+		//注文の状態も6から7に変更され、ログに記録している
+		hotelService.checkOrderAndchangeOrderStatus(room);
 
 		String newLoginId = createWord();
 		String newLoginPass = createWord();
@@ -353,7 +369,69 @@ public class HotelController implements Serializable {
 	return "hotel";
 
 
+
 	}
+
+	@RequestMapping("/hotel/cancelOrder")
+	public String cancleOrderPage(Model model) {
+		List<Room> cancelRoomList = hotelService.selectCancelOrderRoomList();
+		List<OrderInfo> cancelOrderList = hotelService.selectCancelOrderInfo();
+		if(cancelOrderList.isEmpty()) {
+			session.removeAttribute("cancelOrderList");
+			session.removeAttribute("cancelOrderInfo");
+			session.removeAttribute("cancelRoom");
+			return "hotelCancelOrderOfRoom";
+		}
+		Room  cancelRoom  = cancelRoomList.get(0);
+		OrderInfo cancelOrder= cancelOrderList.get(0);
+		session.setAttribute("cancelOrderList",cancelOrderList);
+		session.setAttribute("cancelOrderInfo",cancelOrder);
+		session.setAttribute("cancelRoom", cancelRoom);
+		return "hotelCancelOrderOfRoom";
+	}
+
+	@RequestMapping("/hotel/selectCancelOrder")
+	public String selectCancelOrder(HttpServletRequest request,Model model) {
+		Integer orderId = Integer.parseInt(request.getParameter("selectOrder"));
+
+
+		if(hotelService.selectCancelOrderInfo(orderId)==null) {
+			List<Room> cancelRoomList = hotelService.selectCancelOrderRoomList();
+			List<OrderInfo> cancelOrderList = hotelService.selectCancelOrderInfo();
+			if(cancelOrderList.isEmpty()) {
+				session.removeAttribute("cancelOrderList");
+				session.removeAttribute("cancelOrderInfo");
+				session.removeAttribute("cancelRoom");
+			}
+			Room  cancelRoom  = cancelRoomList.get(0);
+			OrderInfo cancelOrder= cancelOrderList.get(0);
+			session.setAttribute("cancelOrderList",cancelOrderList);
+			session.setAttribute("cancelOrderInfo",cancelOrder);
+			session.setAttribute("cancelRoom", cancelRoom);
+			return "hotelCancelOrderOfRoom";
+		}
+
+		OrderInfo selectCancelOrder = hotelService.selectCancelOrderInfo(orderId);
+		Room selectCancelOrderRoom = hotelService.selectCancelOrderRoom(selectCancelOrder.getRoomId());
+
+		session.setAttribute("cancelOrderInfo",selectCancelOrder);
+		session.setAttribute("cancelRoom", selectCancelOrderRoom);
+		return "hotelCancelOrderOfRoom";
+	}
+
+
+	@RequestMapping("/hotel/CompleteOrder")
+	public String cancelOrderComplete(@ModelAttribute("orderComplete")CancelOrderForm form,Model model) {
+		if(form.getOrderId()==null) {
+			return "redirect:/hotel";
+		}
+		hotelService.cancelOrderComplete(form.getOrderId());
+		return "redirect:/hotel";
+	}
+
+
+
+
 
 
 }

@@ -286,7 +286,27 @@ public class HotelDaoImpl implements HotelDao {
 		 return list.isEmpty() ? null : list.get(0);
 	 }
 
+	 public List<OrderInfo> selectOrderByRoomId(Integer roomId) {
+		 String sql = "SELECT * FROM order_info WHERE status = 6 and room_id = :roomId";
+		 MapSqlParameterSource param = new MapSqlParameterSource();
+		 param.addValue("roomId",roomId);
+		 List<OrderInfo> list = jdbcTemplate.query(sql, param,new BeanPropertyRowMapper<OrderInfo>(OrderInfo.class));
+		 return list;
+	 }
 
+	 public void changeOrderStatusByRoomId(Integer roomId) {
+		 String sql = "UPDATE order_info SET status = 7 WHERE status = 6 AND room_id = :roomId";
+		 MapSqlParameterSource param = new MapSqlParameterSource();
+		 param.addValue("roomId",roomId);
+		 jdbcTemplate.update(sql, param);
+	 }
+
+	 public void orderStatusChageSixAddLog(Integer orderId) {
+		 String sql = "INSERT INTO log (order_id,status,date_time) VALUES (:orderId,7,current_timestamp)";
+		 MapSqlParameterSource param = new MapSqlParameterSource();
+		 param.addValue("orderId",orderId);
+		 jdbcTemplate.update(sql, param);
+	 }
 
 	 public boolean checkLoginId(String loginId) {
 		 String sql = "SELECT * FROM user_info where login_id = :loginId";
@@ -333,10 +353,52 @@ public class HotelDaoImpl implements HotelDao {
 
 
 	 public void deleteOrder(Integer orderId) {
-		 String sql ="uptate  order_info  set ststus = 7 where order_id = :orderId";
+		 String sql ="uptate  order_info  set status = 7 where order_id = :orderId";
 		 MapSqlParameterSource param = new MapSqlParameterSource();
 		 param.addValue("orderId", orderId);
 
+		 jdbcTemplate.update(sql, param);
+	 }
+
+	 public List<OrderInfo> selectCancelOrderInfo() {
+		 String sql ="SELECT * FROM order_info oi JOIN shop s ON oi.shop_id = s.shop_id WHERE status = 3 ORDER BY order_id";
+		List<OrderInfo> list = jdbcTemplate.query(sql, new BeanPropertyRowMapper<OrderInfo>(OrderInfo.class));
+		return list;
+	 }
+
+	 public List<Room> selectCancelOrderRoomList() {
+		 String sql = "SELECT * FROM room r JOIN order_info oi ON r.room_id = oi.room_id WHERE status = 3 ORDER BY order_id";
+		 List<Room> list = jdbcTemplate.query(sql, new BeanPropertyRowMapper<Room>(Room.class));
+		 return list;
+	 }
+
+	 public OrderInfo selectCancelOrderInfo(Integer orderId) {
+		 String sql = "SELECT oi.*,s.* FROM order_info oi JOIN shop s ON oi.shop_id = s.shop_id WHERE order_id = :orderId";
+		 MapSqlParameterSource param = new MapSqlParameterSource();
+		 param.addValue("orderId", orderId);
+		 List<OrderInfo> list =  jdbcTemplate.query(sql, param,new BeanPropertyRowMapper<OrderInfo>(OrderInfo.class));
+		 return list.isEmpty() ? null : list.get(0);
+	 }
+
+	 public Room selectCancelOrderRoom(Integer roomId) {
+		 String sql = "SELECT * FROM room WHERE room_id = :roomId ";
+		 MapSqlParameterSource param = new MapSqlParameterSource();
+		 param.addValue("roomId", roomId);
+		 List<Room> list =  jdbcTemplate.query(sql, param,new BeanPropertyRowMapper<Room>(Room.class));
+		 return list.isEmpty() ? null : list.get(0);
+	 }
+
+	 public void cancelOrderComplete(Integer orderId) {
+		 String sql ="UPDATE order_info SET status = 6 WHERE order_id = :orderId";
+		 MapSqlParameterSource param = new MapSqlParameterSource();
+		 param.addValue("orderId",orderId);
+		 jdbcTemplate.update(sql, param);
+	 }
+
+	 public void cancelOrderCompleteLog(Integer orderId) {
+		 String sql = "INSERT INTO log (order_id,status,date_time) VALUES (:orderId,6,current_timestamp)";
+		 MapSqlParameterSource param = new MapSqlParameterSource();
+		 param.addValue("orderId",orderId);
 		 jdbcTemplate.update(sql, param);
 	 }
 }

@@ -55,6 +55,7 @@ public class ShopServiceImpl implements ShopService{
 	public void passedOrder(OrderInfo orderInfo) {
 		// TODO 自動生成されたメソッド・スタブ
 		shopDao.passedOrder(orderInfo);
+		shopDao.passedOrderLog(orderInfo.getOrderId());
 	}
 
 	public Product updateProductAndGetProductByProductId(Product product) {
@@ -70,4 +71,6 @@ public class ShopServiceImpl implements ShopService{
 	public List<Product> searchMyProductsByProductName(Integer shopId,String productName) {
 		return shopDao.searchMyProductsByProductName(shopId,productName);
 	}
+
+
 }

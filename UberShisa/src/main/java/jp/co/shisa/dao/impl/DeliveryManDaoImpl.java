@@ -154,12 +154,10 @@ public class DeliveryManDaoImpl implements DeliveryManDao {
 	}
 
 	public void insertLogStatusIsTwo (Integer orderId) {
-		String sql = "INSERT INTO log (order_id,status,date_time) VALUES (:orderId,:status,current_timestamp)";
+		String sql = "INSERT INTO log (order_id,status,date_time) VALUES (:orderId,2,current_timestamp)";
 		MapSqlParameterSource param = new MapSqlParameterSource();
 
 		param.addValue("orderId", orderId);
-		param.addValue("status", 2);
-
 		namedJT.update(sql,param);
 	}
 }
