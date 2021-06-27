@@ -40,7 +40,7 @@ public class AuthController {
 	HttpSession session;
 
 	@RequestMapping({ "/", "/index" })
-	public String index(Model model) {
+	public String index(@ModelAttribute("login")LoginForm form,BindingResult bindingResult,Model model) {
 		//30分配達員決まらなかったらそのorderのstatus更新
 
 		//定期的に実行する処理
@@ -73,7 +73,7 @@ public class AuthController {
 	}
 
 	@RequestMapping("/login")
-	public String login(@Validated @ModelAttribute("login") LoginForm form, BindingResult bindingResult, Model model,
+	public String login(@Validated @ModelAttribute("login") LoginForm form,BindingResult bindingResult, Model model,
 			RedirectAttributes attr) {
 		if (bindingResult.hasErrors()) {
 			return "index";
@@ -137,7 +137,7 @@ public class AuthController {
 	* ログアウト
 	*/
 	@RequestMapping("/logout")
-	public String logout(Model model) {
+	public String logout(@ModelAttribute("login")LoginForm form,BindingResult bindingResult,Model model) {
 		session.invalidate();
 		return "index";
 		//indexに遷移
