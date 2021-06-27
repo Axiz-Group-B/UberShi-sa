@@ -333,7 +333,7 @@ public class HotelDaoImpl implements HotelDao {
 
 
 	 public void deleteOrder(Integer orderId) {
-		 String sql ="uptate  order_info  set ststus = 7 where order_id = :orderId";
+		 String sql ="update  order_info  set status = 6 where order_id = :orderId";
 		 MapSqlParameterSource param = new MapSqlParameterSource();
 		 param.addValue("orderId", orderId);
 
