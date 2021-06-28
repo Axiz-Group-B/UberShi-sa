@@ -57,7 +57,9 @@ public class DeliveryManController {
 				deliveryManService.insertUserInfo(form);
 				deliveryManService.insertDeliveryMan(form);
 
-				return "signup";
+
+				return "redirect:index";
+
 			}else {
 				model.addAttribute("errorPassMsg", "ログインIDが重複しています");
 				return "signup";

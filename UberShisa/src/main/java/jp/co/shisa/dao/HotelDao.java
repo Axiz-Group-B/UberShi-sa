@@ -62,7 +62,10 @@ public interface HotelDao {
 
 	//---------------------------------------------
 
-	public void deleteOrder(Integer orderId);
+	public void updateOrderStatusIsFive(Integer orderId);
+	public void changeStatusIsFiveLog(Integer orderId);
+	public void updateOrderStatusIsSix(Integer orderId);
+	public void changeStatusIsSixLog(Integer orderId);
 	public List<OrderInfo> selectCancelOrderInfo();
 	public List<Room> selectCancelOrderRoomList();
 	public OrderInfo selectCancelOrderInfo(Integer orderId);

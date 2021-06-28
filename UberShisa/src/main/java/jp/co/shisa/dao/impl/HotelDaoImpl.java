@@ -357,13 +357,37 @@ public class HotelDaoImpl implements HotelDao {
 
 
 
-	 public void deleteOrder(Integer orderId) {
+	 public void updateOrderStatusIsFive(Integer orderId) {
+
+		 String sql ="update  order_info  set status = 5 where order_id = :orderId";
+
+		 MapSqlParameterSource param = new MapSqlParameterSource();
+		 param.addValue("orderId", orderId);
+
+		 jdbcTemplate.update(sql, param);
+	 }
+
+	 public void changeStatusIsFiveLog(Integer orderId) {
+		 String sql = "INSERT INTO log (order_id,status,date_time) VALUES (:orderId,5,current_timestamp)";
+		 MapSqlParameterSource param = new MapSqlParameterSource();
+		 param.addValue("orderId", orderId);
+		 jdbcTemplate.update(sql, param);
+	 }
+
+	 public void updateOrderStatusIsSix(Integer orderId) {
 
 		 String sql ="update  order_info  set status = 6 where order_id = :orderId";
 
 		 MapSqlParameterSource param = new MapSqlParameterSource();
 		 param.addValue("orderId", orderId);
 
+		 jdbcTemplate.update(sql, param);
+	 }
+
+	 public void changeStatusIsSixLog(Integer orderId) {
+		 String sql = "INSERT INTO log (order_id,status,date_time) VALUES (:orderId,6,current_timestamp)";
+		 MapSqlParameterSource param = new MapSqlParameterSource();
+		 param.addValue("orderId", orderId);
 		 jdbcTemplate.update(sql, param);
 	 }
 

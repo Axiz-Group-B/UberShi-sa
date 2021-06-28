@@ -176,8 +176,14 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 
-	public void deleteOrder(Integer orderId) {
-		hotelDao.deleteOrder(orderId);
+	public void updateOrderStatusIsFiveAndAddLog(Integer orderId) {
+		hotelDao.updateOrderStatusIsFive(orderId);
+		hotelDao.changeStatusIsFiveLog(orderId);
+	}
+
+	public void updateOrderStatusIsSixAndAddLog(Integer orderId) {
+		hotelDao.updateOrderStatusIsSix(orderId);
+		hotelDao.changeStatusIsSixLog(orderId);
 	}
 
 	public List<OrderInfo> selectCancelOrderInfo() {

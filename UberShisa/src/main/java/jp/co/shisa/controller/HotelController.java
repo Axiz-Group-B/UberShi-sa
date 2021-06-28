@@ -351,7 +351,24 @@ public class HotelController implements Serializable {
 	@RequestMapping(value = "/deleteOrder",params = "get",method=RequestMethod.POST)
 	public String deleteOrder(Model model, @RequestParam(name = "orderId")int orderId) {
 
-		hotelService.deleteOrder(orderId);
+		hotelService.updateOrderStatusIsFiveAndAddLog(orderId);
+		Room getRoomInfo = (Room)session.getAttribute("getRoomInfo");
+
+		List<OrderInfo> roomId = hotelService.orderAndDeliveryManSearch(getRoomInfo.getRoomId()) ;
+		session.setAttribute("getOrderInfo", roomId);
+		if(roomId.isEmpty()) {
+			return "redirect:/hotel";
+		}
+		model.addAttribute("listNomber", roomId.get(0));
+		model.addAttribute("getRoomInfo", getRoomInfo);
+		model.addAttribute("getOrderInfo",roomId);
+		return "hotelOrderOfRoom";
+
+	}
+
+	@RequestMapping(value = "/deleteOrder",params = "give",method=RequestMethod.POST)
+	public String giveOrder(Model model,@RequestParam(name = "orderId")int orderId) {
+		hotelService.updateOrderStatusIsSixAndAddLog(orderId);
 		Room getRoomInfo = (Room)session.getAttribute("getRoomInfo");
 
 		List<OrderInfo> roomId = hotelService.orderAndDeliveryManSearch(getRoomInfo.getRoomId()) ;
