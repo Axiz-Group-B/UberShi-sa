@@ -5,12 +5,14 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class ProductAddForm {
 
 	@NotBlank(message = "商品名は必須です")
 	private String productName;
 
-	private String image;
+	private MultipartFile image;
 
 	@NotNull(message = "単価は必須です")
 	@Positive(message = "正の数値だけを入力してください")
@@ -23,16 +25,18 @@ public class ProductAddForm {
 	@NotBlank(message = "商品の説明は必須です")
 	private String text;
 
+
 	public String getProductName() {
 		return productName;
 	}
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
-	public String getImage() {
+
+	public MultipartFile getImage() {
 		return image;
 	}
-	public void setImage(String image) {
+	public void setImage(MultipartFile image) {
 		this.image = image;
 	}
 	public Integer getPrice() {

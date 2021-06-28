@@ -144,12 +144,13 @@ public class HotelController implements Serializable {
 	public String hotelAddStoreDelete(@ModelAttribute("hotelAddStore") hotelAddStoreForm form, Model model) {
 		List<Shop> list = null;
 
-		//hotelService.hotelUserInfoDelete(form.getHotelShopDelete());
+		hotelService.hotelUserInfoDelete(form.getHotelShopDelete());
 		hotelService.HotelShopDelete(form.getHotelShopDelete());
+
 
 		list = hotelService.shopFindAll();
 
-		System.out.println(form.getHotelShopDelete());
+		//System.out.println(form.getHotelShopDelete());
 
 		model.addAttribute("shop", list);
 		return "hotelAddStore"; //hotelAddStoreに遷移
@@ -254,20 +255,23 @@ public class HotelController implements Serializable {
 
 	//店舗追加----------------------------------------------------
 	@RequestMapping("/addStore")
-	public String insertHotelShop(@Validated @ModelAttribute("insert") hotelAddStoreForm form, BindingResult bindingResult,Model model) {
+	public String insertHotelShop(@Validated @ModelAttribute("insert") hotelAddStoreForm form,BindingResult bindingResult,Model model) {
 
-		System.out.println(form.getShopLoginId());
+		//System.out.println(form.getShopLoginId());
+		//System.out.println(form.getShopPass());
+		//System.out.println(form.getShopName());
+		//System.out.println(form.getShopAddress());
+		//System.out.println(form.getShopTel());
+
 		List<Shop> list = hotelService.shopFindAll();
 		model.addAttribute("shop",list);
 
-
 		//もし空白があったらエラー吐いて同じ画面出す
-		/*if (bindingResult.hasErrors()) {
+		if (bindingResult.hasErrors()) {
 			model.addAttribute("errorPassMsg", "入力されていない項目があります");
 			return "hotelAddStore";
-		}*/
+		}
 
-		//無ければ↓
 			if(hotelService.checkLoginId(form)) {//IDに重複がないか確認
 			    hotelService.insertUserInfo(form);//userInfoに追加
 			    hotelService.insertShop(form);//shopに追加
@@ -347,7 +351,24 @@ public class HotelController implements Serializable {
 	@RequestMapping(value = "/deleteOrder",params = "get",method=RequestMethod.POST)
 	public String deleteOrder(Model model, @RequestParam(name = "orderId")int orderId) {
 
-		hotelService.deleteOrder(orderId);
+		hotelService.updateOrderStatusIsFiveAndAddLog(orderId);
+		Room getRoomInfo = (Room)session.getAttribute("getRoomInfo");
+
+		List<OrderInfo> roomId = hotelService.orderAndDeliveryManSearch(getRoomInfo.getRoomId()) ;
+		session.setAttribute("getOrderInfo", roomId);
+		if(roomId.isEmpty()) {
+			return "redirect:/hotel";
+		}
+		model.addAttribute("listNomber", roomId.get(0));
+		model.addAttribute("getRoomInfo", getRoomInfo);
+		model.addAttribute("getOrderInfo",roomId);
+		return "hotelOrderOfRoom";
+
+	}
+
+	@RequestMapping(value = "/deleteOrder",params = "give",method=RequestMethod.POST)
+	public String giveOrder(Model model,@RequestParam(name = "orderId")int orderId) {
+		hotelService.updateOrderStatusIsSixAndAddLog(orderId);
 		Room getRoomInfo = (Room)session.getAttribute("getRoomInfo");
 
 		List<OrderInfo> roomId = hotelService.orderAndDeliveryManSearch(getRoomInfo.getRoomId()) ;
