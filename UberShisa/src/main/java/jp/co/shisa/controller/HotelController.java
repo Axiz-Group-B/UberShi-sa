@@ -366,7 +366,7 @@ public class HotelController implements Serializable {
 	public String roomMonitorBack(@ModelAttribute("roomNameForm")RoomOrderForm form,
 			BindingResult bindingResult, Model model) {
 
-	return "hotel";
+	return "redirect:/hotel";
 
 
 
