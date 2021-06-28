@@ -257,20 +257,23 @@ public class HotelController implements Serializable {
 
 	//店舗追加----------------------------------------------------
 	@RequestMapping("/addStore")
-	public String insertHotelShop(@Validated @ModelAttribute("insert") hotelAddStoreForm form, BindingResult bindingResult,Model model) {
+	public String insertHotelShop(@Validated @ModelAttribute("insert") hotelAddStoreForm form,BindingResult bindingResult,Model model) {
 
-		System.out.println(form.getShopLoginId());
+		//System.out.println(form.getShopLoginId());
+		//System.out.println(form.getShopPass());
+		//System.out.println(form.getShopName());
+		//System.out.println(form.getShopAddress());
+		//System.out.println(form.getShopTel());
+
 		List<Shop> list = hotelService.shopFindAll();
 		model.addAttribute("shop",list);
 
-
 		//もし空白があったらエラー吐いて同じ画面出す
-		/*if (bindingResult.hasErrors()) {
+		if (bindingResult.hasErrors()) {
 			model.addAttribute("errorPassMsg", "入力されていない項目があります");
 			return "hotelAddStore";
-		}*/
+		}
 
-		//無ければ↓
 			if(hotelService.checkLoginId(form)) {//IDに重複がないか確認
 			    hotelService.insertUserInfo(form);//userInfoに追加
 			    hotelService.insertShop(form);//shopに追加

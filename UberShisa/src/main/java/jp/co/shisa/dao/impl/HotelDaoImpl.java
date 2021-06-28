@@ -318,7 +318,7 @@ public class HotelDaoImpl implements HotelDao {
 		 MapSqlParameterSource param = new MapSqlParameterSource();
 		 param.addValue("loginId", loginId);
 		 List<UserInfo> list = jdbcTemplate.query(sql, param,new BeanPropertyRowMapper<UserInfo>(UserInfo.class));
-		 return list.isEmpty() ? false : true;
+		 return list.isEmpty() ? true  : false;
 
 	 }
 
