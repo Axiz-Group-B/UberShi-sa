@@ -30,7 +30,7 @@
         <p th:text="${msg}" th:style=" 'color : red' "></p>
         <form action="#" th:action="@{/room/order}" th:object="${roomCart}" method="post">
             <div><label class="label-format">画像：</label>
-                <img th:src="${session.product.image}" alt="商品の画像" name="image" width="400" height="300">
+                <img th:src="@{/images/${session.product.image}}" alt="商品の画像" name="image" width="400" height="300">
             </div>
             <div><label class="label-format">説明：</label>
                 <textarea name="text" id="#" rows="3" th:text="${session.product.text}" readonly>
