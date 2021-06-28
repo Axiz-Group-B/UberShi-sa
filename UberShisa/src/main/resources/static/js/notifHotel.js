@@ -20,7 +20,7 @@ setInterval(function(){
 	.catch(reason=>{
 		console.log('catch');
 	})
-}, 600000)
+}, 30000)
 
 //配達員が決まらなかった注文があることを知らせる
 setInterval(function(){
@@ -44,4 +44,4 @@ setInterval(function(){
 	.catch(reason=>{
 		console.log('catch');
 	})
-}, 600000)
+}, 30000)

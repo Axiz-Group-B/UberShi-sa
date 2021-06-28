@@ -20,4 +20,4 @@ setInterval(function(){
 	.catch(reason=>{
 		console.log('catch');
 	})
-}, 600000)
+}, 30000)
