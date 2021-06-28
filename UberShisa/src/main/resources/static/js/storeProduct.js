@@ -8,7 +8,7 @@ function updateCheck() {
 	}
 	else { // 「キャンセル」時の処理
 
-		window.alert('キャンセルされました'); // キャンセル押した後にポップアップで出るメッセージ
+		//window.alert('キャンセルされました'); // キャンセル押した後にポップアップで出るメッセージ
 		return false; // 送信を中止
 	}
 }
