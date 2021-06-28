@@ -20,6 +20,11 @@
 	</div>
 	<div class="sidebar-menu">
 		<div class="menu-item">
+			<form th:action="@{/room/order}">
+				<button class="menu-btn">注文</button>
+			</form>
+		</div>
+		<div class="menu-item">
 			<form th:action="@{/room/orderHistory}">
 				<button class="menu-btn">履歴</button>
 			</form>
@@ -47,7 +52,7 @@
 				</select>
 			</div>
 		</form>
-		<p th:text="${msg}"></p>
+		<p th:text="${msg}" th:style=" 'color : red' "></p>
 		<table id="selectBox">
 			<tr th:if="!${#lists.isEmpty(productList)}">
 			<tr>
@@ -66,7 +71,7 @@
 
 		<div class="right-side">
 		<form th:action="@{/room/deleteCart}" th:object="${roomCart}" method="post" onSubmit="return checkRoom()">
-		<p th:text="${error}"></p>
+		<p th:text="${error}" th:style=" 'color : red' "></p>
 			<table>
 				<caption>カート</caption>
 				<tr>
