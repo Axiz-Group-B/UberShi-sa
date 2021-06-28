@@ -21,12 +21,12 @@ public interface HotelService {
 	public void DeliveryManDelete(Integer deliveryManId);
 	public Integer totalPrice(Integer shopId,String year,String month);
 	public Integer priceSum(Integer orderId);
+
 	public void hotelUserInfoDelete(Integer shopId);
 	public void HotelShopDelete(Integer shopId);
 
 
 	public List<OrderInfo> orderAndDeliveryManSearch(Integer roomId);
-
 	public Room getRoomInfo(Integer roomId);
 	public List<OrderInfo> getOrderListByRoomId(Integer roomId);
 	public Room getRoomInfoByUserId(Integer userId);
