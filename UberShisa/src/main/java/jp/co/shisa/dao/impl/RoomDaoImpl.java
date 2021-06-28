@@ -33,10 +33,8 @@ public class RoomDaoImpl implements RoomDao{
 	//１つのshopIdの商品を全表示
 	@Override
 	public List<Product> allProduct(Integer shopId){
-		String sql = /*"select p.*, s.* from product p inner join shop s on p.shop_id=s.shop_id "
-				+ " where p.shop_id=:id and stock>=1";*///これだと、消した店舗の商品までひょうじされるー
-		 "select p.*, s.* from shop s inner join product p on p.shop_id=s.shop_id "
-				+ " where p.shop_id=:id and stock>=1";
+		String sql = "select p.*, s.* from product p inner join shop s on p.shop_id=s.shop_id "
+				+ " where p.shop_id=:id and stock>=1";//innerjoin なら、どっちを左にするかとか関係なく、片方のデータがなければ取ってこない
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("id", shopId);
 
