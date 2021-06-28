@@ -192,8 +192,6 @@ public class HotelController implements Serializable {
 
 
 	@RequestMapping("/roomSearch")
-
-
 	public String roomNameSearch(@Validated @ModelAttribute("roomNameForm") RoomOrderForm form,
 			BindingResult bindingResult, Model model) {
 		Room getRoomInfo = hotelService.roomNameSearch(form.getRoomName());
@@ -205,9 +203,9 @@ public class HotelController implements Serializable {
 		List<OrderInfo> getOrderInfo = hotelService.orderAndDeliveryManSearch(getRoomInfo.getRoomId());
 		if(getOrderInfo.isEmpty()) {
 
-			/*Room selectRoom = hotelService.getRoomInfo(getRoomInfo.getRoomId());
-			List<OrderInfo> MyOrderList = hotelService.getOrderListByRoomId(selectRoom.getRoomId());*/
-			session.setAttribute("selectingRoom",getRoomInfo);
+			Room selectRoom = hotelService.getRoomInfo(getRoomInfo.getRoomId());
+			/*List<OrderInfo> MyOrderList = hotelService.getOrderListByRoomId(selectRoom.getRoomId());*/
+			session.setAttribute("selectingRoom",selectRoom);
 			return "hotelRoomUpdate";
 		}
 		getRoomInfo = hotelService.roomLoginIdAndPassSearch(getRoomInfo);
@@ -232,7 +230,7 @@ public class HotelController implements Serializable {
 		}
 
 
-	@RequestMapping(value="/hotel/roomInfo", params="roomBtn")
+	@RequestMapping(value="/hotel/roomInfo")
 	public String roomInfo(HttpServletRequest request,Model model) {
 		Integer selectRoomId = Integer.parseInt(request.getParameter("roomBtn"));
 		Room selectRoom = hotelService.getRoomInfo(selectRoomId);
@@ -355,6 +353,9 @@ public class HotelController implements Serializable {
 
 		List<OrderInfo> roomId = hotelService.orderAndDeliveryManSearch(getRoomInfo.getRoomId()) ;
 		session.setAttribute("getOrderInfo", roomId);
+		if(roomId.isEmpty()) {
+			return "redirect:/hotel";
+		}
 		model.addAttribute("listNomber", roomId.get(0));
 		model.addAttribute("getRoomInfo", getRoomInfo);
 		model.addAttribute("getOrderInfo",roomId);
@@ -363,15 +364,13 @@ public class HotelController implements Serializable {
 	}
 
 
-	@RequestMapping(value = "/deleteOrder",params = "back",method=RequestMethod.POST)
+	/*@RequestMapping(value = "/deleteOrder",params = "back",method=RequestMethod.POST)
 	public String roomMonitorBack(@ModelAttribute("roomNameForm")RoomOrderForm form,
 			BindingResult bindingResult, Model model) {
 
-	return "hotel";
+	return "redirect:/hotel";
 
-
-
-	}
+	}*/
 
 	@RequestMapping("/hotel/cancelOrder")
 	public String cancleOrderPage(Model model) {
