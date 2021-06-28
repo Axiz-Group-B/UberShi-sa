@@ -65,6 +65,7 @@ public class ShopController {
 	public String orderPassed(Model model) {
 		Shop shop = (Shop) session.getAttribute("loginUser");
 		OrderInfo orderInfo = (OrderInfo) session.getAttribute("orderInfoForShop");
+
 		shopService.passedOrder(orderInfo);
 		List<OrderInfo> finishedOrderList = authService.checkFinishedOrderByShop(shop);
 		List<OrderInfo> notFinishedOrderList = authService.checkNotFinishedOrderByShop(shop);

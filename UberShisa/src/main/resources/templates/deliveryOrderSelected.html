@@ -35,6 +35,7 @@
             </table>
         </div>
         <div class="right-side">
+        	<p class="error-msg" th:text="${errorMsg}"></p>
             <div><label class="label-format">店舗名</label><input type="text" th:value="${session.orderInfoForDeliveryMan.shopName}" readonly></div>
             <div><label class="label-format">住所</label><input type="text" th:value="${session.orderInfoForDeliveryMan.address}" readonly></div>
             <div><label class="label-format">電話番号</label><input type="text" th:value="${session.orderInfoForDeliveryMan.shopTel}" readonly></div>

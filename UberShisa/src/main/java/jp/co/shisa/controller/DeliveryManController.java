@@ -109,8 +109,18 @@ public class DeliveryManController {
 	@RequestMapping("/deliveryMan/deliveryCompleted")
 	public String deliveryOrderSelect(Model model) {
 		List<OrderInfo> noDeliveryManOrderList = authService.checkNoDeliveryManOrder();
-		session.setAttribute("noDeliveryManOrderList", noDeliveryManOrderList);
-		return "redirect:delivery";
+		OrderInfo orderInfo = (OrderInfo) session.getAttribute("orderInfoForDeliveryMan");
+		OrderInfo orderInfoUpdated = deliveryManService.checkOrder(orderInfo.getOrderId());
+		if (orderInfoUpdated.getStatus() < 4) {
+			System.out.println("まだ完了できません。");
+			model.addAttribute("errorMsg", "まだ完了できません。お店から商品を貰ったことを確認してください");
+			return "deliveryOrderSelected";
+		}
+		else {
+			session.setAttribute("noDeliveryManOrderList", noDeliveryManOrderList);
+			return "redirect:delivery";
+		}
+
 	}
 //	配達員情報　更新するため(pha)start-----------------------------------------------------------------
 
