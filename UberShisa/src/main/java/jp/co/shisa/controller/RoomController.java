@@ -144,14 +144,16 @@ public class RoomController {
 		if(session.getAttribute("roomCart") != null) {
 			cartList = (List<OrderItem>)session.getAttribute("roomCart");//null回避
 			//入れようとしてる商品と、カートの商品のお店が同じかを見る
-			if(cartList.get(0).getShopId() != form.getShopId()) {
-				model.addAttribute("msg", "異なるお店の商品をカートに入れることはできません");
-				return "orderDetail";
-			}
-			for(OrderItem i : cartList) {
-				if(i.getProductId() == form.getProductId()) {//カートに入れる商品IDが、リストに入ってると、はじくように。
-					model.addAttribute("msg", "この商品は選択済みです。一度カートから削除して、追加してください。");
+			if(!cartList.isEmpty()) {//list0回避
+				if(cartList.get(0).getShopId() != form.getShopId()) {
+					model.addAttribute("msg", "異なるお店の商品をカートに入れることはできません");
 					return "orderDetail";
+				}
+				for(OrderItem i : cartList) {
+					if(i.getProductId() == form.getProductId()) {//カートに入れる商品IDが、リストに入ってると、はじくように。
+						model.addAttribute("msg", "この商品は選択済みです。一度カートから削除して、追加してください。");
+						return "orderDetail";
+					}
 				}
 			}
 		}
