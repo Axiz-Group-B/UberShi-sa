@@ -144,12 +144,13 @@ public class HotelController implements Serializable {
 	public String hotelAddStoreDelete(@ModelAttribute("hotelAddStore") hotelAddStoreForm form, Model model) {
 		List<Shop> list = null;
 
-		//hotelService.hotelUserInfoDelete(form.getHotelShopDelete());
+		hotelService.hotelUserInfoDelete(form.getHotelShopDelete());
 		hotelService.HotelShopDelete(form.getHotelShopDelete());
+
 
 		list = hotelService.shopFindAll();
 
-		System.out.println(form.getHotelShopDelete());
+		//System.out.println(form.getHotelShopDelete());
 
 		model.addAttribute("shop", list);
 		return "hotelAddStore"; //hotelAddStoreに遷移
