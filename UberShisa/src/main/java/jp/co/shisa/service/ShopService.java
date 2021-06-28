@@ -17,6 +17,7 @@ public interface ShopService {
 	public List<OrderItem> checkOrderContents(Integer orderId);
 	public List<Product> selectAllProductByShopId(Integer shopId);
 	public void insertProduct(Product product);
+	public String selectImageByProductId(Integer ProductId);
 	public Product selectUpdateProductByProductId(Integer productId);
 	public void passedOrder(OrderInfo orderInfo);
 	public Product updateProductAndGetProductByProductId(Product product);

@@ -28,7 +28,7 @@
         <h1 ><span th:text="${getRoomInfo.roomName}"></span><span>号室の注文情報</span></h1>
           <div  ><!-- th:if = "${getOrderInfo}" -->
                 <div th:each="orderInfo,index :${getOrderInfo}" >
-                  <form action="orderChange" method= "post"><label class="label-format">注文番号：</label>
+                  <form action="/orderChange" method= "post"><label class="label-format">注文番号：</label>
                   <button class="btn-mini" name="index" th:value="${index.index}" th:text=${orderInfo.orderId}></button></form>
                 </div>
           </div>

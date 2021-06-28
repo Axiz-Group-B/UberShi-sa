@@ -41,6 +41,17 @@ public class Product {
 	}
 
 
+
+
+	public Product(Integer productId, String productName, Integer price, Integer stock,String text) {
+		super();
+		this.productId = productId;
+		this.text = text;
+		this.productName = productName;
+		this.price = price;
+		this.stock = stock;
+	}
+
 	public Product(Integer productId,String productName,Integer price,Integer stock,String text,String image) {
 		super();
 		this.productId = productId;

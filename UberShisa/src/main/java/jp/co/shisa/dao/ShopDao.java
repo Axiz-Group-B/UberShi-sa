@@ -15,6 +15,7 @@ public interface ShopDao {
 	public List<OrderItem> checkOrderContents(Integer orderId);
 	public List<Product> selectAllProductByShopId(Integer shopId);
 	public void insertProduct(Product product);
+	public String selectImageByProductId(Integer productId);
 	public Product selectUpdateProductByProductId(Integer productId);
 	public void passedOrder(OrderInfo orderInfo);
 	public void passedOrderLog(Integer orderId);
