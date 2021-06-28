@@ -25,7 +25,7 @@ public class HotelDaoImpl implements HotelDao {
 	private static final String USER_INFO_DELETE = "DELETE FROM user_info WHERE user_id = (SELECT u.user_id FROM user_info AS u LEFT JOIN delivery_man AS d ON u.user_id = d.user_id WHERE d.delivery_man_id = :deliveryManId)";
 	private static final String DELIVERY_MAN_DELETE = "DELETE FROM delivery_man WHERE delivery_man_id = :deliveryManId";
 	private static final String TOTAL_PRICE = "SELECT SUM(total_price) FROM order_info WHERE shop_id= :shopId AND to_char(date_time, 'YYYY/MM/DD') like :year || '/' || :month || '/%'";
-	private static final String PRICE_SUM = "SELECT SUM(total_price) FROM order_info JOIN order_item ON order_info.order_id = order_item.order_id JOIN product ON order_item.product_id = product.product_id WHERE order_info.order_id= :orderId";
+	private static final String PRICE_SUM = "SELECT SUM(subtotal) FROM order_info JOIN order_item ON order_info.order_id = order_item.order_id JOIN product ON order_item.product_id = product.product_id WHERE order_info.order_id= :orderId";
 	private static final String SHOP_DELETE = "DELETE FROM shop WHERE shop_id = :shopId";
 	private static final String CHECK_LOGINID = "SELECT login_id from user_info where login_id = :login_id";
 	private static final String INSERT_USER_INFO = "INSERT INTO user_info (login_id, pass, role_id) VALUES (:login_id, :pass, :role_id)";
