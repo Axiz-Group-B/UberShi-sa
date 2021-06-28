@@ -178,6 +178,15 @@ public class ShopController {
 	@RequestMapping("/shop/updatedProduct")
 	public String updatedProduct(@ModelAttribute("update") ProductUpdateForm form, Model model) {
 		String fileName = form.getImage().getOriginalFilename();
+		if(fileName.isEmpty()) {
+			String newFileName = shopService.selectImageByProductId(form.getProductId());
+			Product product = new Product(form.getProductId(), form.getProductName(), form.getPrice(),
+					form.getStock(), form.getText(), newFileName);
+			Product updateProduct = shopService.updateProductAndGetProductByProductId(product);
+			session.setAttribute("updateingProduct", updateProduct);
+			return "redirect:/shop/productUpdate/" + updateProduct.getProductId();
+		}
+
 		String filePath = context.getRealPath("\\") + "\\..\\resources\\static\\images\\" + fileName;
 		Product updatingProduct = new Product(form.getProductId(), form.getProductName(), form.getPrice(),
 				form.getStock(), form.getText(), fileName);

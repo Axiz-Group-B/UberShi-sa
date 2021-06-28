@@ -105,6 +105,14 @@ public class ShopDaoImpl implements ShopDao{
 		System.out.println("商品情報追加");
 	}
 
+	public String selectImageByProductId(Integer productId) {
+		String sql = "SELECT * FROM product WHERE product_id = :productId";
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("productId", productId);
+		List<Product> list = namedJT.query(sql, param,new BeanPropertyRowMapper<Product>(Product.class));
+		return list.get(0).getImage();
+	}
+
 	public Product selectUpdateProductByProductId(Integer productId) {
 		String sql = "SELECT * FROM product WHERE product_id = :productId ORDER BY product_id";
 		MapSqlParameterSource param = new MapSqlParameterSource();

@@ -234,14 +234,14 @@ public class HotelController implements Serializable {
 	public String roomInfo(HttpServletRequest request,Model model) {
 		Integer selectRoomId = Integer.parseInt(request.getParameter("roomBtn"));
 		Room selectRoom = hotelService.getRoomInfo(selectRoomId);
-		List<OrderInfo> MyOrderList = hotelService.getOrderListByRoomId(selectRoom.getRoomId());
+		List<OrderInfo> getOrderInfo = hotelService.orderAndDeliveryManSearch(selectRoom.getRoomId());
+		if(getOrderInfo.isEmpty()) {
 
-		if(MyOrderList.isEmpty()) {
+			/*List<OrderInfo> MyOrderList = hotelService.getOrderListByRoomId(selectRoom.getRoomId());*/
 			session.setAttribute("selectingRoom",selectRoom);
 			return "hotelRoomUpdate";
 		}
 
-		List<OrderInfo> getOrderInfo = hotelService.orderAndDeliveryManSearch(selectRoomId);
 		selectRoom = hotelService.roomLoginIdAndPassSearch(selectRoom);
 		session.setAttribute("getOrderInfo", getOrderInfo);
 		session.setAttribute("getRoomInfo", selectRoom);
