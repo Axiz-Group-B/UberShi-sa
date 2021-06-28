@@ -13,14 +13,14 @@
 </head>
 <body>
     <div id="bar">
-        <div class="page-name">ホテル名</div>
+        <div class="page-name" th:onclick="location.href='/hotel'">ホテル名</div>
         <div id="menu-icon"><i class="fas fa-bars fa-2x"></i></div>
     </div>
     <div class="sidebar-menu">
         <div class="menu-item"><form action="/hotel/delivery"><button class="menu-btn">配達員一覧</button></form></div>
         <div class="menu-item"><form action="/hotel/orderHistory"><button class="menu-btn">注文履歴</button></form></div>
-        <div class="menu-item"><form action="#"><button class="menu-btn">キャンセル注文</button></form></div>
-        <div class="menu-item"><form action="#"><button class="menu-btn">店舗管理</button></form></div>
+        <div class="menu-item"><form action="/hotel/cancelOrder"><button class="menu-btn">キャンセル注文</button></form></div>
+        <div class="menu-item"><form action="/hotelAddStore"><button class="menu-btn">店舗管理</button></form></div>
         <div class="menu-item"><form action="/logout"><button class="menu-btn">ログアウト</button></form></div>
 
     </div>

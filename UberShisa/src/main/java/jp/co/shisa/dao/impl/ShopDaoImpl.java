@@ -123,7 +123,15 @@ public class ShopDaoImpl implements ShopDao{
 		jdbcTemplate.update(sql, param);
 		System.out.println("商品が渡された");
 	}
+
+
 //	オーダーの商品を渡す機能(pha) end----------------------------------------------------------------------
+	public void passedOrderLog(Integer orderId) {
+		String sql ="INSERT INTO log (order_id,status,date_time) VALUES (:orderId,4,current_timestamp)";
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("orderId", orderId);
+		jdbcTemplate.update(sql, param);
+	}
 	public void updateProduct(Product product) {
 		String sql = "UPDATE product SET image = :image,text = :text,product_name = :productName, price = :price,stock = :stock WHERE product_id = :productId";
 		MapSqlParameterSource param = new MapSqlParameterSource();

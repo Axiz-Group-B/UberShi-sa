@@ -30,7 +30,7 @@ public interface HotelService {
 	public Room getRoomInfo(Integer roomId);
 	public List<OrderInfo> getOrderListByRoomId(Integer roomId);
 	public Room getRoomInfoByUserId(Integer userId);
-
+	public void checkOrderAndchangeOrderStatus(Room room);
 	public boolean checkLoginId(String loginId);
 	public void updateLoginId(Integer userId,String loginId);
 	public boolean checkPass(String pass);
@@ -43,5 +43,12 @@ public interface HotelService {
 	public void insertShop(hotelAddStoreForm hotelShop);
 
 	public void deleteOrder(Integer orderId);
+
+	public List<OrderInfo> selectCancelOrderInfo();
+	public List<Room> selectCancelOrderRoomList();
+	public OrderInfo selectCancelOrderInfo(Integer orderId);
+	public Room selectCancelOrderRoom(Integer roomId);
+
+	public void cancelOrderComplete(Integer orderId);
 }
 

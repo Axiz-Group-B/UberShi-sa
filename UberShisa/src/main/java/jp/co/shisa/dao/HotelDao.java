@@ -46,7 +46,10 @@ public interface HotelDao {
 	public Room getRoomInfoByUserId(Integer userId);
 
 
-	public boolean checkLoginId(String logiId);
+	public List<OrderInfo> selectOrderByRoomId(Integer roomId);
+	public void changeOrderStatusByRoomId(Integer roomId);
+	public void orderStatusChageSixAddLog(Integer orderId);
+	public boolean checkLoginId(String loginId);
 	public void updateLoginId(Integer userId,String loginId);
 	public boolean checkPass(String pass);
 	public void updatePass(Integer userId,String pass);
@@ -60,6 +63,11 @@ public interface HotelDao {
 	//---------------------------------------------
 
 	public void deleteOrder(Integer orderId);
-
+	public List<OrderInfo> selectCancelOrderInfo();
+	public List<Room> selectCancelOrderRoomList();
+	public OrderInfo selectCancelOrderInfo(Integer orderId);
+	public Room selectCancelOrderRoom(Integer roomId);
+	public void cancelOrderComplete(Integer orderId);
+	public void cancelOrderCompleteLog(Integer orderId);
 }
 
