@@ -74,6 +74,15 @@ public class AuthDaoImpl implements AuthDao{
 		return list.isEmpty() ? null : list.get(0);
 	}
 
+	public OrderInfo checkNotFinishedOrderByDeliveryManId(Integer deliveryManId) {
+		String sql = "SELECT * FROM order_info oi JOIN shop s  ON oi.shop_id = s.shop_id WHERE status = 2 AND delivery_man_id = :deliveryManId";
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("deliveryManId", deliveryManId);
+		List<OrderInfo> list = namedJT.query(sql,param,new BeanPropertyRowMapper<OrderInfo>(OrderInfo.class));
+		return list.isEmpty() ? null : list.get(0);
+
+	}
+
 	public Shop loginByShop(UserInfo userInfo) {
 		String sql = SELECT_FROM_USERINFO_AND_SHOP;
 		MapSqlParameterSource param = new MapSqlParameterSource();
