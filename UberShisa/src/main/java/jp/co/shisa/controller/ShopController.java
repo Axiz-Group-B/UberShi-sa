@@ -63,7 +63,7 @@ public class ShopController {
 
 	@RequestMapping(value="/orderPassed", params="passedBtn")
 	public String orderPassed(Model model) {
-		Shop shop = (Shop) session.getAttribute("loginUser");
+		Shop shop = (Shop) session.getAttribute("loginShop");
 		OrderInfo orderInfo = (OrderInfo) session.getAttribute("orderInfoForShop");
 
 		shopService.passedOrder(orderInfo);

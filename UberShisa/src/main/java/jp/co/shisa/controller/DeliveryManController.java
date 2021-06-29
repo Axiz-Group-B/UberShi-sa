@@ -100,7 +100,7 @@ public class DeliveryManController {
 	@RequestMapping("/deliveryMan/deliveryOrderSelected")
 	public String deliveryOrderSelected(Model model) {
 		OrderInfo orderInfo = (OrderInfo) session.getAttribute("orderInfoForDeliveryMan");
-		DeliveryMan deliveryMan = (DeliveryMan) session.getAttribute("loginUser");
+		DeliveryMan deliveryMan = (DeliveryMan) session.getAttribute("loginDeliveryMan");
 			deliveryManService.addDeliveryManIdInOrderAndAddLog(orderInfo.getOrderId(),deliveryMan.getDeliveryManId());
 		return "deliveryOrderSelected";
 	}
@@ -118,7 +118,7 @@ public class DeliveryManController {
 		}
 		else {
 			session.setAttribute("noDeliveryManOrderList", noDeliveryManOrderList);
-			return "redirect:delivery";
+			return "delivery";
 		}
 
 	}
@@ -128,7 +128,7 @@ public class DeliveryManController {
 	@RequestMapping(value = "/deliveryInfo")
 	public String deliveryInfo(Model model) {
 		UpdateDeliveryInfoForm updateDeliveryInfoForm = new UpdateDeliveryInfoForm();
-		DeliveryMan deliveryMan = (DeliveryMan) session.getAttribute("loginUser");
+		DeliveryMan deliveryMan = (DeliveryMan) session.getAttribute("loginDeliveryMan");
 		model.addAttribute("updateDeliveryInfoForm", updateDeliveryInfoForm);
 		updateDeliveryInfoForm.setLoginId(deliveryMan.getLoginId());
 		updateDeliveryInfoForm.setDeliveryManName(deliveryMan.getDeliveryManName());

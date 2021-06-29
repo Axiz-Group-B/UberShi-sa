@@ -242,7 +242,7 @@ public class RoomController {
 		}
 
 		//if文抜ける＝注文できる(order_info,order_item,logにinsertする)
-		Room room = (Room) session.getAttribute("loginUser");//部屋情報
+		Room room = (Room) session.getAttribute("loginRoom");//部屋情報
 		Integer totalPrice = (Integer) session.getAttribute("totalPrice");
 		roomS.insertOrderAll(room.getRoomId(), form.getShopId(), totalPrice, list, 1);//statusは1で決定
 
@@ -266,7 +266,7 @@ public class RoomController {
 	//ハンバーガーから、注文履歴確認
 	@RequestMapping("/room/orderHistory")
 	public String orderHistory(Model model) {
-		Room room = (Room)session.getAttribute("loginUser");
+		Room room = (Room)session.getAttribute("loginRoom");
 		//status6の注文を表示(配達済み一覧)
 		//今あるメソッドで対応
 		List<OrderInfo> compList = new ArrayList<OrderInfo>();
@@ -314,7 +314,7 @@ public class RoomController {
 	@ResponseBody
 	public String roomNotifTwo() {
 		//ログインユーザーの情報とる
-		Room room = (Room)session.getAttribute("loginUser");
+		Room room = (Room)session.getAttribute("loginRoom");
 
 		if(roomS.searchStatus(room.getRoomId(), 2) !=null || roomS.searchStatus(room.getRoomId(), 3) !=null) {
 			return "delivery";
@@ -327,7 +327,7 @@ public class RoomController {
 	@ResponseBody
 	public String roomNotifFour() {
 		//ログインユーザーの情報とる
-		Room room = (Room)session.getAttribute("loginUser");
+		Room room = (Room)session.getAttribute("loginRoom");
 
 		if(roomS.searchStatus(room.getRoomId(), 4) !=null) {
 			return "leaveShop";
@@ -340,7 +340,7 @@ public class RoomController {
 	@ResponseBody
 	public String roomNotifFive() {
 		//ログインユーザーの情報とる
-		Room room = (Room)session.getAttribute("loginUser");
+		Room room = (Room)session.getAttribute("loginRoom");
 
 		if(roomS.searchStatus(room.getRoomId(), 5) != null) {//今回はホテル届いたか通知するので、引数のstatusは５
 			return "hotelArrived";
@@ -353,7 +353,7 @@ public class RoomController {
 	@ResponseBody
 	public String roomNotifShop() {
 
-		Shop shop = (Shop)session.getAttribute("loginUser");//これが呼ばれるときはログインユーザーはShop型のはず
+		Shop shop = (Shop)session.getAttribute("loginShop");//これが呼ばれるときはログインユーザーはShop型のはず
 
 		if(roomS.statusForShop(shop.getShopId(), 1) !=null || roomS.statusForShop(shop.getShopId(), 2) !=null ||
 				roomS.statusForShop(shop.getShopId(), 3) !=null) {//statusが1,2,3の時は、完了していない注文がある
