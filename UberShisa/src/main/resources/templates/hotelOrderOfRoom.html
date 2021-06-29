@@ -62,7 +62,7 @@
                 <div class="btn-container">
                     <button type="button" class="btn back-btn" name="back" th:onclick="location.href='/hotel'">戻る</button>
                     <button class="btn add-btn" name="get" th:if="${listNomber.status <= 4}">受取りました</button>
-                     <button class="btn add-btn" name="give" th:if="${listNomber.status == 5}">渡しました</button>
+                     <button class="btn add-btn end-btn" name="give" th:if="${listNomber.status == 5}">渡しました</button>
                 </div>
             </form>
         </div>
