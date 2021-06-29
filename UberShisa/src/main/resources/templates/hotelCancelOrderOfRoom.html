@@ -77,7 +77,7 @@
                 </div>
                 <div class="btn-container">
                     <button type="button"class="btn back-btn" th:onclick="location.href='/hotel'">戻る</button>
-                    <button type="submit"class="btn add-btn">受け取りました</button>
+                    <button type="submit"class="btn add-btn" th:if="${session.cancelOrderList != null}">受け取りました</button>
                 </div>
             </form>
         </div>
