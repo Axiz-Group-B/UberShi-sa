@@ -3,6 +3,10 @@
 	background-color: #00745F;
 	color: white;
 }
+.sidebar-menu .menu-item:hover .menu-btn {
+  color: #00745F;
+}
+
 .wrapper .left-side {
   width: 30%;
   height: fit-content;

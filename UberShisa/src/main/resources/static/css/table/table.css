@@ -3,6 +3,9 @@
 	background-color: #CDA000;
 	color: white;
 }
+.sidebar-menu .menu-item:hover .menu-btn {
+  color: #CDA000;
+}
 .wrapper {
   display: flex;
   flex-direction: column;
