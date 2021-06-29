@@ -4,7 +4,10 @@ public class DeliveryMan extends UserInfo{
 	private Integer deliveryManId;
 	private String deliveryManName;
 	private String deliveryManTel;
-	private Integer userId;
+//	private Integer userId;
+//	private String loginId;
+//	private String pass;
+//	private Integer roleId;
 
 
 	public DeliveryMan() {
@@ -20,7 +23,6 @@ public class DeliveryMan extends UserInfo{
 //	配達員情報の更新
 	public DeliveryMan(Integer userId,String loginId,String pass,Integer roleId,String deliveryManName,String deliveryManTel) {
 		super(userId,loginId,pass,roleId);
-//		this.deliveryManId = deliveryManId;
 		this.deliveryManName = deliveryManName;
 		this.deliveryManTel = deliveryManTel;
 	}
@@ -46,12 +48,6 @@ public class DeliveryMan extends UserInfo{
 	}
 	public void setDeliveryManTel(String deliveryManTel) {
 		this.deliveryManTel = deliveryManTel;
-	}
-	public Integer getUserId() {
-		return userId;
-	}
-	public void setUserId(Integer userId) {
-		this.userId = userId;
 	}
 
 }

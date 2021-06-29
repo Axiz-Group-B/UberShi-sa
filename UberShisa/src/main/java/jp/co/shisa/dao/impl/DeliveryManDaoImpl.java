@@ -64,7 +64,7 @@ public class DeliveryManDaoImpl implements DeliveryManDao {
 		param.addValue("deliveryManName", deliveryMan.getDeliveryManName());
 		param.addValue("deliveryManTel", deliveryMan.getDeliveryManTel());
 		param.addValue("userId", deliveryMan.getUserId());
-
+		System.out.println("daoimpl userId: " + deliveryMan.getUserId());
 		namedJT.update(sql, param);
 	}
 

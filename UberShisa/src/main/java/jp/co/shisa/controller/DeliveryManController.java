@@ -164,6 +164,8 @@ public class DeliveryManController {
 						updateDeliveryInfoForm.getLoginId(), updateDeliveryInfoForm.getPass(),
 						userInfo.getRoleId(), updateDeliveryInfoForm.getDeliveryManName(),
 						updateDeliveryInfoForm.getDeliveryManTel());
+				System.out.println("controller user id: " + userInfo.getUserId());
+				System.out.println("controller user id: " + deliveryMan.getUserId());
 				deliveryManService.updateDeliveryManInfo(deliveryMan);
 				System.out.println("配達員の情報を更新された");
 				return "deliveryInfo";
