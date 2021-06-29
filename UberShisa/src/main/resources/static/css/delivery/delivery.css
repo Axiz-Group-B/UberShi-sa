@@ -2,6 +2,11 @@
   width: 150px;
 }
 
+#bar, .sidebar-menu {
+	background-color: #034B8E;
+	color: white;
+}
+
 @media only screen and (min-width: 768px) {
   ::-webkit-input-placeholder {
     color: transparent;
