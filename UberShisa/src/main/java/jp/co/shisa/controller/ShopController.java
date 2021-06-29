@@ -85,7 +85,7 @@ public class ShopController {
 	@RequestMapping(value = "/storeManage")
 	public String storeManage(Model model) {
 		UpdateStoreForm updateStoreForm = new UpdateStoreForm();
-		Shop shop = (Shop) session.getAttribute("loginUser");
+		Shop shop = (Shop) session.getAttribute("loginShop");
 		UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
 		model.addAttribute("updateStoreForm", updateStoreForm);
 		updateStoreForm.setLoginId(userInfo.getLoginId());
@@ -123,7 +123,7 @@ public class ShopController {
 
 	@RequestMapping("/shop/storeProductManage")
 	public String storeProductManage(Model model) {
-		Shop shop = (Shop) session.getAttribute("loginUser");
+		Shop shop = (Shop) session.getAttribute("loginShop");
 		List<Product> list = shopService.selectAllProductByShopId(shop.getShopId());
 		session.setAttribute("shopProductList", list);
 		return "storePoductManage";
