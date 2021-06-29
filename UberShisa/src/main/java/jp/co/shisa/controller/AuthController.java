@@ -99,7 +99,7 @@ public class AuthController {
 		case 1:
 
 			Room room = authService.loginByRoom(userInfo);
-			session.setAttribute("loginUser", room);
+			session.setAttribute("loginRoom", room);
 
 			List<Shop> list = roomService.findAll();
 			//全検索用に、listにadd
@@ -111,7 +111,7 @@ public class AuthController {
 			return "order";
 		case 2:
 			DeliveryMan deliveryMan = authService.loginByDeliveryMan(userInfo);
-			session.setAttribute("loginUser", deliveryMan);
+			session.setAttribute("loginDeliveryMan", deliveryMan);
 			session.setAttribute("userInfo", userInfo);
 			List<OrderInfo> noDeliveryManOrderList = authService.checkNoDeliveryManOrder();
 			session.setAttribute("noDeliveryManOrderList", noDeliveryManOrderList);
@@ -125,7 +125,7 @@ public class AuthController {
 			return "/delivery";
 		case 3:
 			Shop shop = authService.loginByShop(userInfo);
-			session.setAttribute("loginUser", shop);
+			session.setAttribute("loginShop", shop);
 			session.setAttribute("userInfo", userInfo);
 			List<OrderInfo> finishedOrderList = authService.checkFinishedOrderByShop(shop);
 			List<OrderInfo> notFinishedOrderList = authService.checkNotFinishedOrderByShop(shop);
