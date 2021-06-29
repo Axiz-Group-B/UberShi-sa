@@ -21,10 +21,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import jp.co.shisa.controller.form.LoginForm;
 import jp.co.shisa.entity.DeliveryMan;
 import jp.co.shisa.entity.OrderInfo;
+import jp.co.shisa.entity.OrderItem;
 import jp.co.shisa.entity.Room;
 import jp.co.shisa.entity.Shop;
 import jp.co.shisa.entity.UserInfo;
 import jp.co.shisa.service.AuthService;
+import jp.co.shisa.service.DeliveryManService;
 import jp.co.shisa.service.RoomService;
 
 @Controller
@@ -38,6 +40,9 @@ public class AuthController {
 
 	@Autowired
 	HttpSession session;
+
+	@Autowired
+	DeliveryManService deliveryManService;
 
 	@RequestMapping({ "/", "/index" })
 	public String index(@ModelAttribute("login")LoginForm form,BindingResult bindingResult,Model model) {
@@ -110,6 +115,13 @@ public class AuthController {
 			session.setAttribute("userInfo", userInfo);
 			List<OrderInfo> noDeliveryManOrderList = authService.checkNoDeliveryManOrder();
 			session.setAttribute("noDeliveryManOrderList", noDeliveryManOrderList);
+			OrderInfo orderInfo = authService.checkNotFinishedOrderByDeliveryManId(deliveryMan.getDeliveryManId());
+			if(orderInfo!=null) {
+				List<OrderItem> orderItem = deliveryManService.checkOrderContents(orderInfo.getOrderId());
+				session.setAttribute("orderInfoForDeliveryMan", orderInfo);
+				session.setAttribute("orderItemForDeliveryMan", orderItem);
+				return "deliveryOrderSelected";
+			}
 			return "/delivery";
 		case 3:
 			Shop shop = authService.loginByShop(userInfo);

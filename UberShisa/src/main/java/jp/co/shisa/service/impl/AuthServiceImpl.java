@@ -33,6 +33,10 @@ public class AuthServiceImpl implements AuthService{
 		return authDao.loginByDeliveryMan(userInfo);
 	}
 
+	public OrderInfo checkNotFinishedOrderByDeliveryManId(Integer deliveryManId) {
+		return authDao.checkNotFinishedOrderByDeliveryManId(deliveryManId);
+	}
+
 	public Shop loginByShop(UserInfo userInfo) {
 		return authDao.loginByShop(userInfo);
 	}

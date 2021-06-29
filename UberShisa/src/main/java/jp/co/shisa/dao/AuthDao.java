@@ -13,6 +13,7 @@ public interface AuthDao {
 	public UserInfo loginCheck(LoginForm form);
 	public Room loginByRoom(UserInfo userInfo);
 	public DeliveryMan loginByDeliveryMan(UserInfo userInfo);
+	public OrderInfo checkNotFinishedOrderByDeliveryManId(Integer deliveryManId);
 	public Shop loginByShop(UserInfo userInfo);
 	public List<OrderInfo> checkNoDeliveryManOrder();
 	public List<OrderInfo> checkFinishedOrderByShop(Shop shop);
