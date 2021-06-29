@@ -160,6 +160,7 @@ public class DeliveryManController {
 				return "deliveryInfo";
 			} else {
 				UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
+				System.out.println(userInfo.getUserId());
 				DeliveryMan deliveryMan = new DeliveryMan(userInfo.getUserId(),
 						updateDeliveryInfoForm.getLoginId(), updateDeliveryInfoForm.getPass(),
 						userInfo.getRoleId(), updateDeliveryInfoForm.getDeliveryManName(),

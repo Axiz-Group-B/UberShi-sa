@@ -4,8 +4,6 @@ public class DeliveryMan extends UserInfo{
 	private Integer deliveryManId;
 	private String deliveryManName;
 	private String deliveryManTel;
-	private Integer userId;
-
 
 	public DeliveryMan() {
 
@@ -46,12 +44,6 @@ public class DeliveryMan extends UserInfo{
 	}
 	public void setDeliveryManTel(String deliveryManTel) {
 		this.deliveryManTel = deliveryManTel;
-	}
-	public Integer getUserId() {
-		return userId;
-	}
-	public void setUserId(Integer userId) {
-		this.userId = userId;
 	}
 
 }
