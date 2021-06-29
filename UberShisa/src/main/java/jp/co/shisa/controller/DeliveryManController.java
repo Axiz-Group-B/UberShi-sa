@@ -167,6 +167,8 @@ public class DeliveryManController {
 				System.out.println("controller user id: " + userInfo.getUserId());
 				System.out.println("controller user id: " + deliveryMan.getUserId());
 				deliveryManService.updateDeliveryManInfo(deliveryMan);
+				DeliveryMan deliveryManUpdate = authService.loginByDeliveryMan(userInfo);
+				session.setAttribute("loginDeliveryMan", deliveryManUpdate);;
 				System.out.println("配達員の情報を更新された");
 				return "deliveryInfo";
 			}
