@@ -8,7 +8,7 @@ function updateCheck() {
 	}
 	else { // 「キャンセル」時の処理
 
-		window.alert('キャンセルされました'); // キャンセル押した後にポップアップで出るメッセージ
+		//window.alert('キャンセルされました'); // キャンセル押した後にポップアップで出るメッセージ
 		return false; // 送信を中止
 	}
 }
@@ -35,3 +35,16 @@ function deleteProductCheck() {
 		return false; // 送信を中止
 	}
 }
+
+document.getElementById('updateProductImage').addEventListener('change', function(e) {
+	var file = e.target.files[0];
+	var reader = new FileReader();
+	reader.onload = function() {
+		var uri = this.result;
+		document.getElementById('preview').src = uri;
+	}
+	reader.readAsDataURL(file);
+});
+
+
+

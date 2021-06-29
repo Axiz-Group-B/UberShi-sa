@@ -58,6 +58,10 @@ public class ShopServiceImpl implements ShopService{
 		shopDao.passedOrderLog(orderInfo.getOrderId());
 	}
 
+	public String selectImageByProductId(Integer productId) {
+		return shopDao.selectImageByProductId(productId);
+	}
+
 	public Product updateProductAndGetProductByProductId(Product product) {
 		shopDao.updateProduct(product);
 

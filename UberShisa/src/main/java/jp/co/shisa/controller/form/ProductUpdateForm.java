@@ -5,6 +5,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class ProductUpdateForm {
 	private Integer productId;
 
@@ -23,7 +25,7 @@ public class ProductUpdateForm {
 	private String text;
 
 
-	private String image;
+	private MultipartFile image;
 
 	public Integer getProductId() {
 		return productId;
@@ -55,11 +57,12 @@ public class ProductUpdateForm {
 	public void setText(String text) {
 		this.text = text;
 	}
-	public String getImage() {
+	public MultipartFile getImage() {
 		return image;
 	}
-	public void setImage(String image) {
+	public void setImage(MultipartFile image) {
 		this.image = image;
 	}
+
 
 }

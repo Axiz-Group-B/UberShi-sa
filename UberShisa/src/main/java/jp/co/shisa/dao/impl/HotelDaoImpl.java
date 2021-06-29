@@ -25,12 +25,13 @@ public class HotelDaoImpl implements HotelDao {
 	private static final String USER_INFO_DELETE = "DELETE FROM user_info WHERE user_id = (SELECT u.user_id FROM user_info AS u LEFT JOIN delivery_man AS d ON u.user_id = d.user_id WHERE d.delivery_man_id = :deliveryManId)";
 	private static final String DELIVERY_MAN_DELETE = "DELETE FROM delivery_man WHERE delivery_man_id = :deliveryManId";
 	private static final String TOTAL_PRICE = "SELECT SUM(total_price) FROM order_info WHERE shop_id= :shopId AND to_char(date_time, 'YYYY/MM/DD') like :year || '/' || :month || '/%'";
-	private static final String PRICE_SUM = "SELECT SUM(total_price) FROM order_info JOIN order_item ON order_info.order_id = order_item.order_id JOIN product ON order_item.product_id = product.product_id WHERE order_info.order_id= :orderId";
+	private static final String PRICE_SUM = "SELECT SUM(subtotal) FROM order_info JOIN order_item ON order_info.order_id = order_item.order_id JOIN product ON order_item.product_id = product.product_id WHERE order_info.order_id= :orderId";
 	private static final String SHOP_DELETE = "DELETE FROM shop WHERE shop_id = :shopId";
 	private static final String CHECK_LOGINID = "SELECT login_id from user_info where login_id = :login_id";
 	private static final String INSERT_USER_INFO = "INSERT INTO user_info (login_id, pass, role_id) VALUES (:login_id, :pass, :role_id)";
 	private static final String INSERT_SHOP = "INSERT INTO shop (user_id,shop_name, address, shop_tel) VALUES (:userId,:shop_name, :address, :shop_tel)";
 	private static final String SELECT_USER_ID = "SELECT user_id from user_info"+ " where login_id = :login_id and pass = :pass";
+	private static final String SHOP_USER_INFO_DELETE = "DELETE FROM user_info WHERE user_id = (SELECT u.user_id FROM user_info AS u LEFT JOIN shop AS d ON u.user_id = d.user_id WHERE d.shop_id = :shopId)";
 
 	@Autowired
 	private NamedParameterJdbcTemplate jdbcTemplate;
@@ -152,7 +153,7 @@ public class HotelDaoImpl implements HotelDao {
 		return list;
 	}
 
-
+     //ホテルが配達員を削除-----------------------------------
 
 	 public void UserInfoDelete(Integer deliveryManId) {
 		 String sql = USER_INFO_DELETE;
@@ -173,10 +174,14 @@ public class HotelDaoImpl implements HotelDao {
 		 jdbcTemplate.update(sql, param);
 	 }
 
+	 //------------------------------------------------------
+
+
+
 	 //ホテルが店舗を削除-------------------------------------
 
 	 public void hotelUserInfoDelete(Integer shopId) {
-		 String sql = USER_INFO_DELETE;
+		 String sql = SHOP_USER_INFO_DELETE;
 
 		 MapSqlParameterSource param = new MapSqlParameterSource();
 		 param.addValue("shopId", shopId);
@@ -313,7 +318,7 @@ public class HotelDaoImpl implements HotelDao {
 		 MapSqlParameterSource param = new MapSqlParameterSource();
 		 param.addValue("loginId", loginId);
 		 List<UserInfo> list = jdbcTemplate.query(sql, param,new BeanPropertyRowMapper<UserInfo>(UserInfo.class));
-		 return list.isEmpty() ? false : true;
+		 return list.isEmpty() ? false  : true;
 
 	 }
 
@@ -352,13 +357,37 @@ public class HotelDaoImpl implements HotelDao {
 
 
 
-	 public void deleteOrder(Integer orderId) {
+	 public void updateOrderStatusIsFive(Integer orderId) {
+
+		 String sql ="update  order_info  set status = 5 where order_id = :orderId";
+
+		 MapSqlParameterSource param = new MapSqlParameterSource();
+		 param.addValue("orderId", orderId);
+
+		 jdbcTemplate.update(sql, param);
+	 }
+
+	 public void changeStatusIsFiveLog(Integer orderId) {
+		 String sql = "INSERT INTO log (order_id,status,date_time) VALUES (:orderId,5,current_timestamp)";
+		 MapSqlParameterSource param = new MapSqlParameterSource();
+		 param.addValue("orderId", orderId);
+		 jdbcTemplate.update(sql, param);
+	 }
+
+	 public void updateOrderStatusIsSix(Integer orderId) {
 
 		 String sql ="update  order_info  set status = 6 where order_id = :orderId";
 
 		 MapSqlParameterSource param = new MapSqlParameterSource();
 		 param.addValue("orderId", orderId);
 
+		 jdbcTemplate.update(sql, param);
+	 }
+
+	 public void changeStatusIsSixLog(Integer orderId) {
+		 String sql = "INSERT INTO log (order_id,status,date_time) VALUES (:orderId,6,current_timestamp)";
+		 MapSqlParameterSource param = new MapSqlParameterSource();
+		 param.addValue("orderId", orderId);
 		 jdbcTemplate.update(sql, param);
 	 }
 

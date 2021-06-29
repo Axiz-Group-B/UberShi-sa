@@ -13,7 +13,7 @@
 </head>
 <body>
     <div id="bar">
-        <div class="page-name">ホテル名</div>
+        <div class="page-name">商品管理</div>
         <div id="menu-icon"><i class="fas fa-bars fa-2x"></i></div>
     </div>
     <div class="sidebar-menu">
@@ -35,6 +35,7 @@
             <div class="boxes-grid">
                 <div class="box" th:inline="text" th:each="product : ${session.shopProductList}">
                     <div><a th:href="@{/shop/productUpdate/{productId}(productId=${product.productId})}"><img th:src="${product.image}" alt="product"></a></div>
+<!--                     <div><a th:href="@{/shop/productUpdate/{productId}(productId=${product.productId})}"><img th:src="'/images/' + ${product.image}" alt="product" width="200" height="150"></a></div> -->
                     <div class="product-detail">
                         <div><label class="label-format">商品ID：</label><label>[[${product.productId}]]</label></div>
                         <div><label class="label-format">商品名：</label><label>[[${product.productName}]]</label></div>

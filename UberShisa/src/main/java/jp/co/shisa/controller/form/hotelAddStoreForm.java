@@ -1,7 +1,6 @@
 package jp.co.shisa.controller.form;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 public class hotelAddStoreForm {
 	@NotBlank
@@ -66,7 +65,7 @@ public class hotelAddStoreForm {
 
 
 	//店舗IDをcontrollerに持ってくるために使用
-	@NotNull
+	//@NotNull
 	private Integer hotelShopDelete;
 
 	public Integer getHotelShopDelete() {

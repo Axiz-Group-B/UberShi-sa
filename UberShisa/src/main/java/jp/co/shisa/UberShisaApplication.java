@@ -35,7 +35,7 @@ public class UberShisaApplication {
 							List<OrderInfo>list = roomS.statusForHotel(1);
 							for(OrderInfo o : list) {
 								LocalDateTime orderTime = o.getDateTime().toLocalDateTime();
-								if(orderTime.plusMinutes(30).isBefore(nowTime)) {//orderTime＋３０分して現在の時刻より前になったら、status３にする
+								if(orderTime.plusMinutes(1).isBefore(nowTime)) {//orderTime＋３０分して現在の時刻より前になったら、status３にする
 									//DBアクセスして、このorderIdのstatusを3にする
 									Timestamp dateTime = new Timestamp(System.currentTimeMillis());//引数のためにtimestamp型
 									roomS.cansel(o.getOrderId(), 3, dateTime);

@@ -16,7 +16,7 @@ $("#menu-icon").click(function(){
 //	if(window.confirm('送信してよろしいですか？')){
 //		return true;
 //	}else{
-//		window.alert('キャンセルされました');
+//		//window.alert('キャンセルされました');
 //		return false;
 //	}
 //}

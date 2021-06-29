@@ -12,30 +12,30 @@
 </head>
 <body>
     <div id="bar">
-        <div class="page-name">ホテル名</div>
+        <div class="page-name">商品情報更新</div>
         <div id="menu-icon"><i class="fas fa-bars fa-2x"></i></div>
     </div>
     <div class="sidebar-menu">
-        <div class="menu-item"><form action="#"><button class="menu-btn">店舗情報</button></form></div>
-        <div class="menu-item"><form action="#"><button class="menu-btn">注文一覧</button></form></div>
-        <div class="menu-item"><form action="#"><button class="menu-btn">商品管理</button></form></div>
+        <div class="menu-item"><form action="/storeManage"><button class="menu-btn">店舗情報</button></form></div>
+        <div class="menu-item"><form action="/storeOrderList"><button class="menu-btn">注文一覧</button></form></div>
+        <div class="menu-item"><form action="/shop/storeProductManage"><button class="menu-btn">商品管理</button></form></div>
         <div class="menu-item"><form action="/logout"><button class="menu-btn">ログアウト</button></form></div>
     </div>
 
     <div class="wrapper">
         <div class="left-side">
-            <img id="imageView" th:src="${session.updatingProduct.image}" alt="product">
+            <img id="preview" th:src="'/images/' + ${session.updatingProduct.image}" alt="product" width="600" height="350">
         </div>
         <div class="right-side">
             <h1>商品更新</h1>
-            <form th:action="@{/shop/updatedProduct}" id="updateProductForm" th:object="${update}" method="post">
+            <form th:action="@{/shop/updatedProduct}" id="updateProductForm" th:object="${update}" method="post" enctype="multipart/form-data">
                 <div><label class="label-format">商品ID：</label><input type="text" name="productId" th:value="${session.updatingProduct.productId}"  readonly></div>
                 <div><label class="label-format">商品名：</label><input type="text" name="productName" th:value="${session.updatingProduct.productName}"></div>
                 <div><label class="label-format">単価：</label><input type="text" name="price" th:value="${session.updatingProduct.price}"></div>
                 <div><label class="label-format">在庫：</label><input type="text" name="stock" th:value="${session.updatingProduct.stock}"></div>
                 <div><label class="label-format">説明：</label><textarea  rows="5" name="text" th:text="${session.updatingProduct.text}"></textarea></div>
-                <div><label class="label-format">画像：</label><input type="text" name="image" th:value="${session.updatingProduct.image}" id="updateProductImage">
-                        <button type="button" class="btn-mini path-btn-mini" th:onclick="updateImageView()">参照</button>
+                <div><label class="label-format">画像：</label><input type="file" name="image" th:value="${session.updatingProduct.image}" id="updateProductImage">
+                       <!--  <button type="button" class="btn-mini path-btn-mini" th:onclick="updateImageView()">参照</button> -->
                 </div>
                 <div class="btn-container">
                     <button type="button" class="btn back-btn" th:onclick="location.href='/shop/storeProductManage'">戻る</button>
