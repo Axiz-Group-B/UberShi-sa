@@ -8,6 +8,8 @@
     <script src="https://kit.fontawesome.com/98ca2fa25d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/css/common/common.css}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!--     <link rel="stylesheet" href="/css/store/store.css"> -->
+    <link rel="stylesheet" href="/css/table/table.css">
     <title>Uber Shi-sa</title>
 </head>
 <body>
@@ -21,7 +23,7 @@
         <div class="menu-item"><form th:action="@{/shop/storeProductManage}"><button class="menu-btn">商品管理</button></form></div>
         <div class="menu-item"><form action="/logout"><button class="menu-btn">ログアウト</button></form></div>
     </div>
-    <div class="wrapper">
+    <div class="wrapper" style="flex-direction: row;">
         <div class="left-side">
             <h1>注文情報</h1>
             <div><label>注文ID：</label><input type="text" th:value="${session.orderInfoForShop.orderId}" readonly></div>

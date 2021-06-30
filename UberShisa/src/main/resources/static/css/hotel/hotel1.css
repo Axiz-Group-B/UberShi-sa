@@ -1,3 +1,12 @@
+#bar, .sidebar-menu {
+	background-color: #00745F;
+	color: white;
+}
+.sidebar-menu .menu-item:hover .menu-btn {
+  color: #00745F;
+}
+
+
 .wrapper {
   display: flex;
   flex-direction: column;
