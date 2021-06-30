@@ -21,13 +21,14 @@ public class UberShisaApplication {
 		SpringApplication.run(UberShisaApplication.class, args);
 
 		//サービスクラスを作ろう
-		RoomService roomS = context.getBean(RoomService.class);
+		//RoomService roomS = context.getBean(RoomService.class);
 
 		//30分配達員決まらなかったらそのorderのstatus更新
 				//定期的に実行する処理
 				TimerTask task = new TimerTask() {
 					@Override
 					public void run() {
+						RoomService roomS = context.getBean(RoomService.class);
 						//orderInfoから、statusが1のレコードをとる。orderDateTime取得して、現在時刻と比較。30分以上経ってたらstatusを3にする
 						if(roomS.statusForHotel(1) != null) {//null回避。nullなら何も処理しない
 							//現在時刻取得

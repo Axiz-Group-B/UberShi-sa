@@ -176,6 +176,8 @@ public class RoomController {
 		List<OrderItem> list = (List<OrderItem>)session.getAttribute("roomCart");//ここに来る＝リストnullではない
 		int index=0;
 
+
+
 		if(list != null) {//null回避
 			for(OrderItem i : list) {
 				if(i.getProductId() == productId) {//削除ボタンと同じpIdなら、nullとする
@@ -210,6 +212,16 @@ public class RoomController {
 		List<OrderItem> list = new ArrayList<OrderItem>();
 		if(session.getAttribute("roomCart")!=null){//セッションがnullじゃないときにだけ、listにいれれる
 			list = (List<OrderItem>)session.getAttribute("roomCart");
+		}
+
+		if(list.isEmpty() || session.getAttribute("roomCart")==null) {//セッションnullか、listが空のとき
+			model.addAttribute("error","カートが空です");
+
+			if(form.getFrom().equals("order")) {//どのページから来たか判別
+				return "order";
+			} else {
+				return "orderDetail";
+			}
 		}
 		if(!list.isEmpty()) {
 			list.clear();
